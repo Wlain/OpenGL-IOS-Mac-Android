@@ -20,6 +20,7 @@ public:
     void DrawCommand();
 private:
     GLuint mTextures[6];
+    GLuint mFastDrawCall;
 };
 
 #endif /* SkyBox_hpp */

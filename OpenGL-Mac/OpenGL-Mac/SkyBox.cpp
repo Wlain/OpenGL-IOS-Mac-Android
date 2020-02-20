@@ -7,7 +7,7 @@
 //
 
 #include "SkyBox.hpp"
-#include "Util.cpp"
+#include "Util.hpp"
 
 SkyBox::SkyBox() {
     
@@ -16,6 +16,7 @@ SkyBox::SkyBox() {
 SkyBox::~SkyBox() {
     
 }
+
 
 void SkyBox::Initialize(const char *fileDir) {
     const unsigned int fileDirSize = 256;
@@ -44,9 +45,11 @@ void SkyBox::Initialize(const char *fileDir) {
     strcpy(temp, fileDir);
     strcat(temp, "bottom.jpg");
     mTextures[5] = TextureFromFile(temp);
+    mFastDrawCall = CreateDisplayList([this]()->void { DrawCommand(); });
 }
 
-void SkyBox::Draw() {
+
+void SkyBox::DrawCommand() {
     glPushMatrix();
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
@@ -118,6 +121,10 @@ void SkyBox::Draw() {
     glVertex3f(-0.5f, -0.5f, -0.5f);
     glEnd();
     glPopMatrix();
+}
+
+void SkyBox::Draw() {
+    glCallList(mFastDrawCall);
 }
 
 

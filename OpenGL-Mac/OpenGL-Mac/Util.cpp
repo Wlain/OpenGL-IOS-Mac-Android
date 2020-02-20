@@ -9,3 +9,11 @@
 
 #include "Util.hpp"
 
+GLuint CreateDisplayList(std::function<void()>foo) {
+    // 申请一个显示列表
+    GLuint displayList = glGenLists(1);
+    glNewList(displayList, GL_COMPILE);
+    foo();
+    glEndList();
+    return displayList;
+}
