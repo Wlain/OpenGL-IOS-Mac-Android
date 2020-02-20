@@ -20,8 +20,10 @@
 #include "Scene.hpp"
 #include "Util.hpp"
 #include "SkyBox.hpp"
+#include "Model.hpp"
 
 SkyBox skyBox;
+Model model;
 
 void DrawTriangle() {
     glPushMatrix();
@@ -85,6 +87,7 @@ void Initialize() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     skyBox.Initialize("UI/Skybox/");
+    model.Initialize("UI/Model/Bunny.obj");
 }
 
 
@@ -92,4 +95,5 @@ void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     skyBox.Draw();
+    model.Draw();
 }

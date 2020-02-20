@@ -27,4 +27,14 @@ GLuint TextureFromFile(const char *path);
  */
 GLuint CreateDisplayList(std::function<void()>foo);
 
+
+/**
+ 加载文件内容
+
+ @param filePath 文件路径
+ @param filesize 文件size
+ @return 文件内容
+ */
+GLubyte * LoadFileContent(const char *filePath, int &filesize);
+
 #endif /* Util_hpp */

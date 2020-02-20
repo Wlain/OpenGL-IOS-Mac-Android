@@ -19,7 +19,7 @@ GLuint TextureFromFile(const char *path) {
     
     int width, height, channels_in_file;
     GLubyte *data = stbi_load(filename.UTF8String, &width, &height, &channels_in_file, 0);
-    if (data != NULL) {
+    if (data != nullptr) {
         GLenum format = 0;
         if (channels_in_file == 1) {
             format = GL_RED;
@@ -42,6 +42,21 @@ GLuint TextureFromFile(const char *path) {
         std::cout << "Texture failed to load at path:" << path << std::endl;
     }
     return textureID;
+}
+
+GLubyte * LoadFileContent(const char *filePath, int &filesize) {
+    unsigned char *fileContent = nullptr;
+    filesize = 0;
+    NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filePath] ofType:nil];
+    NSData *data = [NSData dataWithContentsOfFile:filename];
+    unsigned long dataSize = [data length];
+    if (dataSize > 0) {
+        fileContent = new GLubyte[dataSize + 1];
+        memset(fileContent, 0, dataSize + 1);
+        memcpy(fileContent, [data bytes], dataSize);
+        fileContent[dataSize] = '\0';
+    }
+    return fileContent;
 }
 
 @implementation OpenGLView
