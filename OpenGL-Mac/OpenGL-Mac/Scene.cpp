@@ -11,19 +11,25 @@
 //                    |
 //                    |
 //    ------------------------------------------->
-//                    | (0,0,0)                        x
+//                    | (0,0,0)                  x
 //                    |
 //                    |
 //                    |
 // z轴指向屏幕外面
 
 #include "Scene.hpp"
+#include "Util.hpp"
+
+GLuint textureID;
 
 void Initialize() {
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+    gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    GLsizei width, height;
+    textureID = TextureFromFile("test.jpeg", width, height);
+//    glViewport(0, 0, width, height);
 }
 
 void DrawTriangle() {
@@ -66,9 +72,30 @@ void DrawLight() {
     glMaterialfv(GL_FRONT, GL_SPECULAR, ambientCoe);
 }
 
+void DrawQuad() {
+    glLoadIdentity();
+    glTranslated(0.0, 0.0, -3.0);
+    glPushMatrix();
+    glBegin(GL_TRIANGLE_STRIP);
+    // 向量叉乘法则
+    // 默认情况下，逆时针是OpenGL的正面
+    glColor4ub(255, 255, 255, 255);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-1.0f, -1.0f, -0.0f);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f( 1.0f, -1.0f, -0.0f);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-1.0f,  1.0f, -0.0f);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f( 1.0f,  1.0f, -0.0f);
+    glEnd();
+    glPopMatrix();
+}
+
 void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    DrawTriangle();
-    DrawLight();
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    DrawQuad();
 }

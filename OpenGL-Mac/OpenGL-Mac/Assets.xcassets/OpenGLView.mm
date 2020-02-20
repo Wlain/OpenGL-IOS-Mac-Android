@@ -8,6 +8,41 @@
 
 #import "OpenGLView.h"
 #import "Scene.hpp"
+#include "stb_image.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+
+GLuint TextureFromFile(const char *path, GLsizei &width, GLsizei &height) {
+    NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil];
+    GLuint textureID = 0;
+    glGenTextures(1, &textureID);
+    
+    int channels_in_file;
+    GLubyte *data = stbi_load(filename.UTF8String, &width, &height, &channels_in_file, 0);
+    if (data != NULL) {
+        GLenum format = 0;
+        if (channels_in_file == 1) {
+            format = GL_RED;
+        } else if (channels_in_file == 3) {
+            format = GL_RGB;
+        } else if (channels_in_file == 4) {
+            format = GL_RGBA;
+        }
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        
+        stbi_image_free(data);
+    } else {
+        std::cout << "Texture failed to load at path:" << path << std::endl;
+    }
+    return textureID;
+}
 
 @implementation OpenGLView
 
