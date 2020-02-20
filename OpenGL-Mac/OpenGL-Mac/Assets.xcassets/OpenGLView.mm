@@ -12,12 +12,12 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-GLuint TextureFromFile(const char *path, GLsizei &width, GLsizei &height) {
+GLuint TextureFromFile(const char *path) {
     NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil];
     GLuint textureID = 0;
     glGenTextures(1, &textureID);
     
-    int channels_in_file;
+    int width, height, channels_in_file;
     GLubyte *data = stbi_load(filename.UTF8String, &width, &height, &channels_in_file, 0);
     if (data != NULL) {
         GLenum format = 0;

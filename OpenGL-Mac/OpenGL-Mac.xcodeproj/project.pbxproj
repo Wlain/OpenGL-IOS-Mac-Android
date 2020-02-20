@@ -13,12 +13,12 @@
 		3D0BC76223FD4EC5003E07F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D0BC76023FD4EC5003E07F5 /* Main.storyboard */; };
 		3D0BC76523FD4EC5003E07F5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BC76423FD4EC5003E07F5 /* main.m */; };
 		3D0BC76E23FD52A6003E07F5 /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BC76D23FD52A6003E07F5 /* OpenGLView.mm */; };
-		3D0BC77123FD53BF003E07F5 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BC77023FD53BF003E07F5 /* GLView.mm */; };
 		3D0BC77523FD5442003E07F5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BC77423FD5442003E07F5 /* OpenGL.framework */; };
 		3D0BC77823FD5586003E07F5 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BC77623FD5586003E07F5 /* Scene.cpp */; };
 		3DBE9D8B23FD6C5600C88EFC /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D8923FD6C5600C88EFC /* Util.cpp */; };
-		3DBE9D8F23FD6D2900C88EFC /* test.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3DBE9D8E23FD6D2900C88EFC /* test.jpeg */; };
 		3DBE9D9D23FD92D800C88EFC /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */; };
+		3DBE9DA823FE468600C88EFC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9DA623FE468500C88EFC /* SkyBox.cpp */; };
+		3DBE9DC623FE857A00C88EFC /* UI in Resources */ = {isa = PBXBuildFile; fileRef = 3DBE9DC523FE857A00C88EFC /* UI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,17 +34,17 @@
 		3D0BC76623FD4EC5003E07F5 /* OpenGL_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenGL_Mac.entitlements; sourceTree = "<group>"; };
 		3D0BC76C23FD52A6003E07F5 /* OpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenGLView.h; path = Assets.xcassets/OpenGLView.h; sourceTree = "<group>"; };
 		3D0BC76D23FD52A6003E07F5 /* OpenGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenGLView.mm; path = Assets.xcassets/OpenGLView.mm; sourceTree = "<group>"; };
-		3D0BC76F23FD53BF003E07F5 /* GLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
-		3D0BC77023FD53BF003E07F5 /* GLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
 		3D0BC77223FD53E6003E07F5 /* Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
 		3D0BC77423FD5442003E07F5 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3D0BC77623FD5586003E07F5 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		3D0BC77723FD5586003E07F5 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		3DBE9D8923FD6C5600C88EFC /* Util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
 		3DBE9D8A23FD6C5600C88EFC /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
-		3DBE9D8E23FD6D2900C88EFC /* test.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpeg; sourceTree = "<group>"; };
 		3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		3DBE9D9C23FD92D800C88EFC /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		3DBE9DA623FE468500C88EFC /* SkyBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
+		3DBE9DA723FE468600C88EFC /* SkyBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SkyBox.hpp; sourceTree = "<group>"; };
+		3DBE9DC523FE857A00C88EFC /* UI */ = {isa = PBXFileReference; lastKnownFileType = folder; path = UI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,20 +79,15 @@
 		3D0BC75723FD4EC5003E07F5 /* OpenGL-Mac */ = {
 			isa = PBXGroup;
 			children = (
+				3DBE9DA523FE33CC00C88EFC /* Common */,
+				3DBE9DA423FE338500C88EFC /* GL */,
 				3DBE9D9023FD862500C88EFC /* 3rdParty */,
 				3DBE9D8C23FD6D0000C88EFC /* Support Files */,
 				3D0BC75823FD4EC5003E07F5 /* AppDelegate.h */,
 				3D0BC75923FD4EC5003E07F5 /* AppDelegate.m */,
 				3D0BC75B23FD4EC5003E07F5 /* ViewController.h */,
 				3D0BC75C23FD4EC5003E07F5 /* ViewController.mm */,
-				3D0BC77723FD5586003E07F5 /* Scene.hpp */,
-				3D0BC77623FD5586003E07F5 /* Scene.cpp */,
-				3DBE9D8923FD6C5600C88EFC /* Util.cpp */,
-				3DBE9D8A23FD6C5600C88EFC /* Util.hpp */,
 				3D0BC75E23FD4EC5003E07F5 /* Assets.xcassets */,
-				3D0BC77223FD53E6003E07F5 /* Base.h */,
-				3D0BC76F23FD53BF003E07F5 /* GLView.h */,
-				3D0BC77023FD53BF003E07F5 /* GLView.mm */,
 				3D0BC76023FD4EC5003E07F5 /* Main.storyboard */,
 				3D0BC76C23FD52A6003E07F5 /* OpenGLView.h */,
 				3D0BC76D23FD52A6003E07F5 /* OpenGLView.mm */,
@@ -114,17 +109,9 @@
 		3DBE9D8C23FD6D0000C88EFC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3DBE9D8D23FD6D1600C88EFC /* picture */,
+				3DBE9DC523FE857A00C88EFC /* UI */,
 			);
 			name = "Support Files";
-			sourceTree = "<group>";
-		};
-		3DBE9D8D23FD6D1600C88EFC /* picture */ = {
-			isa = PBXGroup;
-			children = (
-				3DBE9D8E23FD6D2900C88EFC /* test.jpeg */,
-			);
-			path = picture;
 			sourceTree = "<group>";
 		};
 		3DBE9D9023FD862500C88EFC /* 3rdParty */ = {
@@ -142,6 +129,27 @@
 				3DBE9D9C23FD92D800C88EFC /* stb_image.h */,
 			);
 			name = stb;
+			sourceTree = "<group>";
+		};
+		3DBE9DA423FE338500C88EFC /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				3D0BC77723FD5586003E07F5 /* Scene.hpp */,
+				3D0BC77623FD5586003E07F5 /* Scene.cpp */,
+				3DBE9DA623FE468500C88EFC /* SkyBox.cpp */,
+				3DBE9DA723FE468600C88EFC /* SkyBox.hpp */,
+			);
+			name = GL;
+			sourceTree = "<group>";
+		};
+		3DBE9DA523FE33CC00C88EFC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3DBE9D8923FD6C5600C88EFC /* Util.cpp */,
+				3DBE9D8A23FD6C5600C88EFC /* Util.hpp */,
+				3D0BC77223FD53E6003E07F5 /* Base.h */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +209,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DBE9D8F23FD6D2900C88EFC /* test.jpeg in Resources */,
 				3D0BC75F23FD4EC5003E07F5 /* Assets.xcassets in Resources */,
+				3DBE9DC623FE857A00C88EFC /* UI in Resources */,
 				3D0BC76223FD4EC5003E07F5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,10 +225,10 @@
 				3D0BC77823FD5586003E07F5 /* Scene.cpp in Sources */,
 				3DBE9D9D23FD92D800C88EFC /* stb_image.cpp in Sources */,
 				3D0BC75D23FD4EC5003E07F5 /* ViewController.mm in Sources */,
+				3DBE9DA823FE468600C88EFC /* SkyBox.cpp in Sources */,
 				3D0BC76523FD4EC5003E07F5 /* main.m in Sources */,
 				3D0BC75A23FD4EC5003E07F5 /* AppDelegate.m in Sources */,
 				3D0BC76E23FD52A6003E07F5 /* OpenGLView.mm in Sources */,
-				3D0BC77123FD53BF003E07F5 /* GLView.mm in Sources */,
 				3DBE9D8B23FD6C5600C88EFC /* Util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

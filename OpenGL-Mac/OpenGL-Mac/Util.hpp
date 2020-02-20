@@ -11,7 +11,7 @@
 
 #include "Base.h"
 
-GLuint TextureFromFile(const char *path, GLsizei &width, GLsizei &height);
-
+GLuint TextureFromFile(const char *path);
+GLuint CreateDisplayList(std::function<void()>foo);
 
 #endif /* Util_hpp */

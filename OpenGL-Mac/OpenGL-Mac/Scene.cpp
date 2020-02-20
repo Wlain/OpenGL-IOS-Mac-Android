@@ -19,18 +19,9 @@
 
 #include "Scene.hpp"
 #include "Util.hpp"
+#include "SkyBox.hpp"
 
-GLuint textureID;
-
-void Initialize() {
-    glMatrixMode(GL_PROJECTION);
-    gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 100.0f);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    GLsizei width, height;
-    textureID = TextureFromFile("test.jpeg", width, height);
-//    glViewport(0, 0, width, height);
-}
+SkyBox skyBox;
 
 void DrawTriangle() {
     glPushMatrix();
@@ -66,36 +57,39 @@ void DrawLight() {
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambientCoe);
 
     glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteColor);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, ambientCoe);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseCoe);
 
     glLightfv(GL_LIGHT0, GL_SPECULAR, whiteColor);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, ambientCoe);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, specularCoe);
 }
 
 void DrawQuad() {
     glLoadIdentity();
-    glTranslated(0.0, 0.0, -3.0);
     glPushMatrix();
+    glTranslated(0.0, 0.0, -3.0);
     glBegin(GL_TRIANGLE_STRIP);
     // 向量叉乘法则
     // 默认情况下，逆时针是OpenGL的正面
-    glColor4ub(255, 255, 255, 255);
-    glTexCoord2f(0.0, 1.0);
-    glVertex3f(-1.0f, -1.0f, -0.0f);
-    glTexCoord2f(1.0, 1.0);
-    glVertex3f( 1.0f, -1.0f, -0.0f);
-    glTexCoord2f(0.0, 0.0);
-    glVertex3f(-1.0f,  1.0f, -0.0f);
-    glTexCoord2f(1.0, 0.0);
-    glVertex3f( 1.0f,  1.0f, -0.0f);
+    glColor4ub(255, 255, 0, 255);
+    glVertex3f(-1.0f, -1.0f, 0.0f);
+    glVertex3f( 1.0f, -1.0f, 0.0f);
+    glVertex3f(-1.0f,  1.0f, 0.0f);
+    glVertex3f( 1.0f,  1.0f, 0.0f);
     glEnd();
     glPopMatrix();
 }
 
+void Initialize() {
+    glMatrixMode(GL_PROJECTION);
+    gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    skyBox.Initialize("UI/Skybox/");
+}
+
+
 void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    DrawQuad();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    skyBox.Draw();
 }
