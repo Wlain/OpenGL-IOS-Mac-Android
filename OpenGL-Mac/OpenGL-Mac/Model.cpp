@@ -10,11 +10,42 @@
 #include "Util.hpp"
 
 Model::Model() {
-    
+    memset(mAmbientMaterial, 0, sizeof(mAmbientMaterial));
+    memset(mDiffuseMaterial, 0, sizeof(mDiffuseMaterial));
+    memset(mSpecularMaterial, 0, sizeof(mSpecularMaterial));
 }
 
 Model::~Model() {
     
+}
+
+void Model::SetTextureID(GLuint texture) {
+    this->mTextureID = texture;
+}
+
+int Model::GetTextureID(GLuint texture) const {
+    return this->mIndexCount;
+}
+
+void Model::SetAmbientMaterial(float r, float g, float b, float a) {
+    this->mAmbientMaterial[0] = r;
+    this->mAmbientMaterial[1] = g;
+    this->mAmbientMaterial[2] = b;
+    this->mAmbientMaterial[3] = a;
+}
+
+void Model::SetDiffuseMaterial(float r, float g, float b, float a) {
+    this->mDiffuseMaterial[0] = r;
+    this->mDiffuseMaterial[1] = g;
+    this->mDiffuseMaterial[2] = b;
+    this->mDiffuseMaterial[3] = a;
+}
+
+void Model::SetSpecularMaterial(float r, float g, float b, float a) {
+    this->mSpecularMaterial[0] = r;
+    this->mSpecularMaterial[1] = g;
+    this->mSpecularMaterial[2] = b;
+    this->mSpecularMaterial[3] = a;
 }
 
 void Model::Initialize(const char *modelPath) {
@@ -112,7 +143,7 @@ void Model::Initialize(const char *modelPath) {
                     }
                     indexes.push_back(nCurrentVertexIndex);
                 }
-//                printf("draw command:%s\n", oneLineData);
+                printf("draw command:%s\n", oneLineData);
             }
         }
     }
@@ -138,9 +169,17 @@ void Model::Initialize(const char *modelPath) {
 }
 
 void Model::Draw() {
+    glEnable(GL_LIGHTING);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mAmbientMaterial);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuseMaterial);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mSpecularMaterial);
+    // 设置镜面反射指数，默认值是0.0
+    glMaterialf(GL_FRONT, GL_SHININESS, 128.0f);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, mTextureID);
     glEnable(GL_DEPTH_TEST);
     glPushMatrix();
-    glTranslated(0.0f, 0.0f, -10.0f);
+    glTranslated(0.0f, 0.0f, -5.0f);
     glBegin(GL_TRIANGLES);
     glColor4ub(255, 255, 255, 255);
     for (int i = 0; i < mIndexCount; ++i) {

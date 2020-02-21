@@ -18,6 +18,7 @@ SkyBox::~SkyBox() {
 }
 
 
+
 void SkyBox::Initialize(const char *fileDir) {
     const unsigned int fileDirSize = 256;
     char temp[fileDirSize];
@@ -51,6 +52,8 @@ void SkyBox::Initialize(const char *fileDir) {
 
 void SkyBox::DrawCommand() {
     glPushMatrix();
+    // 不希望天空盒受到光照的影响
+    glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, mTextures[0]);

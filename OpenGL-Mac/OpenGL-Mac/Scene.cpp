@@ -21,9 +21,15 @@
 #include "Util.hpp"
 #include "SkyBox.hpp"
 #include "Model.hpp"
+#include "Ground.hpp"
+#include "Light.hpp"
 
 SkyBox skyBox;
 Model model;
+Ground ground;
+DirectionLight directionLight(GL_LIGHT0);
+PointLight pointLight(GL_LIGHT1), pointLight2(GL_LIGHT2);
+SportLight sportLight(GL_LIGHT3);
 
 void DrawTriangle() {
     glPushMatrix();
@@ -83,17 +89,53 @@ void DrawQuad() {
 
 void Initialize() {
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+    gluPerspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     skyBox.Initialize("UI/Skybox/");
-    model.Initialize("UI/Model/Bunny.obj");
+    directionLight.SetAmbientColor(0.1f, 0.1f, 0.1f, 1.0f);
+    directionLight.SetDiffuseColor(0.8f, 0.8f, 0.8f, 1.0f);
+    directionLight.SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+    directionLight.SetPosition(0.0f, 1.0f, 0.0f);
+    pointLight.SetAmbientColor(0.1f, 0.1f, 0.1f, 1.0f);
+    pointLight.SetDiffuseColor(0.8f, 0.8f, 0.8f, 1.0f);
+    pointLight.SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+    pointLight.SetPosition(0.0f, 0.0f, 0.0f);
+    pointLight.setConstantAttenuationCoe(1.0f);
+    pointLight.setLinearAttenuationCoe(0.2f);
+    pointLight2.SetAmbientColor(0.1f, 0.1f, 0.1f, 1.0f);
+    pointLight2.SetDiffuseColor(0.1f, 0.2f, 0.8f, 1.0f);
+    pointLight2.SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+    pointLight2.SetPosition(0.0f, 0.0f, -10.0f);
+    pointLight2.setConstantAttenuationCoe(1.0f);
+    pointLight2.setLinearAttenuationCoe(0.2f);
+    sportLight.SetAmbientColor(0.1f, 0.1f, 0.1f, 1.0f);
+    sportLight.SetDiffuseColor(0.1f, 0.8f, 0.0f, 1.0f);
+    sportLight.SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+    sportLight.SetPosition(0.0f, 20.0f, -10.0f);
+    sportLight.SetDirection(0.0f, -1.0f, 0.0f);
+    sportLight.SetExponent(5.0f);
+    sportLight.SetCutoff(10.0f);
+    model.Initialize("UI/Model/Sphere.obj");
+    GLuint texture = TextureFromFile("UI/earth.png");
+    model.SetTextureID(texture);
+    model.SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
+    model.SetDiffuseMaterial(0.4f, 0.4f, 0.4f, 1.0f);
+    model.SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
+    ground.SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
+    ground.SetDiffuseMaterial(0.4f, 0.4f, 0.4f, 1.0f);
+    ground.SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 
 void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    directionLight.Enable();
     skyBox.Draw();
     model.Draw();
+    pointLight.Enable();
+    pointLight2.Enable();
+    sportLight.Enable();
+    ground.Draw();
 }

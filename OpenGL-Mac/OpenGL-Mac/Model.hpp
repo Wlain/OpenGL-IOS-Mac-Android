@@ -22,10 +22,20 @@ public:
     virtual ~Model();
     void Initialize(const char * modelPath);
     void Draw();
+    void SetTextureID(GLuint texture);
+    int GetTextureID(GLuint texture) const;
+    void SetAmbientMaterial(float r, float g, float b, float a);
+    void SetDiffuseMaterial(float r, float g, float b, float a);
+    void SetSpecularMaterial(float r, float g, float b, float a);
 private:
     VertexData *mVertexes;
     unsigned short *mIndexes;
     int mIndexCount;
+    GLuint mTextureID;
+    float mAmbientMaterial[4];
+    float mDiffuseMaterial[4];
+    float mSpecularMaterial[4];
 };
+
 
 #endif /* Model_hpp */
