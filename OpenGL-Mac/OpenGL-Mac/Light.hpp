@@ -56,6 +56,10 @@ public:
     void setLinearAttenuationCoe(float l);
     // 设置平方衰减系数
     void setQuadraticAttenuationCoe(float q);
+    void Update(float x, float y, float z);
+private:
+    float mPosition[3];
+    
 };
 
 // 聚光灯

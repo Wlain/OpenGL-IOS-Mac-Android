@@ -150,7 +150,7 @@ void Initialize() {
     pointLight.setConstantAttenuationCoe(1.0f);
     pointLight.setLinearAttenuationCoe(0.2f);
     pointLight2.SetAmbientColor(0.1f, 0.1f, 0.1f, 1.0f);
-    pointLight2.SetDiffuseColor(0.1f, 0.2f, 0.8f, 1.0f);
+    pointLight2.SetDiffuseColor(1.0f, 0.0f, 0.1f, 1.0f);
     pointLight2.SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
     pointLight2.SetPosition(0.0f, 0.0f, -10.0f);
     pointLight2.setConstantAttenuationCoe(1.0f);
@@ -183,7 +183,10 @@ void Draw() {
     skyBox.Draw(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
     model.Draw();
     pointLight.Enable();
+    pointLight.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
     pointLight2.Enable();
+    pointLight2.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
     sportLight.Enable();
+    sportLight.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
     ground.Draw();
 }

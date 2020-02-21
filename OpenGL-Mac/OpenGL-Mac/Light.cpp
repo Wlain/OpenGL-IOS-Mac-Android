@@ -53,6 +53,7 @@ void DirectionLight::SetPosition(float x, float y, float z) {
 
 PointLight::PointLight(GLenum lightID) {
     mLightIdentifier = lightID;
+    memset(mPosition, 0, sizeof(mPosition));
 }
 
 PointLight::~PointLight() {
@@ -60,10 +61,15 @@ PointLight::~PointLight() {
 }
 
 void PointLight::SetPosition(float x, float y, float z) {
-    float position[] = {x, y, z, 1.0f};
-    glLightfv(mLightIdentifier, GL_POSITION, position);
+    mPosition[0] = x;
+    mPosition[1] = y;
+    mPosition[2] = z;
 }
 
+void PointLight::Update(float x, float y, float z) {
+    float position[4] = { mPosition[0] - x, mPosition[1] - y, mPosition[2] - z, 1.0f };
+    glLightfv(mLightIdentifier, GL_POSITION, position);
+}
 void PointLight::setConstantAttenuationCoe(float c) {
     glLightf(mLightIdentifier, GL_CONSTANT_ATTENUATION, c);
 }
