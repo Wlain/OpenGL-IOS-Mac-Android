@@ -102,7 +102,7 @@ void OnKeyDown(char code) {
             camera.mIsMoveForward = true;
             break;
         case 'S':
-            camera.mIDMoveBack = true;
+            camera.mIsMoveBack = true;
             break;
         default:
             break;
@@ -121,7 +121,7 @@ void OnKeyUp(char code) {
             camera.mIsMoveForward = false;
             break;
         case 'S':
-            camera.mIDMoveBack = false;
+            camera.mIsMoveBack = false;
             break;
         default:
             break;

@@ -21,7 +21,7 @@ public:
     bool mIsMoveLeft;
     bool mIsMoveRight;
     bool mIsMoveForward;
-    bool mIDMoveBack;
+    bool mIsMoveBack;
     // 设置当前摄像机的姿态
     void Update(float deltaTime);
 };

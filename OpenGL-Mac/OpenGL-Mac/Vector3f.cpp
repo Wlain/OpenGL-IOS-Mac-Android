@@ -134,6 +134,10 @@ void Vector3f::clamp(const Vector3f &v, const Vector3f &min, const Vector3f &max
         dst->z = max.z;
 }
 
+void Vector3f::cross(const Vector3f &v) {
+    cross(*this, v, this);
+}
+
 void Vector3f::cross(const Vector3f &v1, const Vector3f &v2, Vector3f *dst) {
     assert(dst);
     // 掐头去尾法求得
@@ -256,79 +260,6 @@ void Vector3f::subtract(const Vector3f& v) {
     z -= v.z;
 }
 
-inline const Vector3f Vector3f::operator+(const Vector3f &v) const {
-    Vector3f result(*this);
-    result.add(v);
-    return result;
-}
-
-inline Vector3f& Vector3f::operator+=(const Vector3f &v) {
-    add(v);
-    return *this;
-}
-
-inline const Vector3f Vector3f::operator-(const Vector3f &v) const {
-    Vector3f result(*this);
-    result.subtract(v);
-    return result;
-}
-
-inline Vector3f& Vector3f::operator-=(const Vector3f &v) {
-    subtract(v);
-    return *this;
-}
-
-inline const Vector3f Vector3f::operator-() const {
-    Vector3f result(*this);
-    result.negate();
-    return result;
-}
-
-inline const Vector3f Vector3f::operator*(float x) const {
-    Vector3f result(*this);
-    result.scale(x);
-    return result;
-}
-
-inline const Vector3f Vector3f::operator*=(float x) {
-    scale(x);
-    return *this;
-}
-
-inline const Vector3f Vector3f::operator/(const float x) const
-{
-    return Vector3f(this->x / x, this->y / x, this->z / x);
-}
-
-inline bool Vector3f::operator<(const Vector3f &v) const
-{
-    if (this->x == v.x)
-    {
-        if (this->y == v.y)
-        {
-            return this->z < v.z;
-        }
-        return this->y < v.y;
-    }
-    return this->x < v.x;
-}
-
-inline bool Vector3f::operator==(const Vector3f &v) const
-{
-    return this->x==v.x && this->y==v.y && this->z==v.z;
-}
-
-inline bool Vector3f::operator!=(const Vector3f &v) const
-{
-    return x!=v.x || y!=v.y || z!=v.z;
-}
-
-inline const Vector3f operator*(float x, const Vector3f &v)
-{
-    Vector3f result(v);
-    result.scale(x);
-    return result;
-}
 
 
 

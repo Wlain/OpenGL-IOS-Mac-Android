@@ -16,7 +16,7 @@ mUp(0.0f, 1.0f, 0.0f),
 mIsMoveLeft(false),
 mIsMoveRight(false),
 mIsMoveForward(false),
-mIDMoveBack(false){
+mIsMoveBack(false){
     
 }
 Camera::~Camera() {
@@ -25,25 +25,31 @@ Camera::~Camera() {
 
 void Camera::Update(float deltaTime) {
     float moveSpeed = 10.0f;
+    Vector3f forWardDirection = mTargetPosition - mEyePosition;
+    // 单位化之后只有方向上的几何意义
+    forWardDirection.Normalize();
+    Vector3f rightDirection;
+    Vector3f::cross(forWardDirection, mUp, &rightDirection);
+    rightDirection.Normalize();
     if (mIsMoveLeft) {
-        float delta = deltaTime * moveSpeed;
-        mEyePosition.x -= delta;
-        mTargetPosition.x -= delta;
+        Vector3f delta = rightDirection * deltaTime * moveSpeed;
+        mEyePosition -= delta;
+        mTargetPosition -= delta;
     }
     if (mIsMoveRight) {
-        float delta = deltaTime * moveSpeed;
-        mEyePosition.x += delta;
-        mTargetPosition.x += delta;
+        Vector3f delta = rightDirection * deltaTime * moveSpeed;
+        mEyePosition += delta;
+        mTargetPosition += delta;
     }
     if (mIsMoveForward) {
-        float delta = deltaTime * moveSpeed;
-        mEyePosition.z -= delta;
-        mTargetPosition.z -= delta;
+        Vector3f delta = forWardDirection * deltaTime * moveSpeed;
+        mEyePosition += delta;
+        mTargetPosition += delta;
     }
-    if (mIDMoveBack) {
-        float delta = deltaTime * moveSpeed;
-        mEyePosition.z += delta;
-        mTargetPosition.z += delta;
+    if (mIsMoveBack) {
+        Vector3f delta = forWardDirection * deltaTime * moveSpeed;
+        mEyePosition -= delta;
+        mTargetPosition -= delta;
     }
     glLoadIdentity();
     gluLookAt(mEyePosition.x, mEyePosition.y, mEyePosition.z,
