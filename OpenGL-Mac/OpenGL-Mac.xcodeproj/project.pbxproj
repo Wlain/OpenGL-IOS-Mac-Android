@@ -18,6 +18,8 @@
 		3D17C8AF23FE96B3008483F5 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D17C8AD23FE96B3008483F5 /* Model.cpp */; };
 		3D53B1DA23FEDF54003DC547 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1D823FEDF54003DC547 /* Ground.cpp */; };
 		3D53B1DD23FEE261003DC547 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1DB23FEE261003DC547 /* Light.cpp */; };
+		3D53B1E123FFDCAF003DC547 /* Vector3f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1DF23FFDCAF003DC547 /* Vector3f.cpp */; };
+		3D53B1E424001198003DC547 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1E224001198003DC547 /* Camera.cpp */; };
 		3DBE9D8B23FD6C5600C88EFC /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D8923FD6C5600C88EFC /* Util.cpp */; };
 		3DBE9D9D23FD92D800C88EFC /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */; };
 		3DBE9DA823FE468600C88EFC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9DA623FE468500C88EFC /* SkyBox.cpp */; };
@@ -47,6 +49,10 @@
 		3D53B1D923FEDF54003DC547 /* Ground.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ground.hpp; sourceTree = "<group>"; };
 		3D53B1DB23FEE261003DC547 /* Light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
 		3D53B1DC23FEE261003DC547 /* Light.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Light.hpp; sourceTree = "<group>"; };
+		3D53B1DF23FFDCAF003DC547 /* Vector3f.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3f.cpp; sourceTree = "<group>"; };
+		3D53B1E023FFDCAF003DC547 /* Vector3f.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vector3f.hpp; sourceTree = "<group>"; };
+		3D53B1E224001198003DC547 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		3D53B1E324001198003DC547 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		3DBE9D8923FD6C5600C88EFC /* Util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
 		3DBE9D8A23FD6C5600C88EFC /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
 		3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 				3DBE9DA723FE468600C88EFC /* SkyBox.hpp */,
 				3D53B1DB23FEE261003DC547 /* Light.cpp */,
 				3D53B1DC23FEE261003DC547 /* Light.hpp */,
+				3D53B1E224001198003DC547 /* Camera.cpp */,
+				3D53B1E324001198003DC547 /* Camera.hpp */,
 			);
 			name = GL;
 			sourceTree = "<group>";
@@ -163,6 +171,8 @@
 				3DBE9D8923FD6C5600C88EFC /* Util.cpp */,
 				3DBE9D8A23FD6C5600C88EFC /* Util.hpp */,
 				3D0BC77223FD53E6003E07F5 /* Base.h */,
+				3D53B1DF23FFDCAF003DC547 /* Vector3f.cpp */,
+				3D53B1E023FFDCAF003DC547 /* Vector3f.hpp */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -237,11 +247,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D53B1E424001198003DC547 /* Camera.cpp in Sources */,
 				3D53B1DD23FEE261003DC547 /* Light.cpp in Sources */,
 				3D17C8AF23FE96B3008483F5 /* Model.cpp in Sources */,
 				3D0BC77823FD5586003E07F5 /* Scene.cpp in Sources */,
 				3DBE9D9D23FD92D800C88EFC /* stb_image.cpp in Sources */,
 				3D0BC75D23FD4EC5003E07F5 /* ViewController.mm in Sources */,
+				3D53B1E123FFDCAF003DC547 /* Vector3f.cpp in Sources */,
 				3DBE9DA823FE468600C88EFC /* SkyBox.cpp in Sources */,
 				3D0BC76523FD4EC5003E07F5 /* main.m in Sources */,
 				3D0BC75A23FD4EC5003E07F5 /* AppDelegate.m in Sources */,

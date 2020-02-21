@@ -16,7 +16,7 @@ public:
     virtual ~SkyBox();
 public:
     void Initialize(const char *fileDir);
-    void Draw();
+    void Draw(float x, float y, float z);
     void DrawCommand();
 private:
     GLuint mTextures[6];

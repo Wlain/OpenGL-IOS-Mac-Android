@@ -126,8 +126,11 @@ void SkyBox::DrawCommand() {
     glPopMatrix();
 }
 
-void SkyBox::Draw() {
+void SkyBox::Draw(float x, float y, float z) {
+    glPushMatrix();
+    glTranslated(x, y, z);
     glCallList(mFastDrawCall);
+    glPopMatrix();
 }
 
 

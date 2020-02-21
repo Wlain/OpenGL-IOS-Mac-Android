@@ -14,6 +14,7 @@
 #include <OpenGL/glext.h>
 #include <stdio.h>
 #include <iostream>
+#include <cassert>
 #include <math.h>
 #include <string.h>
 #include <string>
@@ -21,7 +22,8 @@
 #include <vector>
 #include <functional>
 
-
+#define MATH_TOLERANCE              2e-37f
+#define MATH_FLOAT_SMALL            1.0e-37f
 
 
 

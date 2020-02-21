@@ -23,13 +23,16 @@
 #include "Model.hpp"
 #include "Ground.hpp"
 #include "Light.hpp"
+#include "Camera.hpp"
 
 SkyBox skyBox;
 Model model;
 Ground ground;
 DirectionLight directionLight(GL_LIGHT0);
-PointLight pointLight(GL_LIGHT1), pointLight2(GL_LIGHT2);
+PointLight pointLight(GL_LIGHT1);
+PointLight pointLight2(GL_LIGHT2);
 SportLight sportLight(GL_LIGHT3);
+Camera camera;
 
 void DrawTriangle() {
     glPushMatrix();
@@ -87,6 +90,49 @@ void DrawQuad() {
     glPopMatrix();
 }
 
+void OnKeyDown(char code) {
+    switch (code) {
+        case 'A':
+            camera.mIsMoveLeft = true;
+            break;
+        case 'D':
+            camera.mIsMoveRight = true;
+            break;
+        case 'W':
+            camera.mIsMoveForward = true;
+            break;
+        case 'S':
+            camera.mIDMoveBack = true;
+            break;
+        default:
+            break;
+    }
+}
+
+void OnKeyUp(char code) {
+    switch (code) {
+        case 'A':
+            camera.mIsMoveLeft = false;
+            break;
+        case 'D':
+            camera.mIsMoveRight = false;
+            break;
+        case 'W':
+            camera.mIsMoveForward = false;
+            break;
+        case 'S':
+            camera.mIDMoveBack = false;
+            break;
+        default:
+            break;
+    }
+}
+
+void OnMouseMove(float deltaX, float deltaY) {
+    
+}
+
+
 void Initialize() {
     glMatrixMode(GL_PROJECTION);
     gluPerspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
@@ -131,8 +177,10 @@ void Initialize() {
 void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    float frameTime = GetFrameTime();
+    camera.Update(frameTime);
     directionLight.Enable();
-    skyBox.Draw();
+    skyBox.Draw(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
     model.Draw();
     pointLight.Enable();
     pointLight2.Enable();

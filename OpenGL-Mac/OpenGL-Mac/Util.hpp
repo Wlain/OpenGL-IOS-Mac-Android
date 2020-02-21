@@ -38,4 +38,11 @@ GLuint CreateDisplayList(std::function<void()>foo);
 
 GLubyte * LoadFileContent(const char *filePath, int &filesize);
 
+/**
+ 获取帧间隔时间
+
+ @return 帧间隔时间
+ */
+float GetFrameTime();
+
 #endif /* Util_hpp */

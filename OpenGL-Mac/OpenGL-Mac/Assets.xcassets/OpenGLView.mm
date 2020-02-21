@@ -9,6 +9,7 @@
 #import "OpenGLView.h"
 #import "Scene.hpp"
 #include "stb_image.h"
+#include "Util.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 
@@ -59,7 +60,60 @@ GLubyte * LoadFileContent(const char *filePath, int &filesize) {
     return fileContent;
 }
 
+
+float GetFrameTime(){
+    return 1.0f/60.0f;
+}
+
+
+@interface OpenGLView()
+// 存储鼠标原始点
+@property(nonatomic, assign) CGPoint orignPosition;
+@property(nonatomic, assign) CGPoint lastPosition;
+@property(nonatomic, assign) BOOL rotateView;
+
+@end
+
+
 @implementation OpenGLView
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+- (void)keyDown:(NSEvent *)event {
+    // 对应的是大写字母
+    OnKeyDown([event.characters UTF8String][0] - 32);
+}
+
+- (void)keyUp:(NSEvent *)event {
+    // 对应的是大写字母
+    OnKeyUp([event.characters UTF8String][0] - 32);
+}
+
+- (void)rightMouseDown:(NSEvent *)event {
+    CGEventRef tempEvent = CGEventCreate(NULL);
+    self.orignPosition = CGEventGetLocation(tempEvent);
+    CFRelease(tempEvent);
+    self.rotateView = YES;
+    self.lastPosition = self.orignPosition;
+    
+}
+
+- (void)rightMouseUp:(NSEvent *)event {
+    self.rotateView = NO;
+    CGDisplayMoveCursorToPoint(kCGDirectMainDisplay, self.orignPosition);
+}
+
+- (void)rightMouseDragged:(NSEvent *)event {
+    CGEventRef tempEvent = CGEventCreate(NULL);
+    CGPoint point = CGEventGetLocation(tempEvent);
+    CFRelease(tempEvent);
+    if (self.rotateView) {
+        OnMouseMove(point.y - self.lastPosition.x, point.y - self.lastPosition.y);
+        self.lastPosition = point;
+    }
+}
 
 - (void)prepareOpenGL {
     [super prepareOpenGL];
