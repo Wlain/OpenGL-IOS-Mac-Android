@@ -395,7 +395,7 @@
 		3D0BC76A23FD4EC5003E07F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "OpenGL-Mac/OpenGL_Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -415,7 +415,7 @@
 		3D0BC76B23FD4EC5003E07F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "OpenGL-Mac/OpenGL_Mac.entitlements";
 				CODE_SIGN_STYLE = Automatic;
