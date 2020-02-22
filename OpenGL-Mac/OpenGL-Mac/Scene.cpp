@@ -188,6 +188,8 @@ void Initialize() {
     sprite.SetRectangle(-400.0f, 100.0f, 664.0f/4.0f, 405.0f/4.0f);
     particle.SetTexture(CreateProceduretexture(128));
     particle.SetHalfSize(100);
+    particle.Init(220, 150, 50, 255, 10.0f);
+    
 }
 
 
@@ -209,5 +211,6 @@ void Draw() {
     ground.Draw();
     camera.ChangeTo2D();
     sprite.Draw();
+    particle.Update(frameTime);
     particle.Draw();
 }

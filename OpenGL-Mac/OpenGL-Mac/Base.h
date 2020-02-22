@@ -24,6 +24,7 @@
 
 #define MATH_TOLERANCE              2e-37f
 #define MATH_FLOAT_SMALL            1.0e-37f
+#define MATH_PI                     3.14159265
 
 
 
