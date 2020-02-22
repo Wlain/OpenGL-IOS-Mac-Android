@@ -11,7 +11,7 @@
 Particle::Particle()
 :mTexture(0),
 mHalfSize(0.0f),
-mLifeTime(0.0f),
+mLifeTime(-1.0f),
 mCurrentTime(0.0f),
 mEndTime(0.0f),
 mPosition(0.0f, 0.0f, 0.0f){
@@ -102,7 +102,8 @@ void Particle::Init(GLubyte r, GLubyte g, GLubyte b, GLubyte a, float life) {
 
 void Particle::Draw() {
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
@@ -131,7 +132,7 @@ void Particle::Update(float deltaTime) {
     }
     mCurrentTime += deltaTime;
     float maxRadius = 300.0f;
-    float rotateSpeed = 60.0f;
+    float rotateSpeed = 360.0f;
     float currentAngle = rotateSpeed * mCurrentTime;
     float currentRadius = maxRadius * mCurrentTime / mLifeTime;
     mPosition.x = currentRadius * cosf(currentAngle * MATH_PI / 180);

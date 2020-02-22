@@ -36,7 +36,8 @@ PointLight pointLight2(GL_LIGHT2);
 SportLight sportLight(GL_LIGHT3);
 Camera camera;
 Sprite sprite;
-Particle particle;
+GLuint particleTexture;
+Particle particle[1000];
 
 void DrawTriangle() {
     glPushMatrix();
@@ -186,10 +187,26 @@ void Initialize() {
     camera.SetViewPortHeight(600);
     sprite.SetImage("UI/good.png");
     sprite.SetRectangle(-400.0f, 100.0f, 664.0f/4.0f, 405.0f/4.0f);
-    particle.SetTexture(CreateProceduretexture(128));
-    particle.SetHalfSize(100);
-    particle.Init(220, 150, 50, 255, 10.0f);
-    
+    particleTexture = CreateProceduretexture(128);
+}
+
+void EmitParticle(float delta) {
+    static float currentSleepTime = 0.0f;
+    static float nextParticleTime = 1.0f / 60.0f;
+    static int particleCount = 1;
+    if (particleCount == 1000) {
+        return;
+    }
+    currentSleepTime += delta;
+    if (currentSleepTime >= nextParticleTime) {
+        currentSleepTime = 0.0f;
+    } else {
+        return;
+    }
+    particle[particleCount - 1].SetHalfSize(10.0f);
+    particle[particleCount - 1].SetTexture(particleTexture);
+    particle[particleCount - 1].Init(20, 150, 100, 255, 10.0f);
+    particleCount++;
 }
 
 
@@ -211,6 +228,13 @@ void Draw() {
     ground.Draw();
     camera.ChangeTo2D();
     sprite.Draw();
-    particle.Update(frameTime);
-    particle.Draw();
+    EmitParticle(frameTime);
+    for (int i = 0; i < 1000; ++i) {
+        if (particle[i].GetLifeTime() != -1.0f) {
+            particle[i].Update(frameTime);
+            particle[i].Draw();
+        } else {
+            return;
+        }
+    }
 }
