@@ -16,10 +16,15 @@ GLuint ebo;
 GLuint program;
 GLint positionLocation;
 GLint worldViewProjectionMatrixLocation;
+GLuint colorLocation;
 glm::mat4 modelViewMatrix;
 glm::mat4 projectionMatrix;
 glm::mat4 worldViewProjectionMatrix;
 
+
+const float color[] = {
+    0.9, 1.0, 0.8, 1.0
+};
 
 void Init() {
     const float vertexes[] = {
@@ -30,6 +35,7 @@ void Init() {
     const unsigned short indexes[] = {
         0, 1, 2
     };
+
     // vbo
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -48,6 +54,7 @@ void Init() {
     glDeleteShader(fragShader);
     positionLocation = glGetAttribLocation(program, "a_position");
     worldViewProjectionMatrixLocation = glGetUniformLocation(program, "u_worldViewProjectionMatrix");
+    colorLocation = glGetUniformLocation(program, "u_color");
 }
 
 void SetViewPort(float width, float height) {
@@ -61,6 +68,7 @@ void Draw() {
     float frameTime = GetFrameTime();
     glUseProgram(program);
     glUniformMatrix4fv(worldViewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(worldViewProjectionMatrix));
+    glUniform4fv(colorLocation, 1, color);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glEnableVertexAttribArray(positionLocation);
     glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, 0);

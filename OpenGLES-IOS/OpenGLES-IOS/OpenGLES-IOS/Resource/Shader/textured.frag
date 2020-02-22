@@ -16,9 +16,10 @@ precision mediump float;
 ///////////////////////////////////////////////////////////
 //varying
 //varying vec2 v_texcoord;
+varying vec4 v_color;
 
 void main()
 {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_FragColor = v_color;
 //    gl_FragColor = texture2D(u_diffuseTexture, v_texcoord);
 }
