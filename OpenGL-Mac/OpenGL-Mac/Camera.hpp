@@ -15,15 +15,43 @@ class Camera {
 public:
     Camera();
     ~Camera();
-    Vector3f mEyePosition; // mTargetPosition
-    Vector3f mTargetPosition;
-    Vector3f mUp;
+    // 设置当前摄像机的姿态
+    void Update(float deltaTime);
+    void SetPitch(float angle);
+    void SetYaw(float angle);
+    void SetRoll(float angle);
+    // 旋转视点:绕任意轴旋转
+    void RotateView(float angle, float x, float y, float z);
+    void ChangeTo3D();
+    void ChangeTo2D();
+    bool GetIsMoveLeft() const;
+    void SetIsMoveLeft(bool isMoveLeft);
+    bool GetIsMoveRight() const;
+    void SetIsMoveRight(bool isMoveRight);
+    bool GetMoveForward() const;
+    void SetIsMoveForward(bool isMoveForward);
+    bool GetIsMoveBack() const;
+    void SetIsMoveBack(bool isMoveBack);
+    int GetViewPortWidth() const;
+    void SetViewPortWidth(int viewPortWidth);
+    int GetViewPortHeight() const;
+    void SetViewPortHeight(int viewPortHeight);
+    const Vector3f& GetEyePosition() const;
+    void SetEyePosition(const Vector3f& v);
+    const Vector3f& GetTargetPosition() const;
+    void SetTargetPosition(const Vector3f& v);
+    const Vector3f& GetUpDirection() const;
+    void SetUpDirection(const Vector3f& v);
+private:
     bool mIsMoveLeft;
     bool mIsMoveRight;
     bool mIsMoveForward;
     bool mIsMoveBack;
-    // 设置当前摄像机的姿态
-    void Update(float deltaTime);
+    int mViewPortWidth;
+    int mViewPortHeight;
+    Vector3f mEyePosition; 
+    Vector3f mTargetPosition;
+    Vector3f mUpDirection;
 };
 
 #endif /* Camera_hpp */

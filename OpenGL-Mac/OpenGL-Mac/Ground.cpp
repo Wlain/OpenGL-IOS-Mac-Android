@@ -47,7 +47,7 @@ void Ground::Draw() {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     glNormal3f(0.0f, 1.0f, 0.0f);
     for (int z = 0; z < 20; ++z) {
         float zStart = 120.0f - z * 10.0f;
@@ -60,6 +60,8 @@ void Ground::Draw() {
             }
             glVertex3f(xStart, -1.0f, zStart);
             glVertex3f(xStart + 10.0f, -1.0f, zStart);
+            glVertex3f(xStart + 10.0f, -1.0f, zStart - 10.0f);
+            glVertex3f(xStart, -1.0f, zStart);
             glVertex3f(xStart + 10.0f, -1.0f, zStart - 10.0f);
             glVertex3f(xStart, -1.0f, zStart - 10.0f);
         }

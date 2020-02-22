@@ -9,16 +9,17 @@
 #import "OpenGLView.h"
 #import "Scene.hpp"
 #include "stb_image.h"
-#include "Util.hpp"
+#include "Utils.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 
-GLuint TextureFromFile(const char *path) {
+GLuint TextureFromFile(const char *path, bool flipVertical) {
     NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil];
     GLuint textureID = 0;
     glGenTextures(1, &textureID);
     
     int width, height, channels_in_file;
+    stbi_set_flip_vertically_on_load(flipVertical);
     GLubyte *data = stbi_load(filename.UTF8String, &width, &height, &channels_in_file, 0);
     if (data != nullptr) {
         GLenum format = 0;
@@ -35,8 +36,8 @@ GLuint TextureFromFile(const char *path) {
         
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
         stbi_image_free(data);
     } else {

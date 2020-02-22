@@ -18,12 +18,13 @@
 // z轴指向屏幕外面
 
 #include "Scene.hpp"
-#include "Util.hpp"
+#include "Utils.hpp"
 #include "SkyBox.hpp"
 #include "Model.hpp"
 #include "Ground.hpp"
 #include "Light.hpp"
 #include "Camera.hpp"
+#include "Sprite.hpp"
 
 SkyBox skyBox;
 Model model;
@@ -33,6 +34,7 @@ PointLight pointLight(GL_LIGHT1);
 PointLight pointLight2(GL_LIGHT2);
 SportLight sportLight(GL_LIGHT3);
 Camera camera;
+Sprite sprite;
 
 void DrawTriangle() {
     glPushMatrix();
@@ -82,9 +84,13 @@ void DrawQuad() {
     // 向量叉乘法则
     // 默认情况下，逆时针是OpenGL的正面
     glColor4ub(255, 255, 0, 255);
+    // left - bottom
     glVertex3f(-1.0f, -1.0f, 0.0f);
+    // right - bottom
     glVertex3f( 1.0f, -1.0f, 0.0f);
+    // left - top
     glVertex3f(-1.0f,  1.0f, 0.0f);
+    // right - top
     glVertex3f( 1.0f,  1.0f, 0.0f);
     glEnd();
     glPopMatrix();
@@ -93,16 +99,16 @@ void DrawQuad() {
 void OnKeyDown(char code) {
     switch (code) {
         case 'A':
-            camera.mIsMoveLeft = true;
+            camera.SetIsMoveLeft(true);
             break;
         case 'D':
-            camera.mIsMoveRight = true;
+            camera.SetIsMoveRight(true);
             break;
         case 'W':
-            camera.mIsMoveForward = true;
+            camera.SetIsMoveForward(true);
             break;
         case 'S':
-            camera.mIsMoveBack = true;
+            camera.SetIsMoveBack(true);
             break;
         default:
             break;
@@ -112,16 +118,16 @@ void OnKeyDown(char code) {
 void OnKeyUp(char code) {
     switch (code) {
         case 'A':
-            camera.mIsMoveLeft = false;
+            camera.SetIsMoveLeft(false);
             break;
         case 'D':
-            camera.mIsMoveRight = false;
+            camera.SetIsMoveRight(false);
             break;
         case 'W':
-            camera.mIsMoveForward = false;
+            camera.SetIsMoveForward(false);
             break;
         case 'S':
-            camera.mIsMoveBack = false;
+            camera.SetIsMoveBack(false);
             break;
         default:
             break;
@@ -129,7 +135,10 @@ void OnKeyUp(char code) {
 }
 
 void OnMouseMove(float deltaX, float deltaY) {
-    
+    float angleRotatedByUp = deltaX / 1000.0f;
+    float angleRotateByRight = deltaY / 1000.0f;
+    camera.SetYaw(-angleRotatedByUp);
+    camera.SetPitch(-angleRotateByRight);
 }
 
 
@@ -163,7 +172,7 @@ void Initialize() {
     sportLight.SetExponent(5.0f);
     sportLight.SetCutoff(10.0f);
     model.Initialize("UI/Model/Sphere.obj");
-    GLuint texture = TextureFromFile("UI/earth.png");
+    GLuint texture = TextureFromFile("UI/earth.png", true);
     model.SetTextureID(texture);
     model.SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
     model.SetDiffuseMaterial(0.4f, 0.4f, 0.4f, 1.0f);
@@ -171,6 +180,10 @@ void Initialize() {
     ground.SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
     ground.SetDiffuseMaterial(0.4f, 0.4f, 0.4f, 1.0f);
     ground.SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
+    camera.SetViewPortWidth(800);
+    camera.SetViewPortHeight(600);
+    sprite.SetImage("UI/good.png");
+    sprite.SetRectangle(-400.0f, 100.0f, 664.0f/4.0f, 405.0f/4.0f);
 }
 
 
@@ -178,15 +191,18 @@ void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     float frameTime = GetFrameTime();
+    camera.ChangeTo3D();
     camera.Update(frameTime);
     directionLight.Enable();
-    skyBox.Draw(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
+    skyBox.Draw(camera.GetEyePosition().x, camera.GetEyePosition().y, camera.GetEyePosition().z);
     model.Draw();
     pointLight.Enable();
-    pointLight.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
+    pointLight.Update(camera.GetEyePosition().x, camera.GetEyePosition().y, camera.GetEyePosition().z);
     pointLight2.Enable();
-    pointLight2.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
+    pointLight2.Update(camera.GetEyePosition().x, camera.GetEyePosition().y, camera.GetEyePosition().z);
     sportLight.Enable();
-    sportLight.Update(camera.mEyePosition.x, camera.mEyePosition.y, camera.mEyePosition.z);
+    sportLight.Update(camera.GetEyePosition().x, camera.GetEyePosition().y, camera.GetEyePosition().z);
     ground.Draw();
+    camera.ChangeTo2D();
+    sprite.Draw();
 }

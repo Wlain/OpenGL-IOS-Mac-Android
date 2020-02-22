@@ -20,7 +20,8 @@
 		3D53B1DD23FEE261003DC547 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1DB23FEE261003DC547 /* Light.cpp */; };
 		3D53B1E123FFDCAF003DC547 /* Vector3f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1DF23FFDCAF003DC547 /* Vector3f.cpp */; };
 		3D53B1E424001198003DC547 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1E224001198003DC547 /* Camera.cpp */; };
-		3DBE9D8B23FD6C5600C88EFC /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D8923FD6C5600C88EFC /* Util.cpp */; };
+		3D53B1E92400D49C003DC547 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D53B1E72400D49C003DC547 /* Sprite.cpp */; };
+		3DBE9D8B23FD6C5600C88EFC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D8923FD6C5600C88EFC /* Utils.cpp */; };
 		3DBE9D9D23FD92D800C88EFC /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */; };
 		3DBE9DA823FE468600C88EFC /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9DA623FE468500C88EFC /* SkyBox.cpp */; };
 		3DBE9DC623FE857A00C88EFC /* UI in Resources */ = {isa = PBXBuildFile; fileRef = 3DBE9DC523FE857A00C88EFC /* UI */; };
@@ -53,8 +54,10 @@
 		3D53B1E023FFDCAF003DC547 /* Vector3f.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vector3f.hpp; sourceTree = "<group>"; };
 		3D53B1E224001198003DC547 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		3D53B1E324001198003DC547 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
-		3DBE9D8923FD6C5600C88EFC /* Util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
-		3DBE9D8A23FD6C5600C88EFC /* Util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Util.hpp; sourceTree = "<group>"; };
+		3D53B1E72400D49C003DC547 /* Sprite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
+		3D53B1E82400D49C003DC547 /* Sprite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
+		3DBE9D8923FD6C5600C88EFC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		3DBE9D8A23FD6C5600C88EFC /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		3DBE9D9B23FD92D800C88EFC /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		3DBE9D9C23FD92D800C88EFC /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		3DBE9DA623FE468500C88EFC /* SkyBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				3D53B1DC23FEE261003DC547 /* Light.hpp */,
 				3D53B1E224001198003DC547 /* Camera.cpp */,
 				3D53B1E324001198003DC547 /* Camera.hpp */,
+				3D53B1E72400D49C003DC547 /* Sprite.cpp */,
+				3D53B1E82400D49C003DC547 /* Sprite.hpp */,
 			);
 			name = GL;
 			sourceTree = "<group>";
@@ -168,8 +173,8 @@
 		3DBE9DA523FE33CC00C88EFC /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				3DBE9D8923FD6C5600C88EFC /* Util.cpp */,
-				3DBE9D8A23FD6C5600C88EFC /* Util.hpp */,
+				3DBE9D8923FD6C5600C88EFC /* Utils.cpp */,
+				3DBE9D8A23FD6C5600C88EFC /* Utils.hpp */,
 				3D0BC77223FD53E6003E07F5 /* Base.h */,
 				3D53B1DF23FFDCAF003DC547 /* Vector3f.cpp */,
 				3D53B1E023FFDCAF003DC547 /* Vector3f.hpp */,
@@ -259,7 +264,8 @@
 				3D0BC75A23FD4EC5003E07F5 /* AppDelegate.m in Sources */,
 				3D0BC76E23FD52A6003E07F5 /* OpenGLView.mm in Sources */,
 				3D53B1DA23FEDF54003DC547 /* Ground.cpp in Sources */,
-				3DBE9D8B23FD6C5600C88EFC /* Util.cpp in Sources */,
+				3D53B1E92400D49C003DC547 /* Sprite.cpp in Sources */,
+				3DBE9D8B23FD6C5600C88EFC /* Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

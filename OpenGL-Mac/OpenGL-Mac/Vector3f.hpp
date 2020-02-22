@@ -41,7 +41,7 @@ public:
     float length() const;
     float lengthSquared() const;
     void negate();
-    Vector3f & Normalize();
+    Vector3f& Normalize();
     void Normalize(Vector3f *dst) const;
     void scale(float scalar);
     void set(float x, float y, float z);

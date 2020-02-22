@@ -7,7 +7,7 @@
 //
 // 工具类
 
-#include "Util.hpp"
+#include "Utils.hpp"
 
 GLuint CreateDisplayList(std::function<void()>foo) {
     // 申请一个显示列表

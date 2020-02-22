@@ -7,7 +7,7 @@
 //
 
 #include "Model.hpp"
-#include "Util.hpp"
+#include "Utils.hpp"
 
 Model::Model() {
     memset(mAmbientMaterial, 0, sizeof(mAmbientMaterial));

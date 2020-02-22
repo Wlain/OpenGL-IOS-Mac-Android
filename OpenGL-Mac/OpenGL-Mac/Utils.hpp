@@ -1,13 +1,13 @@
 //
-//  Util.hpp
+//  Utils.hpp
 //  OpenGL-Mac
 //
 //  Created by william on 2020/2/19.
 //  Copyright © 2020 william. All rights reserved.
 //
 
-#ifndef Util_hpp
-#define Util_hpp
+#ifndef Utils_hpp
+#define Utils_hpp
 
 #include "Base.h"
 
@@ -17,7 +17,7 @@
  @param path 图片文件路径
  @return 纹理ID
  */
-GLuint TextureFromFile(const char *path);
+GLuint TextureFromFile(const char *path, bool flipVertical);
 
 /**
  创建显示列表
@@ -45,4 +45,4 @@ GLubyte * LoadFileContent(const char *filePath, int &filesize);
  */
 float GetFrameTime();
 
-#endif /* Util_hpp */
+#endif /* Utils_hpp */
