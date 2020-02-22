@@ -50,6 +50,14 @@ GLubyte* LoadFileContent(const char *filePath, int &filesize) {
     SetViewPort(rect.size.width, rect.size.height);
 }
 
+- (void)dealloc
+{
+    if ([EAGLContext currentContext] == self.context)
+    {
+        [EAGLContext setCurrentContext:nil];
+    }
+}
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
     Draw();
 }

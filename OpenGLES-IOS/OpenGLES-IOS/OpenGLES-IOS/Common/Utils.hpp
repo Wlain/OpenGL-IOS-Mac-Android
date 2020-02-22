@@ -18,4 +18,16 @@
 GLubyte* LoadFileContent(const char *filePath, int &filesize);
 
 
+/// 编译shader
+/// @param shaderType shader类型
+/// @param shaderPath shader路径
+GLuint CompileShader(GLenum shaderType, const char *shaderPath);
+
+
+
+/// 创建program
+/// @param vertShader 顶点着色器对象
+/// @param fragShader 片元着色器对象
+GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
+
 #endif /* Utils_hpp */

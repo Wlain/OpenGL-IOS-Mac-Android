@@ -21,6 +21,7 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <cassert>
 
 
 #endif /* Base_h */
