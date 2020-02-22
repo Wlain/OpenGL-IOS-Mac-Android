@@ -25,6 +25,7 @@
 #include "Light.hpp"
 #include "Camera.hpp"
 #include "Sprite.hpp"
+#include "Particle.hpp"
 
 SkyBox skyBox;
 Model model;
@@ -35,6 +36,7 @@ PointLight pointLight2(GL_LIGHT2);
 SportLight sportLight(GL_LIGHT3);
 Camera camera;
 Sprite sprite;
+Particle particle;
 
 void DrawTriangle() {
     glPushMatrix();
@@ -184,6 +186,8 @@ void Initialize() {
     camera.SetViewPortHeight(600);
     sprite.SetImage("UI/good.png");
     sprite.SetRectangle(-400.0f, 100.0f, 664.0f/4.0f, 405.0f/4.0f);
+    particle.SetTexture(CreateProceduretexture(128));
+    particle.SetHalfSize(100);
 }
 
 
@@ -205,4 +209,5 @@ void Draw() {
     ground.Draw();
     camera.ChangeTo2D();
     sprite.Draw();
+    particle.Draw();
 }

@@ -20,7 +20,7 @@ Model::~Model() {
 }
 
 void Model::SetTextureID(GLuint texture) {
-    this->mTextureID = texture;
+    this->mTexture = texture;
 }
 
 int Model::GetTextureID(GLuint texture) const {
@@ -176,7 +176,7 @@ void Model::Draw() {
     // 设置镜面反射指数，默认值是0.0
     glMaterialf(GL_FRONT, GL_SHININESS, 128.0f);
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, mTextureID);
+    glBindTexture(GL_TEXTURE_2D, mTexture);
     glEnable(GL_DEPTH_TEST);
     glPushMatrix();
     glTranslated(0.0f, 0.0f, -5.0f);

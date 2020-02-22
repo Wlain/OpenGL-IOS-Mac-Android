@@ -31,7 +31,7 @@ private:
     VertexData *mVertexes;
     unsigned short *mIndexes;
     int mIndexCount;
-    GLuint mTextureID;
+    GLuint mTexture;
     float mAmbientMaterial[4];
     float mDiffuseMaterial[4];
     float mSpecularMaterial[4];

@@ -45,4 +45,16 @@ GLubyte * LoadFileContent(const char *filePath, int &filesize);
  */
 float GetFrameTime();
 
+
+GLuint CreateTexture2D(unsigned char*pixelData, int width, int height, GLenum type);
+
+/**
+ 生成一张RGBA图片纹理
+
+ @param size 纹理尺寸
+ @return 纹理ID
+ */
+GLuint CreateProceduretexture(int size);
+
+
 #endif /* Utils_hpp */

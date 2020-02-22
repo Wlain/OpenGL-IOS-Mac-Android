@@ -10,7 +10,8 @@
 #include "Utils.hpp"
 
 
-Sprite::Sprite():mTexture(0) {
+Sprite::Sprite()
+:mTexture(0) {
     for (int i = 0; i < sizeof(mVertexes) / sizeof(Vector3f); ++i) {
         std::memset(&mVertexes[i], 0, sizeof(Vector3f));
     }
