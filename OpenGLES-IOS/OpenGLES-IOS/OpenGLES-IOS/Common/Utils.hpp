@@ -30,4 +30,8 @@ GLuint CompileShader(GLenum shaderType, const char *shaderPath);
 /// @param fragShader 片元着色器对象
 GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
 
+
+/// 获取帧间隔
+float GetFrameTime();
+
 #endif /* Utils_hpp */

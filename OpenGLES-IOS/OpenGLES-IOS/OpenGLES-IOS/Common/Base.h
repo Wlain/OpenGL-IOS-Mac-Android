@@ -22,6 +22,12 @@
 #include <functional>
 #include <map>
 #include <cassert>
+#include <sys/time.h>
+
+
+#define MATH_TOLERANCE              2e-37f
+#define MATH_FLOAT_SMALL            1.0e-37f
+#define MATH_PI                     3.14159265
 
 
 #endif /* Base_h */
