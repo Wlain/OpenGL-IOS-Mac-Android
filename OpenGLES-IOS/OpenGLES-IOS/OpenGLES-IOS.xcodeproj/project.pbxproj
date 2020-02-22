@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		3D6E94942401350A000222B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94932401350A000222B4 /* AppDelegate.m */; };
 		3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94962401350A000222B4 /* SceneDelegate.m */; };
-		3D6E949A2401350A000222B4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94992401350A000222B4 /* ViewController.m */; };
+		3D6E949A2401350A000222B4 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94992401350A000222B4 /* ViewController.mm */; };
 		3D6E949D2401350A000222B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D6E949B2401350A000222B4 /* Main.storyboard */; };
 		3D6E949F2401350C000222B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D6E949E2401350C000222B4 /* Assets.xcassets */; };
 		3D6E94A22401350C000222B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D6E94A02401350C000222B4 /* LaunchScreen.storyboard */; };
 		3D6E94A52401350C000222B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94A42401350C000222B4 /* main.m */; };
+		3D6E94AF24013758000222B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D6E94AE24013758000222B4 /* GLKit.framework */; };
+		3D6E94B424015682000222B4 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94B224015682000222B4 /* Utils.cpp */; };
+		3DF3664824015EF2001B2256 /* Glm in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3664724015EF2001B2256 /* Glm */; };
+		3DF3664B24016281001B2256 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3664924016281001B2256 /* Scene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +27,20 @@
 		3D6E94952401350A000222B4 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		3D6E94962401350A000222B4 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		3D6E94982401350A000222B4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3D6E94992401350A000222B4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3D6E94992401350A000222B4 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		3D6E949C2401350A000222B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D6E949E2401350C000222B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D6E94A12401350C000222B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D6E94A32401350C000222B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D6E94A42401350C000222B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D6E94AC2401374C000222B4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		3D6E94AE24013758000222B4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		3D6E94B124015674000222B4 /* Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
+		3D6E94B224015682000222B4 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		3D6E94B324015682000222B4 /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		3DF3664724015EF2001B2256 /* Glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Glm; sourceTree = "<group>"; };
+		3DF3664924016281001B2256 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		3DF3664A24016281001B2256 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D6E94AF24013758000222B4 /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +60,7 @@
 			children = (
 				3D6E94912401350A000222B4 /* OpenGLES-IOS */,
 				3D6E94902401350A000222B4 /* Products */,
+				3D6E94AB2401374C000222B4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,12 +75,15 @@
 		3D6E94912401350A000222B4 /* OpenGLES-IOS */ = {
 			isa = PBXGroup;
 			children = (
+				3D6E94B62401569D000222B4 /* 3rdParty */,
+				3D6E94B524015687000222B4 /* GL */,
+				3D6E94B02401565B000222B4 /* Common */,
 				3D6E94922401350A000222B4 /* AppDelegate.h */,
 				3D6E94932401350A000222B4 /* AppDelegate.m */,
 				3D6E94952401350A000222B4 /* SceneDelegate.h */,
 				3D6E94962401350A000222B4 /* SceneDelegate.m */,
 				3D6E94982401350A000222B4 /* ViewController.h */,
-				3D6E94992401350A000222B4 /* ViewController.m */,
+				3D6E94992401350A000222B4 /* ViewController.mm */,
 				3D6E949B2401350A000222B4 /* Main.storyboard */,
 				3D6E949E2401350C000222B4 /* Assets.xcassets */,
 				3D6E94A02401350C000222B4 /* LaunchScreen.storyboard */,
@@ -74,6 +91,42 @@
 				3D6E94A42401350C000222B4 /* main.m */,
 			);
 			path = "OpenGLES-IOS";
+			sourceTree = "<group>";
+		};
+		3D6E94AB2401374C000222B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D6E94AE24013758000222B4 /* GLKit.framework */,
+				3D6E94AC2401374C000222B4 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3D6E94B02401565B000222B4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3D6E94B124015674000222B4 /* Base.h */,
+				3D6E94B224015682000222B4 /* Utils.cpp */,
+				3D6E94B324015682000222B4 /* Utils.hpp */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3D6E94B524015687000222B4 /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3664924016281001B2256 /* Scene.cpp */,
+				3DF3664A24016281001B2256 /* Scene.hpp */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
+		3D6E94B62401569D000222B4 /* 3rdParty */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3664724015EF2001B2256 /* Glm */,
+			);
+			path = 3rdParty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +189,7 @@
 				3D6E94A22401350C000222B4 /* LaunchScreen.storyboard in Resources */,
 				3D6E949F2401350C000222B4 /* Assets.xcassets in Resources */,
 				3D6E949D2401350A000222B4 /* Main.storyboard in Resources */,
+				3DF3664824015EF2001B2256 /* Glm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,9 +200,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D6E949A2401350A000222B4 /* ViewController.m in Sources */,
+				3DF3664B24016281001B2256 /* Scene.cpp in Sources */,
+				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
 				3D6E94942401350A000222B4 /* AppDelegate.m in Sources */,
 				3D6E94A52401350C000222B4 /* main.m in Sources */,
+				3D6E94B424015682000222B4 /* Utils.cpp in Sources */,
 				3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +347,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNSMQM4897;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OpenGLES-IOS/3rdParty/Glm\"";
 				INFOPLIST_FILE = "OpenGLES-IOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -308,6 +365,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNSMQM4897;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OpenGLES-IOS/3rdParty/Glm\"";
 				INFOPLIST_FILE = "OpenGLES-IOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
