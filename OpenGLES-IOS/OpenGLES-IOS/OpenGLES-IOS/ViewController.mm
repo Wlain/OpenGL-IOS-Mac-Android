@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#include "Scene.hpp"
+#import "Scene.hpp"
+#import "Base.h"
 
 GLubyte* LoadFileContent(const char *filePath, int &filesize) {
     unsigned char *fileContent = nullptr;
@@ -22,6 +23,10 @@ GLubyte* LoadFileContent(const char *filePath, int &filesize) {
         fileContent[dataSize] = '\0';
     }
     return fileContent;
+}
+
+float GetFrameTime() {
+    return 1.0f / 60.0f;
 }
 
 
