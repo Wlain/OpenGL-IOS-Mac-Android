@@ -11,6 +11,7 @@
 #import "Base.h"
 
 GLubyte* LoadFileContent(const char *filePath, int &filesize) {
+    assert(filePath);
     unsigned char *fileContent = nullptr;
     filesize = 0;
     NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filePath] ofType:nil];
@@ -29,6 +30,54 @@ float GetFrameTime() {
     return 1.0f / 60.0f;
 }
 
+GLuint GetTextureFromPNGFile(const char *path, bool flipVertical) {
+    GLuint textureID = 0;
+    NSString *fileName = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil];
+    // 1.将 UiImgae 转换成 CGImageRef
+    UIImage *image = [UIImage imageNamed:fileName];
+    CGImageRef imageRef = [image CGImage];
+    if (imageRef == nil) {
+        NSLog(@"Failed to load Image %@", fileName);
+        return textureID;
+    }
+    // 2.读取图片的宽高
+    unsigned long width = CGImageGetWidth(imageRef);
+    unsigned long height = CGImageGetHeight(imageRef);
+    // 3.申请内存创建图片
+    GLubyte *imageData = (GLubyte *)malloc(width * height * 4 * sizeof(GLubyte));
+    memset(imageData, 0, width * height * 4 * sizeof(GLubyte));
+    // 获取图片的rect
+    CGRect rect = CGRectMake(0, 0, width, height);
+    // 获取图片的颜色空间
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    // 4.创建上下文
+    CGContextRef context = CGBitmapContextCreate(imageData, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    // 5.将图片翻转过来(图片默认是倒置的)
+    if (flipVertical) {
+        CGContextTranslateCTM(context, 0, height);
+        CGContextScaleCTM(context, 1.0f, -1.0f);
+    }
+    // 6.对图片进行重新绘制，得到一张新的解压缩后的位图
+    // 绘制前清屏
+    CGContextClearRect(context, rect);
+    CGContextDrawImage(context, rect, imageRef);
+    CGContextRelease(context);
+    // 7.绑定纹理ID
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    // 8.将内存的2D纹理数据载入GPU显存
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    // 9.设置纹理属性
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    // 10.释放资源
+    free(imageData);
+    return textureID;
+}
 
 @interface ViewController ()
 @property(nonatomic, strong) EAGLContext *context;

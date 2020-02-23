@@ -8,7 +8,8 @@
 
 #ifndef Base_h
 #define Base_h
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #include "glm.hpp"
 #include "ext.hpp"
 #include <OpenGLES/ES2/gl.h>
