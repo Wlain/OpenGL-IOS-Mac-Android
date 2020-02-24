@@ -12,7 +12,7 @@ uniform mat4 u_worldViewProjectionMatrix;
 varying vec2 v_texcoord;
 
 void main(void) {
-    v_texcoord = a_texCoord;
+    v_texcoord = a_texCoord.xy;
     gl_Position = u_worldViewProjectionMatrix * a_position;
 }
 

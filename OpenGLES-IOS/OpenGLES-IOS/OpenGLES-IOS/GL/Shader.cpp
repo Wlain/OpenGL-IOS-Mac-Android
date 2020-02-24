@@ -90,6 +90,22 @@ GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
     return shader;
 }
 
+void Shader::SetTexture(const char *name, const char *imagePath) {
+    auto iter = mUniformTexture.find(name);
+    if (iter == mUniformTexture.end()) {
+        GLint location = glGetUniformLocation(mProgram, name);
+        if (location != -1) {
+            UniformTexture *texture = new UniformTexture();
+            texture->mLocation = location;
+            texture->mTexture = GetTextureFromFile(imagePath, true);
+            mUniformTexture.insert(std::pair<std::string, UniformTexture *>(name, texture));
+        }
+    } else {
+        glDeleteTextures(1, &iter->second->mTexture);
+        iter->second->mTexture = GetTextureFromFile(imagePath, true);
+    }
+}
+
 void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) {
     int fileSize = 0;
     const char *vertShaderSource = (char *)LoadFileContent(vertShaderPath, fileSize);
@@ -119,9 +135,15 @@ void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) 
     }
 }
 
-void Shader::Bind(float *mvpMatrix) {
+void Shader::Bind(glm::mat4 &mvpMatrix) {
     glUseProgram(mProgram);
-    glUniformMatrix4fv(mWorldViewProjectionMatrixLocation, 1, GL_FALSE, mvpMatrix);
+    int index = 0;
+    for (auto iter = mUniformTexture.begin(); iter != mUniformTexture.end(); ++iter) {
+        glActiveTexture(GL_TEXTURE0 + index);
+        glBindTexture(GL_TEXTURE_2D, iter->second->mTexture);
+        glUniform1i(iter->second->mLocation, index++);
+    }
+    glUniformMatrix4fv(mWorldViewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
     glEnableVertexAttribArray(mPositionLocation);
     glVertexAttribPointer(mPositionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
     glEnableVertexAttribArray(mTexCoordLocation);

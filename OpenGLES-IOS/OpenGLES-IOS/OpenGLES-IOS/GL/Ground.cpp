@@ -6,7 +6,7 @@
 //  Copyright © 2020 william. All rights reserved.
 //
 
-#include "ground.hpp"
+#include "Ground.hpp"
 Ground::Ground() {
     
 }
@@ -50,7 +50,7 @@ void Ground::Initialize() {
 void Ground::Draw(glm::mat4 &viewProjectionMatrix) {
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    mShader->Bind(glm::value_ptr(viewProjectionMatrix));
+    mShader->Bind(viewProjectionMatrix);
     for (int i = 0; i < 400; ++i) {
         glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
     }

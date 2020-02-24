@@ -29,10 +29,10 @@ GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
 /// 获取帧间隔
 float GetFrameTime();
 
-/// 根据图片地址获取纹理id
+/// 根据图片地址获取纹理id, 支持PNG,JPG
 /// @param path 图片文件路径
 /// @param flipVertical 是否翻转图片
-GLuint GetTextureFromPNGFile(const char *path, bool flipVertical);
+GLuint GetTextureFromFile(const char *path, bool flipVertical);
 
 /// 生成一张RGBA图片纹理
 /// @param width 纹理宽

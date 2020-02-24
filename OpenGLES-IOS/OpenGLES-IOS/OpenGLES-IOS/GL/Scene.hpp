@@ -12,5 +12,6 @@
 void Initialize();
 void SetViewPort(float width, float height);
 void Draw();
+void Finalize();
 
 #endif /* Scene_hpp */

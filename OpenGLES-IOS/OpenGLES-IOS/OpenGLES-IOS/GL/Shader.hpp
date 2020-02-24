@@ -11,6 +11,15 @@
 
 #include "Base.h"
 
+typedef struct UniformTexture {
+    GLint mLocation;
+    GLuint mTexture;
+    UniformTexture() {
+        mLocation = -1; // 纹理位置
+        mTexture = 0;   // 纹理对象
+    }
+};
+
 class Shader {
 public:
     Shader();
@@ -27,13 +36,13 @@ public:
     void SetNormalLocation(GLint location);
     GLint GetWorldViewProjectionMatrixLocation() const;
     void SetWorldViewProjectionMatrixLocation(GLint location);
+    void SetTexture(const char *name, const char *imagePath);
     void Initialize(const char *vertShaderPath, const char *fragShaderPath);
-    void Bind(float *mvpMatrix);
-    
+    void Bind(glm::mat4 &mvpMatrix);
 protected:
     GLuint CompileShader(GLenum shaderType, const char*shaderCode);
-    
 private:
+    std::map<std::string, UniformTexture *> mUniformTexture;
     GLuint mProgram;
     // location 默认是-1
     GLint mPositionLocation;

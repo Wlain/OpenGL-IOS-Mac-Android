@@ -10,45 +10,34 @@
 #include "Base.h"
 #include "Utils.hpp"
 #include "Ground.hpp"
+#include "Shader.hpp"
 
-GLuint vbo;
-GLuint ebo;
-GLuint program;
-GLint positionLocation;
-GLint worldViewProjectionMatrixLocation;
-GLuint texCoordLocation;
-GLuint textureLocation;
 GLuint texture;
-GLuint texture2;
+GLint textureLocation;
 glm::mat4 modelViewMatrix;
 glm::mat4 projectionMatrix;
 glm::mat4 worldViewProjectionMatrix;
 Ground ground;
+Shader *shader;
+VertexBuffer *vertexBuffer;
 
 void Initialize() {
-    const float vertexes[] = {
-        -0.5f, -0.5f, -4.0f, 1.0f, 0.0f, 0.0f,
-         0.5f, -0.5f, -4.0f, 1.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, -4.0f, 1.0f, 0.0f, 1.0f,
-         0.5f,  0.5f, -4.0f, 1.0f, 1.0f, 1.0f,
-    };
-    const unsigned short indexes[] = {
-        0, 1, 2, 1, 2, 3,
-    };
-    // create vbo
-    vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertexes), GL_STATIC_DRAW, (void *)vertexes);
-    // create ebo
-    ebo = CreateBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), GL_STATIC_DRAW, (void *)indexes);
-    GLuint vertShader = CompileShader(GL_VERTEX_SHADER, "Resource/Shader/textured.vert");
-    GLuint fragShader = CompileShader(GL_FRAGMENT_SHADER, "Resource/Shader/textured.frag");
-    program = CreateProgram(vertShader, fragShader);
-    glDeleteShader(vertShader);
-    glDeleteShader(fragShader);
-    positionLocation = glGetAttribLocation(program, "a_position");
-    texCoordLocation = glGetAttribLocation(program, "a_texCoord");
-    worldViewProjectionMatrixLocation = glGetUniformLocation(program, "u_worldViewProjectionMatrix");
-    textureLocation = glGetUniformLocation(program, "u_texture");
-    texture = GetTextureFromPNGFile("Resource/UI/logo.png", true);
+    vertexBuffer = new VertexBuffer();
+    shader = new Shader();
+    vertexBuffer->SetSize(4);
+    vertexBuffer->SetPosition(0, -0.5f, -0.5f, -4.0f);
+    vertexBuffer->SetTexCoord(0, 0.0f, 0.0f);
+    vertexBuffer->SetPosition(1, 0.5f, -0.5f, -4.0f);
+    vertexBuffer->SetTexCoord(1, 1.0f, 0.0f);
+    vertexBuffer->SetPosition(2, -0.5f,  0.5f, -4.0f);
+    vertexBuffer->SetTexCoord(2, 0.0f, 1.0f);
+    vertexBuffer->SetPosition(3, 0.5f,  0.5f, -4.0f);
+    vertexBuffer->SetTexCoord(3, 1.0f, 1.0f);
+    modelViewMatrix = glm::translate(0.0f, 0.0f, -0.6f);
+    shader->Initialize("Resource/Shader/textured.vert", "Resource/Shader/textured.frag");
+    shader->SetTexture("u_texture", "Resource/UI/logo.png");
+    shader->SetTexture("u_diffuseTexture", "Resource/UI/Skybox/back.jpg");
+    shader->SetTexture("u_mask", "Resource/UI/mask.png");
     ground.Initialize();
 }
 
@@ -63,18 +52,14 @@ void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ground.Draw(worldViewProjectionMatrix);
-    glUseProgram(program);
-    glUniformMatrix4fv(worldViewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(worldViewProjectionMatrix));
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(textureLocation, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glEnableVertexAttribArray(positionLocation);
-    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void *)0);
-    glEnableVertexAttribArray(texCoordLocation);
-    glVertexAttribPointer(texCoordLocation, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void *)(0 + 4 * sizeof(float)));
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_SHORT, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    vertexBuffer->Bind();
+    shader->Bind(worldViewProjectionMatrix);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    vertexBuffer->Unbind();
     glUseProgram(0);
+}
+
+void Finalize() {
+    SAFE_DELETE(vertexBuffer);
+    SAFE_DELETE(shader);
 }

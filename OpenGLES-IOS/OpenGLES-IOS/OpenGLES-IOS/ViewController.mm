@@ -30,7 +30,7 @@ float GetFrameTime() {
     return 1.0f / 60.0f;
 }
 
-GLuint GetTextureFromPNGFile(const char *path, bool flipVertical) {
+GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     GLuint textureID = 0;
     NSString *fileName = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil];
     // 1.将 UiImgae 转换成 CGImageRef
