@@ -21,7 +21,7 @@ GLuint CompileShader(GLenum shaderType, const char *shaderPath){
     int nFileSize = 0;
     const GLchar* shaderCode = (GLchar*)LoadFileContent(shaderPath, nFileSize);
     if (shaderCode == nullptr){
-        printf("load shader code from file : %s fail\n", shaderPath);
+        printf("load shader code from file :\n %s fail\n", shaderPath);
         glDeleteShader(shader);
         return 0;
     }
@@ -93,6 +93,16 @@ GLuint CreateProceduretexture(GLsizei width, GLsizei height) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     glBindTexture(GL_TEXTURE_2D, 0);
-    delete[] imageData;
+    SAFE_DELETE_ARRAY(imageData)
     return texture;
+}
+
+
+GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void *data) {
+    GLuint object;
+    glGenBuffers(1, &object);
+    glBindBuffer(bufferType, object);
+    glBufferData(bufferType, size, data, usage);
+    glBindBuffer(bufferType, 0);
+    return object;
 }

@@ -39,4 +39,12 @@ GLuint GetTextureFromPNGFile(const char *path, bool flipVertical);
 /// @param height 纹理高
 GLuint CreateProceduretexture(GLsizei width, GLsizei height);
 
+
+/// 创建一个缓冲对象
+/// @param bufferType bufferType
+/// @param size size
+/// @param usage usage
+GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void *data);
+
+
 #endif /* Utils_hpp */

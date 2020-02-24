@@ -8,7 +8,8 @@
 
 #ifndef Scene_hpp
 #define Scene_hpp
-void Init();
+
+void Initialize();
 void SetViewPort(float width, float height);
 void Draw();
 

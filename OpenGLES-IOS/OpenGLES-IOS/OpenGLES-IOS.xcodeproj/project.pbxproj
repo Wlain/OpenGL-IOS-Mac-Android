@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0B1E3F240263780071D9B9 /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E3D240263780071D9B9 /* VertexBuffer.cpp */; };
+		3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E40240266610071D9B9 /* Ground.cpp */; };
+		3D0B1E4524027F330071D9B9 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E4324027F330071D9B9 /* Shader.cpp */; };
 		3D6E94942401350A000222B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94932401350A000222B4 /* AppDelegate.m */; };
 		3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94962401350A000222B4 /* SceneDelegate.m */; };
 		3D6E949A2401350A000222B4 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94992401350A000222B4 /* ViewController.mm */; };
@@ -22,6 +25,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D0B1E3D240263780071D9B9 /* VertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBuffer.cpp; sourceTree = "<group>"; };
+		3D0B1E3E240263780071D9B9 /* VertexBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexBuffer.hpp; sourceTree = "<group>"; };
+		3D0B1E40240266610071D9B9 /* Ground.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
+		3D0B1E41240266610071D9B9 /* Ground.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ground.hpp; sourceTree = "<group>"; };
+		3D0B1E4324027F330071D9B9 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		3D0B1E4424027F330071D9B9 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		3D6E948F2401350A000222B4 /* OpenGLES-IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGLES-IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6E94922401350A000222B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D6E94932401350A000222B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -120,6 +129,12 @@
 			children = (
 				3DF3664924016281001B2256 /* Scene.cpp */,
 				3DF3664A24016281001B2256 /* Scene.hpp */,
+				3D0B1E3D240263780071D9B9 /* VertexBuffer.cpp */,
+				3D0B1E3E240263780071D9B9 /* VertexBuffer.hpp */,
+				3D0B1E40240266610071D9B9 /* Ground.cpp */,
+				3D0B1E41240266610071D9B9 /* Ground.hpp */,
+				3D0B1E4324027F330071D9B9 /* Shader.cpp */,
+				3D0B1E4424027F330071D9B9 /* Shader.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -205,6 +220,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF3664B24016281001B2256 /* Scene.cpp in Sources */,
+				3D0B1E4524027F330071D9B9 /* Shader.cpp in Sources */,
+				3D0B1E3F240263780071D9B9 /* VertexBuffer.cpp in Sources */,
+				3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */,
 				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
 				3D6E94942401350A000222B4 /* AppDelegate.m in Sources */,
 				3D6E94A52401350C000222B4 /* main.m in Sources */,

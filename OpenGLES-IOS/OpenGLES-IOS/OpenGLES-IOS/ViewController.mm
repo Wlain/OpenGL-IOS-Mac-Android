@@ -75,7 +75,7 @@ GLuint GetTextureFromPNGFile(const char *path, bool flipVertical) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_2D, 0);
     // 10.释放资源
-    free(imageData);
+    SAFE_FREE(imageData);
     return textureID;
 }
 
@@ -99,7 +99,7 @@ GLuint GetTextureFromPNGFile(const char *path, bool flipVertical) {
     // 初始化深度缓冲区为24bit
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     [EAGLContext setCurrentContext:self.context];
-    Init();
+    Initialize();
     CGRect rect = [[UIScreen mainScreen] bounds];
     SetViewPort(rect.size.width, rect.size.height);
 }
