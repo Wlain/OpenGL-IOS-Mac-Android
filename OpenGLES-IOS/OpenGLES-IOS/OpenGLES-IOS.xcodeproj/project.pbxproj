@@ -10,6 +10,7 @@
 		3D0B1E3F240263780071D9B9 /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E3D240263780071D9B9 /* VertexBuffer.cpp */; };
 		3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E40240266610071D9B9 /* Ground.cpp */; };
 		3D0B1E4524027F330071D9B9 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E4324027F330071D9B9 /* Shader.cpp */; };
+		3D0B1E482403F4FC0071D9B9 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E462403F4FC0071D9B9 /* Model.cpp */; };
 		3D6E94942401350A000222B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94932401350A000222B4 /* AppDelegate.m */; };
 		3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94962401350A000222B4 /* SceneDelegate.m */; };
 		3D6E949A2401350A000222B4 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94992401350A000222B4 /* ViewController.mm */; };
@@ -31,6 +32,8 @@
 		3D0B1E41240266610071D9B9 /* Ground.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ground.hpp; sourceTree = "<group>"; };
 		3D0B1E4324027F330071D9B9 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		3D0B1E4424027F330071D9B9 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		3D0B1E462403F4FC0071D9B9 /* Model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		3D0B1E472403F4FC0071D9B9 /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
 		3D6E948F2401350A000222B4 /* OpenGLES-IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGLES-IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6E94922401350A000222B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D6E94932401350A000222B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 				3D0B1E41240266610071D9B9 /* Ground.hpp */,
 				3D0B1E4324027F330071D9B9 /* Shader.cpp */,
 				3D0B1E4424027F330071D9B9 /* Shader.hpp */,
+				3D0B1E462403F4FC0071D9B9 /* Model.cpp */,
+				3D0B1E472403F4FC0071D9B9 /* Model.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
 				3D6E94942401350A000222B4 /* AppDelegate.m in Sources */,
 				3D6E94A52401350C000222B4 /* main.m in Sources */,
+				3D0B1E482403F4FC0071D9B9 /* Model.cpp in Sources */,
 				3D6E94B424015682000222B4 /* Utils.cpp in Sources */,
 				3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */,
 			);

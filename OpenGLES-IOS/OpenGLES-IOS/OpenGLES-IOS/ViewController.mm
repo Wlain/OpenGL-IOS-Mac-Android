@@ -106,6 +106,7 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
 
 - (void)dealloc
 {
+    Finalize();
     if ([EAGLContext currentContext] == self.context)
     {
         [EAGLContext setCurrentContext:nil];
