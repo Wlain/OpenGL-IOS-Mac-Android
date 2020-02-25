@@ -91,18 +91,39 @@ GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
 }
 
 void Shader::SetTexture(const char *name, const char *imagePath) {
-    auto iter = mUniformTexture.find(name);
-    if (iter == mUniformTexture.end()) {
+    auto iter = mUniformTextures.find(name);
+    if (iter == mUniformTextures.end()) {
         GLint location = glGetUniformLocation(mProgram, name);
         if (location != -1) {
             UniformTexture *texture = new UniformTexture();
             texture->mLocation = location;
             texture->mTexture = GetTextureFromFile(imagePath, true);
-            mUniformTexture.insert(std::pair<std::string, UniformTexture *>(name, texture));
+            mUniformTextures.insert(std::pair<std::string, UniformTexture *>(name, texture));
         }
     } else {
         glDeleteTextures(1, &iter->second->mTexture);
         iter->second->mTexture = GetTextureFromFile(imagePath, true);
+    }
+}
+
+void Shader::Setvector4(const char *name, float x, float y, float z, float w) {
+    auto iter = mUniformVector4s.find(name);
+    if (iter == mUniformVector4s.end()) {
+        GLint location = glGetUniformLocation(mProgram, name);
+        if (location != -1) {
+            UniformVector4 *vector4 = new UniformVector4();
+            vector4->mLocation = location;
+            vector4->v[0] = x;
+            vector4->v[1] = y;
+            vector4->v[2] = z;
+            vector4->v[3] = w;
+            mUniformVector4s.insert(std::pair<std::string, UniformVector4 *>(name, vector4));
+        }
+    } else {
+        iter->second->v[0] = x;
+        iter->second->v[1] = y;
+        iter->second->v[2] = z;
+        iter->second->v[3] = w;
     }
 }
 
@@ -138,10 +159,13 @@ void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) 
 void Shader::Bind(glm::mat4 &mvpMatrix) {
     glUseProgram(mProgram);
     int index = 0;
-    for (auto iter = mUniformTexture.begin(); iter != mUniformTexture.end(); ++iter) {
+    for (auto iter = mUniformTextures.begin(); iter != mUniformTextures.end(); ++iter) {
         glActiveTexture(GL_TEXTURE0 + index);
         glBindTexture(GL_TEXTURE_2D, iter->second->mTexture);
         glUniform1i(iter->second->mLocation, index++);
+    }
+    for (auto iter = mUniformVector4s.begin(); iter != mUniformVector4s.end(); ++iter) {
+        glUniform4fv(iter->second->mLocation, 1, iter->second->v);
     }
     glUniformMatrix4fv(mWorldViewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
     glEnableVertexAttribArray(mPositionLocation);

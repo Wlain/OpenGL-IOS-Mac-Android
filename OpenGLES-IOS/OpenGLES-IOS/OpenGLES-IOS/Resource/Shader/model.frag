@@ -11,21 +11,30 @@ precision mediump float;
 #endif
 ///////////////////////////////////////////////////////////
 // Uniforms
-//uniform sampler2D u_texture;
-//uniform sampler2D u_diffuseTexture;
-//uniform sampler2D u_mask;
+uniform sampler2D u_texture;
+uniform vec4 u_ambientColor;
+uniform vec4 u_diffuseColor;
+uniform vec4 u_ambientMaterial;
+uniform vec4 u_diffuseMaterial;
+uniform vec4 u_lightPosition;
 
 
 ///////////////////////////////////////////////////////////
 //varying
 varying vec2 v_texcoord;
 varying vec4 v_color;
+varying vec4 v_normal;
+
 
 void main()
 {
-//    vec4 texture = texture2D(u_texture, v_texcoord);
-//    vec4 diffuseTexture = texture2D(u_diffuseTexture, v_texcoord);
-//    float alpha = texture2D(u_mask, v_texcoord).r;
-//    gl_FragColor = vec4(mix(texture.rgb, diffuseTexture.rbg, alpha), 1.0);
-    gl_FragColor = vec4(1.0);
+    vec4 color = vec4(0.0);
+    vec4 ambientColor = u_ambientColor * u_ambientMaterial;
+    vec3 lightPosition = normalize(u_lightPosition.xyz);;
+    vec3 normal = normalize(v_normal.xyz);
+    // 光线强度
+    float diffuseIntensity = max(0.0, dot(lightPosition, normal));
+    vec4 diffuseColor = u_diffuseColor * u_diffuseMaterial * diffuseIntensity;
+    color = diffuseColor + ambientColor;
+    gl_FragColor = color;
 }

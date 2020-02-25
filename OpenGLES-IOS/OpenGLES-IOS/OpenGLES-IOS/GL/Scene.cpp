@@ -22,8 +22,8 @@ Model model;
 
 void Initialize() {
     ground.Initialize();
-    model.Initialize("Resource/UI/Model/soccerball.obj");
-    model.SetPosition(0.0f, 0.0f, -50.0f);
+    model.Initialize("Resource/UI/Model/Sphere.obj");
+    model.SetPosition(0.0f, 0.0f, -10.0f);
 }
 
 void SetViewPort(float width, float height) {
