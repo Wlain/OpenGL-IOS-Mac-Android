@@ -12,13 +12,14 @@ uniform mat4 u_projectionMatrix;
 
 ///////////////////////////////////////////////////////////
 //varying
-varying vec2 v_texcoord;
 varying vec4 v_color;
+varying vec3 v_normal;
+varying vec3 v_worldPosition;
 
 void main(void) {
-    v_texcoord = a_texCoord.xy;
     v_color = a_color;
-    vec4 normal = a_normal;
+    v_normal = a_normal.xyz;
+    v_worldPosition = (u_modelMatrix * a_position).xyz;
     gl_Position = u_projectionMatrix * u_viewMatrix * u_modelMatrix * a_position;
 }
 
