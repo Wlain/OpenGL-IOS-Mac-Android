@@ -34,6 +34,7 @@ varying vec4 v_worldPosition;
 
 void main()
 {
+    vec4 texture = texture2D(u_texture, v_texcoord);
     vec4 color = vec4(0.0);
     // 环境光
     vec4 ambientColor = u_ambientColor * u_ambientMaterial;
@@ -50,6 +51,11 @@ void main()
         vec3 viewOrientation = normalize(u_cameraPosition.xyz - v_worldPosition.xyz);
         specularColor = u_specularColor * u_specularMaterial * pow(max(0.0, dot(reflectOrientation, viewOrientation)), u_optionalParam.x);
     }
-    color = ambientColor + diffuseColor + specularColor;
+    if (u_optionalParam.w == 1.0) {
+        color = ambientColor + diffuseColor * texture + specularColor;
+    } else {
+        color = (ambientColor + diffuseColor) * texture;
+    }
+    
     gl_FragColor = color;
 }

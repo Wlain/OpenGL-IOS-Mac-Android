@@ -124,11 +124,11 @@ void Model::Initialize(const char *modelPath) {
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
     mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_ambientMaterial", 0.1f, 0.1f, 0.1f, 1.0f);
-    mShader->Setvector4("u_diffuseMaterial", 0.6f, 0.6f, 0.6f, 1.0f);
-    mShader->Setvector4("u_specularMaterial", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_cameraPosition", 0.0f, 0.0f, 0.0f, 1.0f);
     mShader->Setvector4("u_optionalParam", 32.0f, 0.0f, 0.0f, 0.0f);
+    SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
+    SetDiffuseMaterial(0.6f, 0.6f, 0.6f, 1.0f);
+    SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 
@@ -144,4 +144,21 @@ void Model::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
 
 void Model::SetPosition(float x, float y, float z) {
     mModelMatrix = glm::translate(x, y, z);
+}
+
+
+void Model::SetAmbientMaterial(float r, float g, float b, float a) {
+    mShader->Setvector4("u_ambientMaterial", r, g, b, a);
+}
+
+void Model::SetDiffuseMaterial(float r, float g, float b, float a) {
+     mShader->Setvector4("u_diffuseMaterial", r, g, b, a);
+}
+
+void Model::SetSpecularMaterial(float r, float g, float b, float a) {
+    mShader->Setvector4("u_specularMaterial", r, g, b, a) ;
+}
+
+void Model::SetTexture(const char *imagePath) {
+    mShader->SetTexture("u_texture", imagePath);
 }
