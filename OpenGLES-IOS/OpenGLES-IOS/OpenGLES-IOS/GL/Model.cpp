@@ -125,7 +125,7 @@ void Model::Initialize(const char *modelPath) {
     mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
     mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_cameraPosition", 0.0f, 0.0f, 0.0f, 1.0f);
-    mShader->Setvector4("u_optionalParam", 32.0f, 0.0f, 0.0f, 0.0f);
+    mShader->Setvector4("u_optionalParam", 30.0f, 0.0f, 0.0f, 0.0f);
     SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
     SetDiffuseMaterial(0.6f, 0.6f, 0.6f, 1.0f);
     SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);

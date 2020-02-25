@@ -51,7 +51,7 @@ void main()
         vec3 viewOrientation = normalize(u_cameraPosition.xyz - v_worldPosition.xyz);
         specularColor = u_specularColor * u_specularMaterial * pow(max(0.0, dot(reflectOrientation, viewOrientation)), u_optionalParam.x);
     }
-    if (u_optionalParam.w == 1.0) {
+    if (u_optionalParam.w == 0.0) {
         color = ambientColor + diffuseColor * texture + specularColor;
     } else {
         color = (ambientColor + diffuseColor) * texture;
