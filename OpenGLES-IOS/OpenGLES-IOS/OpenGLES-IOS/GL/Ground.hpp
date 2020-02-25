@@ -17,11 +17,11 @@ public:
     Ground();
     ~Ground();
     void Initialize();
-    void Draw(glm::mat4 &viewProjectionMatrixLocation);
+    void Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 private:
+    glm::mat4 mModelMatrix;
     VertexBuffer *mVertexBuffer;
     Shader *mShader;
-    glm::mat4 mModelMatrix;
 };
 
 #endif /* ground_hpp */

@@ -16,7 +16,9 @@ mColorLocation(-1),
 mNormalLocation(-1),
 mTexCoordLocation(-1),
 mPositionLocation(-1),
-mWorldViewProjectionMatrixLocation(-1){
+mModelMatrixLocation(-1),
+mViewMatrixLocation(-1),
+mProjectionMatrixLocation(-1){
     
 }
 
@@ -65,12 +67,29 @@ void Shader::SetNormalLocation(GLint location) {
     this->mNormalLocation = location;
 }
 
-GLint Shader::GetWorldViewProjectionMatrixLocation() const {
-    return this->mWorldViewProjectionMatrixLocation;
+
+GLint Shader::GetModelMatrixLocation() const {
+    return this->mModelMatrixLocation;
 }
 
-void Shader::SetWorldViewProjectionMatrixLocation(GLint location) {
-    this->mWorldViewProjectionMatrixLocation = location;
+void Shader::SetModelMatrixLocation(GLint location) {
+     this->mModelMatrixLocation = location;
+}
+
+GLint Shader::GetViewMatrixLocation() const {
+     return this->mViewMatrixLocation;
+}
+
+void Shader::SetViewMatrixLocation(GLint location) {
+    this->mViewMatrixLocation = location;
+}
+
+GLint Shader::GetProjectionMatrixLocation() const {
+     return this->mProjectionMatrixLocation;
+}
+
+void Shader::SetProjectionMatrixLocation(GLint location) {
+    this->mProjectionMatrixLocation = location;
 }
 
 GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
@@ -152,11 +171,13 @@ void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) 
         mTexCoordLocation = glGetAttribLocation(mProgram, "a_texCoord");
         mNormalLocation = glGetAttribLocation(mProgram, "a_normal");
         mColorLocation = glGetAttribLocation(mProgram, "a_color");
-        mWorldViewProjectionMatrixLocation = glGetUniformLocation(mProgram, "u_worldViewProjectionMatrix");
+        mModelMatrixLocation = glGetUniformLocation(mProgram, "u_modelMatrix");
+        mViewMatrixLocation = glGetUniformLocation(mProgram, "u_viewMatrix");
+        mProjectionMatrixLocation = glGetUniformLocation(mProgram, "u_projectionMatrix");
     }
 }
 
-void Shader::Bind(glm::mat4 &mvpMatrix) {
+void Shader::Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glUseProgram(mProgram);
     int index = 0;
     for (auto iter = mUniformTextures.begin(); iter != mUniformTextures.end(); ++iter) {
@@ -167,7 +188,9 @@ void Shader::Bind(glm::mat4 &mvpMatrix) {
     for (auto iter = mUniformVector4s.begin(); iter != mUniformVector4s.end(); ++iter) {
         glUniform4fv(iter->second->mLocation, 1, iter->second->v);
     }
-    glUniformMatrix4fv(mWorldViewProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
+    glUniformMatrix4fv(mModelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    glUniformMatrix4fv(mViewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+    glUniformMatrix4fv(mProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glEnableVertexAttribArray(mPositionLocation);
     glVertexAttribPointer(mPositionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
     glEnableVertexAttribArray(mTexCoordLocation);

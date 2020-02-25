@@ -47,10 +47,10 @@ void Ground::Initialize() {
     }
     mShader->Initialize("Resource/Shader/ground.vert", "Resource/Shader/ground.frag");
 }
-void Ground::Draw(glm::mat4 &viewProjectionMatrix) {
+void Ground::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    mShader->Bind(viewProjectionMatrix);
+    mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
     for (int i = 0; i < 400; ++i) {
         glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
     }

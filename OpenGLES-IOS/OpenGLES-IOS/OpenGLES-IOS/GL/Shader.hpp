@@ -44,12 +44,16 @@ public:
     void SetColorLocation(GLint location);
     GLint GetNormalLocation() const;
     void SetNormalLocation(GLint location);
-    GLint GetWorldViewProjectionMatrixLocation() const;
-    void SetWorldViewProjectionMatrixLocation(GLint location);
+    GLint GetModelMatrixLocation() const;
+    void SetModelMatrixLocation(GLint location);
+    GLint GetViewMatrixLocation() const;
+    void SetViewMatrixLocation(GLint location);
+    GLint GetProjectionMatrixLocation() const;
+    void SetProjectionMatrixLocation(GLint location);
     void SetTexture(const char *name, const char *imagePath);
     void Setvector4(const char *name, float x, float y, float z, float w);
     void Initialize(const char *vertShaderPath, const char *fragShaderPath);
-    void Bind(glm::mat4 &mvpMatrix);
+    void Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 protected:
     GLuint CompileShader(GLenum shaderType, const char*shaderCode);
 private:
@@ -61,7 +65,9 @@ private:
     GLint mTexCoordLocation;
     GLint mColorLocation;
     GLint mNormalLocation;
-    GLint mWorldViewProjectionMatrixLocation;
+    GLint mModelMatrixLocation;
+    GLint mViewMatrixLocation;
+    GLint mProjectionMatrixLocation;
 };
 
 #endif /* Shader_hpp */

@@ -122,18 +122,21 @@ void Model::Initialize(const char *modelPath) {
     mShader->Initialize("Resource/Shader/model.vert", "Resource/Shader/model.frag");
     mShader->Setvector4("u_lightPosition", 0.0f, 1.0f, 1.0f, 0.0f);// 方向光
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
+    mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_ambientMaterial", 0.1f, 0.1f, 0.1f, 1.0f);
     mShader->Setvector4("u_diffuseMaterial", 0.6f, 0.6f, 0.6f, 1.0f);
+    mShader->Setvector4("u_specularMaterial", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_cameraPosition", 0.0f, 0.0f, 0.0f, 1.0f);
+    mShader->Setvector4("u_optionalParam", 32.0f, 0.0f, 0.0f, 0.0f);
 }
 
 
-void Model::Draw(glm::mat4 &viewProjectionMatrixLocation) {
+void Model::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    glm::mat4 mvpMatrix = viewProjectionMatrixLocation * mModelMatrix;
     glm::mat4 inverseTransposeMatrix = glm::inverseTranspose(mModelMatrix);
-    mShader->Bind(mvpMatrix);
+    mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
     glUniformMatrix4fv(glGetUniformLocation(mShader->GetProgram(), "u_inverseTransposeMatrix"), 1, GL_FALSE, glm::value_ptr(inverseTransposeMatrix));
     glDrawArrays(GL_TRIANGLES, 0, mVertexBuffer->mVertexCount);
     mVertexBuffer->Unbind();
