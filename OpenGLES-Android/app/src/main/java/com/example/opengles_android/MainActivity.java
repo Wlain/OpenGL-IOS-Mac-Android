@@ -14,17 +14,17 @@ class GLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        gl.glClearColor(1.0f, 0.4f, 0.6f, 1.0f);
+        Native.onSurfaceCreated();
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        gl.glViewport(0, 0, width, height);
+        Native.onSurfaceChanged(width, height);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+        Native.onDrawFrame();
     }
 }
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Native.initAssertManager(getAssets());
         mView = new GLSurfface(getApplication());
         setContentView(mView);
     }
