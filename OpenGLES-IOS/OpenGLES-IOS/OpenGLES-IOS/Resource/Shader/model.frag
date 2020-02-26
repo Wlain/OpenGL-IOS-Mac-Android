@@ -56,6 +56,5 @@ void main()
     } else {
         color = (ambientColor + diffuseColor) * texture;
     }
-    
     gl_FragColor = color;
 }
