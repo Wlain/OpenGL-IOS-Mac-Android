@@ -12,7 +12,7 @@
 
 AAssetManager *sAssertManager = nullptr;
 extern "C" JNIEXPORT void JNICALL
-Java_com_example_opengles_android_Native_initAssertManager(
+Java_com_example_opengles_1android_Native_initAssertManager(
         JNIEnv *env,
         jobject /* this */,
         jobject assetManager) {
@@ -20,7 +20,7 @@ Java_com_example_opengles_android_Native_initAssertManager(
 }
 
 extern  "C" JNIEXPORT void JNICALL
-Java_com_example_opengles_android_Native_onSurfaceCreated(
+Java_com_example_opengles_1android_Native_onSurfaceCreated(
         JNIEnv *env,
         jobject /* this */) {
     glClearColor(0.1f, 0.4f, 0.6f, 1.0f);
@@ -28,7 +28,7 @@ Java_com_example_opengles_android_Native_onSurfaceCreated(
 
 
 extern  "C" JNIEXPORT void JNICALL
-Java_com_example_opengles_android_Native_onSurfaceChanged(
+Java_com_example_opengles_1android_Native_onSurfaceChanged(
         JNIEnv *env,
         jobject /* this */,
         jfloat width,
@@ -37,7 +37,7 @@ Java_com_example_opengles_android_Native_onSurfaceChanged(
 }
 
 extern  "C" JNIEXPORT void JNICALL
-Java_com_example_opengles_android_Native_onDrawFrame(
+Java_com_example_opengles_1android_Native_onDrawFrame(
         JNIEnv *env,
         jobject /* this */) {
     glClear(GL_COLOR_BUFFER_BIT);
