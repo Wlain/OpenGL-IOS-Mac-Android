@@ -12,11 +12,13 @@
 #include "Ground.hpp"
 #include "Shader.hpp"
 #include "Model.hpp"
+#include "Skybox.hpp"
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 Ground ground;
 Model model;
+Skybox skybox;
 
 
 void Initialize() {
@@ -24,6 +26,7 @@ void Initialize() {
     model.Initialize("Resource/UI/Model/Sphere.obj");
     model.SetTexture("Resource/UI/earth.png");
     model.SetPosition(0.0f, 0.0f, -10.0f);
+    skybox.Initialize("Resource/UI/Skybox/");
 }
 
 void SetViewPort(float width, float height) {
@@ -35,6 +38,7 @@ void Draw() {
     float frameTime = GetFrameTime();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    skybox.Draw(viewMatrix, projectionMatrix);
     ground.Draw(viewMatrix, projectionMatrix);
     model.Draw(viewMatrix, projectionMatrix);
 }

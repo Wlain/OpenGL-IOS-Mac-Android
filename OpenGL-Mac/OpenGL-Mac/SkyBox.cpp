@@ -18,7 +18,6 @@ SkyBox::~SkyBox() {
 }
 
 
-
 void SkyBox::Initialize(const char *fileDir) {
     const unsigned int fileDirSize = 256;
     char temp[fileDirSize];
