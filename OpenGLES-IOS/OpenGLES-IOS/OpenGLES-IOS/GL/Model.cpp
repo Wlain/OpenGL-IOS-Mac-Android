@@ -124,7 +124,6 @@ void Model::Initialize(const char *modelPath) {
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
     mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_cameraPosition", 0.0f, 0.0f, 0.0f, 1.0f);
     mShader->Setvector4("u_optionalParam", 30.0f, 0.0f, 0.0f, 0.0f);
     SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
     SetDiffuseMaterial(0.6f, 0.6f, 0.6f, 1.0f);
@@ -132,7 +131,8 @@ void Model::Initialize(const char *modelPath) {
 }
 
 
-void Model::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+void Model::Draw( float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+    mShader->Setvector4("u_cameraPosition", x, y, z, 1.0);
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
     glm::mat4 inverseTransposeMatrix = glm::inverseTranspose(mModelMatrix);

@@ -16,16 +16,19 @@
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
+glm::vec3 eyePosition(0.0f, 0.0f, 20.0f);
+glm::vec3 targetPosition(0.0f, 0.0f, 0.0f);
+glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
 Ground ground;
 Model model;
 Skybox skybox;
 
-
 void Initialize() {
     ground.Initialize();
+    viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
     model.Initialize("Resource/UI/Model/Sphere.obj");
     model.SetTexture("Resource/UI/earth.png");
-    model.SetPosition(0.0f, 0.0f, -10.0f);
+    model.SetPosition(targetPosition.x, targetPosition.y, targetPosition.z);
     skybox.Initialize("Resource/UI/Skybox/");
 }
 
@@ -38,9 +41,9 @@ void Draw() {
     float frameTime = GetFrameTime();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    skybox.Draw(viewMatrix, projectionMatrix);
+    skybox.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
     ground.Draw(viewMatrix, projectionMatrix);
-    model.Draw(viewMatrix, projectionMatrix);
+    model.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 }
 
 void Finalize() {

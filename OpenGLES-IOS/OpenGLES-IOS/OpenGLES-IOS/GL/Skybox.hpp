@@ -24,7 +24,7 @@ public:
     void InitRight(const char *image);
     void InitTop(const char *image);
     void InitBottom(const char *image);
-    void Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void Draw(float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 private:
     VertexBuffer *mVertexBuffer;
     glm::mat4 mModelMatrix;

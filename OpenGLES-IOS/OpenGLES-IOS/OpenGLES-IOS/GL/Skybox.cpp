@@ -132,10 +132,11 @@ void Skybox::InitBottom(const char *image) {
     mVertexBuffer[5].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+void Skybox::Draw(float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glDisable(GL_DEPTH_TEST);
     for (int i = 0; i < 6; ++i) {
         mVertexBuffer[i].Bind();
+        mModelMatrix = glm::translate(x, y, z);
         mShader[i].Bind(mModelMatrix, viewMatrix, projectionMatrix);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         mVertexBuffer[i].Unbind();
