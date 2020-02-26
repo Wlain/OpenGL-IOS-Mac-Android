@@ -37,7 +37,7 @@ void main()
     lightDirection = normalize(lightDirection);
     vec3 normal = normalize(v_normal);
     float diffuseIntensity = max(0.0, dot(lightDirection, normal));
-    vec4 diffuseColor = u_diffuseColor * u_diffuseMaterial * diffuseIntensity * attenuation;
+    vec4 diffuseColor = u_diffuseColor * u_diffuseMaterial * diffuseIntensity * attenuation * 4.0;
     color = ambientColor + diffuseColor;
     gl_FragColor = color * v_color;
 }

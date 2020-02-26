@@ -16,19 +16,30 @@
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
-glm::vec3 eyePosition(0.0f, 0.0f, 1200.0f);
+glm::vec3 eyePosition(0.0f, 10.0f, 40.0f);
 glm::vec3 targetPosition(0.0f, 0.0f, 0.0f);
+glm::vec3 oxtargetPosition(0.0f, 2.0f, 0.0f);
 glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
 Ground ground;
 Model model;
+Model cattle;
+Model head;
 Skybox skybox;
 
 void Initialize() {
     ground.Initialize();
     viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
-    model.Initialize("Resource/UI/Model/head.obj");
-    model.SetTexture("Resource/UI/2.png");
+    model.Initialize("Resource/UI/Model/Sphere.obj");
+    model.SetTexture("Resource/UI/earth.png");
+    cattle.Initialize("Resource/UI/Model/ox.obj");
+    cattle.SetTexture("Resource/UI/ox.jpg");
+    head.Initialize("Resource/UI/Model/head.obj");
+    head.SetTexture("Resource/UI/2.png");
     model.SetPosition(targetPosition.x, targetPosition.y, targetPosition.z);
+    glm::mat4 oxModelMatrix = glm::translate(-5.0f, 0.0f, 4.0f) * glm::scale(0.05f, 0.05f, 0.05f);
+    glm::mat4 headModelMatrix = glm::translate(5.0f, 0.0f, 4.0f) * glm::scale(0.01f, -0.01f, -0.01f);
+    cattle.SetModelMatrix(oxModelMatrix);
+    head.SetModelMatrix(headModelMatrix);
     skybox.Initialize("Resource/UI/Skybox/");
 }
 
@@ -42,8 +53,10 @@ void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     skybox.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
-//    ground.Draw(viewMatrix, projectionMatrix);
+    ground.Draw(viewMatrix, projectionMatrix);
     model.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    cattle.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 }
 
 void Finalize() {

@@ -31,6 +31,23 @@ varying vec4 v_color;
 varying vec4 v_normal;
 varying vec4 v_worldPosition;
 
+// 获取点光源
+vec4 GetPointLight()
+{
+    float distance = 0.0;
+    float constantFactor = 1.0;
+    float linearFactor = 0.0;
+    float quadricFactor = 0.0;
+    vec4 ambientColor = vec4(1.0) * vec4(0.1,0.1,0.1,1.0);
+    vec3 lightOrientation = vec3(0.0,1.0,0.0) - v_worldPosition.xyz;
+    distance = length(lightOrientation);
+    float attenuation = 1.0 / (constantFactor + linearFactor * distance + quadricFactor * quadricFactor * distance);
+    lightOrientation = normalize(lightOrientation);
+    vec3 normal = normalize(v_normal.xyz);
+    float diffuseIntensity = max(0.0, dot(lightOrientation, normal));
+    vec4 diffuseColor = vec4(1.0) * vec4(0.1,0.4,0.6,1.0) * diffuseIntensity * attenuation;
+    return ambientColor + diffuseColor;
+}
 
 void main()
 {
@@ -52,7 +69,8 @@ void main()
         specularColor = u_specularColor * u_specularMaterial * pow(max(0.0, dot(reflectOrientation, viewOrientation)), u_optionalParam.x);
     }
     if (u_optionalParam.w == 0.0) {
-        color = ambientColor + diffuseColor * texture + specularColor;
+//        color = ambientColor + diffuseColor * texture + specularColor;
+        color = (ambientColor + diffuseColor + GetPointLight()) * texture;
     } else {
         color = (ambientColor + diffuseColor) * texture;
     }
