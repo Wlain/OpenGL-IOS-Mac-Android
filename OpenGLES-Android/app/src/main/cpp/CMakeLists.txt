@@ -17,7 +17,7 @@ add_library( # Specifies the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             opengl.cpp)
+             Opengl.cpp Base.h Scene.cpp Scene.h)
 
 # build application's shared lib
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
@@ -32,5 +32,6 @@ target_link_libraries( # Specifies the target library.
                         GLESv2)
 
 include_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glm
         ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/stb )
