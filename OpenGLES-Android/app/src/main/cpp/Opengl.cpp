@@ -1,9 +1,9 @@
 //
 // Created by william on 2020-02-25.
 //
-#include "Base.h"
-#include "Scene.h"
-#include "Utils.h"
+#include "Common/Base.h"
+#include "GL/Scene.h"
+#include "Common/Utils.h"
 
 AAssetManager *sAssertManager = nullptr;
 unsigned char* LoadFileContent(const char *filePath, int &fileSize) {

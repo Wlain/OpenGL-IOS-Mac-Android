@@ -5,7 +5,7 @@
 #ifndef OPENGLES_ANDROID_SCENE_H
 #define OPENGLES_ANDROID_SCENE_H
 
-#include "Base.h"
+#include "Common/Base.h"
 
 void Initialize();
 

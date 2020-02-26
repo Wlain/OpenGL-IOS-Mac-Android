@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Native.initAssertManager(getAssets());
+        Native.initAssertManager(getAssets());
         mView = new GLSurfface(getApplication());
         setContentView(mView);
     }
