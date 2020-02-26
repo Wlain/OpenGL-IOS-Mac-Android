@@ -1,7 +1,7 @@
 # OpenGL-IOS-Mac-Android
 OpenGL在mac和ios以及Andoid的实践
 
-在Mac（OpenGL），Android（OpenGLES），ios（OpenGLES）三个平台实现实现OpenGL基础渲染
+在Mac（OpenGL），Android（OpenGLES），IOS（OpenGLES）三个平台实现实OpenGL/OpenGLES的基础渲染.
 
 实现功能：
 
