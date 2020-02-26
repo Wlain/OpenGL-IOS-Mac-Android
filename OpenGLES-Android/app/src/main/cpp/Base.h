@@ -26,10 +26,19 @@
 #include <functional>
 #include "glm.hpp"
 #include "ext.hpp"
+#include "android_debug.h"
 
 
 #define MATH_TOLERANCE              2e-37f
 #define MATH_FLOAT_SMALL            1.0e-37f
 #define MATH_PI                     3.14159265
+
+static void checkGlError(const char* op) {
+    for (GLint error = glGetError(); error;error
+            = glGetError()) {
+        LOGI("after %s() glError (0x%x)\n", op, error);
+    }
+}
+
 
 #endif //BASE_H

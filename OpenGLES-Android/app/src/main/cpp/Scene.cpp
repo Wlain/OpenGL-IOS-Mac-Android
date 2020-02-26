@@ -7,14 +7,16 @@
 
 
 void Initialize() {
-
+    LOGD("Initialize");
 }
 
 void SetViewPortSize(float width, float height) {
+    LOGD("SetViewPortSize");
     glViewport(0, 0, width, height);
 }
 
 void Draw() {
     glClearColor(0.1f, 0.4f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    LOGD("draw");
 }
