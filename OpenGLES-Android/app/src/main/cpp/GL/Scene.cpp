@@ -7,6 +7,7 @@
 #include "Common/Utils.h"
 
 GLuint vbo;
+GLuint ebo;
 GLuint program;
 GLint positionLocation;
 GLint colorLocation;
@@ -17,15 +18,22 @@ glm::mat4 modelMatrix;
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 void Initialize() {
-    float vertices[] = {
+    const float vertices[] = {
             -0.2f, -0.2f, -2.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
              0.2f, -0.2f, -2.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
              0.0f,  0.2f, -2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+    };
+    const unsigned short indexes[] = {
+            0, 1, 2
     };
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     int filesize = 0;
     unsigned char *vertShaderSource = LoadFileContent("Resource/Shader/textured.vert", filesize);
     unsigned char *fragShaderSource = LoadFileContent("Resource/Shader/textured.frag", filesize);
@@ -62,7 +70,9 @@ void Draw() {
     glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)0);
     glEnableVertexAttribArray(colorLocation);
     glVertexAttribPointer(colorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)(sizeof(float) * (0 + 4)));
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+//    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
 }
