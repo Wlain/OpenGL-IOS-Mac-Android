@@ -4,6 +4,7 @@
 #include "Common/Base.h"
 #include "GL/Scene.h"
 #include "Common/Utils.h"
+#include <sys/time.h>
 
 AAssetManager *sAssertManager = nullptr;
 unsigned char* LoadFileContent(const char *filePath, int &fileSize) {
@@ -19,6 +20,17 @@ unsigned char* LoadFileContent(const char *filePath, int &fileSize) {
     fileContent[fileSize] = '\0';
     AAsset_close(asset);
     return fileContent;
+}
+
+float GetFrameTime() {
+    static double lastTime = 0;
+    static double currentTime = 0;
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    currentTime = t.tv_sec + t.tv_usec * 1e-6;;
+    double frameTime = lastTime == 0 ? 0 : currentTime - lastTime;
+    lastTime = currentTime;
+    return frameTime;
 }
 
 extern "C" JNIEXPORT void JNICALL

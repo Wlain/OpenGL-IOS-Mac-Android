@@ -49,6 +49,8 @@ void SetViewPortSize(float width, float height) {
 void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    const float frameTime = GetFrameTime();
+    LOGE("current fps: %f\n", 1.0 / frameTime);
     glUseProgram(program);
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));

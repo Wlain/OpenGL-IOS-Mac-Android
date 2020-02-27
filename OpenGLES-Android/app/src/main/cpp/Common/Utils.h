@@ -13,4 +13,6 @@ GLuint  CompileShader(GLenum shaderType, const char *shaderSource);
 
 GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
 
+float GetFrameTime();
+
 #endif //OPENGLES_ANDROID_UTILS_H
