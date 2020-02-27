@@ -10,25 +10,28 @@ GLuint vbo;
 GLuint ebo;
 GLuint program;
 GLint positionLocation;
-GLint colorLocation;
+GLint textureLocation;
+GLint texCoordLocation;
 GLint modelMatrixLocation;
 GLint viewMatrixLocation;
 GLint projectionMatrixLocation;
+GLuint texture;
 glm::mat4 modelMatrix;
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 void Initialize() {
-    const float vertices[] = {
-            -0.2f, -0.2f, -2.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-             0.2f, -0.2f, -2.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-             0.0f,  0.2f, -2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+    const float vertexes[] = {
+            -1.0f, -1.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+             1.0f, -1.0f, -5.0f, 1.0f, 1.0f, 0.0f,
+            -1.0f,  1.0f, -5.0f, 1.0f, 0.0f, 1.0f,
+             1.0f,  1.0f, -5.0f, 1.0f, 1.0f, 1.0f,
     };
     const unsigned short indexes[] = {
-            0, 1, 2
+            0, 1, 2, 2, 1, 3
     };
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexes), vertexes, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
@@ -45,10 +48,12 @@ void Initialize() {
     glDeleteShader(vertShader);
     glDeleteShader(fragShader);
     positionLocation = glGetAttribLocation(program, "a_position");
-    colorLocation = glGetAttribLocation(program, "a_color");
+    texCoordLocation = glGetAttribLocation(program, "a_texCoord");
     modelMatrixLocation = glGetUniformLocation(program, "u_modelMatrix");
     viewMatrixLocation = glGetUniformLocation(program, "u_viewMatrix");
     projectionMatrixLocation = glGetUniformLocation(program, "u_projectionMatrix");
+    textureLocation = glGetUniformLocation(program, "u_texture");
+    texture = CreateTextureFromFile("Resource/UI/logo.png", true);
 }
 
 void SetViewPortSize(float width, float height) {
@@ -60,19 +65,22 @@ void Draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     const float frameTime = GetFrameTime();
-    LOGE("current fps: %f\n", 1.0 / frameTime);
+//    LOGE("current fps: %f\n", 1.0 / frameTime);
     glUseProgram(program);
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glUniform1i(textureLocation, 0);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glEnableVertexAttribArray(positionLocation);
-    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)0);
-    glEnableVertexAttribArray(colorLocation);
-    glVertexAttribPointer(colorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)(sizeof(float) * (0 + 4)));
-//    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void *)0);
+    glEnableVertexAttribArray(texCoordLocation);
+    glVertexAttribPointer(texCoordLocation, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 6, (void *)(0 + 4 * sizeof(float)));
+//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
+    glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_SHORT, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
 }
