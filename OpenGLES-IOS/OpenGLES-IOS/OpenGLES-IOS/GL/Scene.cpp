@@ -59,6 +59,7 @@ void Draw() {
     model.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
     cattle.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
     head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    particle.Update(frameTime);
     particle.Draw(viewMatrix, projectionMatrix);
 }
 
