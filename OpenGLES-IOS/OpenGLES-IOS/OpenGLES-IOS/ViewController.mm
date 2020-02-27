@@ -27,7 +27,14 @@ GLubyte* LoadFileContent(const char *filePath, int &filesize) {
 }
 
 float GetFrameTime() {
-    return 1.0f / 60.0f;
+    static double lastTime = 0;
+    static double currentTime = 0;
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    currentTime = t.tv_sec + t.tv_usec * 1e-6;;
+    double frameTime = lastTime == 0 ? 0 : currentTime - lastTime;
+    lastTime = currentTime;
+    return frameTime;
 }
 
 GLuint GetTextureFromFile(const char *path, bool flipVertical) {
