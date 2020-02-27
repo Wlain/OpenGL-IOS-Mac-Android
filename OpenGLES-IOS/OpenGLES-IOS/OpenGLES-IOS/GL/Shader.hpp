@@ -50,6 +50,7 @@ public:
     void SetViewMatrixLocation(GLint location);
     GLint GetProjectionMatrixLocation() const;
     void SetProjectionMatrixLocation(GLint location);
+    void SetTexture(const char *name, GLuint texture);
     void SetTexture(const char *name, const char *imagePath);
     void Setvector4(const char *name, float x, float y, float z, float w);
     void Initialize(const char *vertShaderPath, const char *fragShaderPath);

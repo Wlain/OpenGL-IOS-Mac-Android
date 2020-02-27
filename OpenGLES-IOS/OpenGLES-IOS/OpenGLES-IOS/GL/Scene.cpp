@@ -13,18 +13,19 @@
 #include "Shader.hpp"
 #include "Model.hpp"
 #include "Skybox.hpp"
+#include "ParticleSystem.hpp"
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 glm::vec3 eyePosition(0.0f, 10.0f, 40.0f);
 glm::vec3 targetPosition(0.0f, 0.0f, 0.0f);
-glm::vec3 oxtargetPosition(0.0f, 2.0f, 0.0f);
 glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
 Ground ground;
 Model model;
 Model cattle;
 Model head;
 Skybox skybox;
+ParticleSystem particle;
 
 void Initialize() {
     ground.Initialize();
@@ -40,7 +41,8 @@ void Initialize() {
     glm::mat4 headModelMatrix = glm::translate(5.0f, 0.0f, 4.0f) * glm::scale(0.01f, -0.01f, -0.01f);
     cattle.SetModelMatrix(oxModelMatrix);
     head.SetModelMatrix(headModelMatrix);
-    skybox.Initialize("Resource/UI/Skybox/");
+    skybox.Initialize("Resource/UI/Skybox2/");
+    particle.Initialize(targetPosition.x, targetPosition.y, targetPosition.z);
 }
 
 void SetViewPort(float width, float height) {
@@ -57,6 +59,7 @@ void Draw() {
     model.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
     cattle.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
     head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    particle.Draw(viewMatrix, projectionMatrix);
 }
 
 void Finalize() {

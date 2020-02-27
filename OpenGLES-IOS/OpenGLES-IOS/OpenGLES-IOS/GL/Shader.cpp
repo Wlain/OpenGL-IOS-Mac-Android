@@ -109,20 +109,25 @@ GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
     return shader;
 }
 
-void Shader::SetTexture(const char *name, const char *imagePath) {
+void Shader::SetTexture(const char *name, GLuint texture) {
     auto iter = mUniformTextures.find(name);
-    if (iter == mUniformTextures.end()) {
-        GLint location = glGetUniformLocation(mProgram, name);
-        if (location != -1) {
-            UniformTexture *texture = new UniformTexture();
-            texture->mLocation = location;
-            texture->mTexture = GetTextureFromFile(imagePath, true);
-            mUniformTextures.insert(std::pair<std::string, UniformTexture *>(name, texture));
-        }
-    } else {
-        glDeleteTextures(1, &iter->second->mTexture);
-        iter->second->mTexture = GetTextureFromFile(imagePath, true);
-    }
+       if (iter == mUniformTextures.end()) {
+           GLint location = glGetUniformLocation(mProgram, name);
+           if (location != -1) {
+               UniformTexture *uniformTexture = new UniformTexture();
+               uniformTexture->mLocation = location;
+               uniformTexture->mTexture = texture;
+               mUniformTextures.insert(std::pair<std::string, UniformTexture *>(name, uniformTexture));
+           }
+       } else {
+           glDeleteTextures(1, &iter->second->mTexture);
+           iter->second->mTexture = texture;
+   }
+}
+
+void Shader::SetTexture(const char *name, const char *imagePath) {
+    GLuint texture = GetTextureFromFile(imagePath, true);
+    this->SetTexture(name, texture);
 }
 
 void Shader::Setvector4(const char *name, float x, float y, float z, float w) {
@@ -163,6 +168,7 @@ void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) 
     }
     SAFE_DELETE_ARRAY(vertShaderSource);
     SAFE_DELETE_ARRAY(fragShaderSource);
+    glGetError();
     mProgram = CreateProgram(vertShader, fragShader);
     glDeleteShader(vertShader);
     glDeleteShader(fragShader);
