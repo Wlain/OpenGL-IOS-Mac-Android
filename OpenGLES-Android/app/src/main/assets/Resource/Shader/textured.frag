@@ -11,19 +11,16 @@ precision mediump float;
 #endif
 ///////////////////////////////////////////////////////////
 // Uniforms
-uniform sampler2D u_texture;
-uniform sampler2D u_diffuseTexture;
-uniform sampler2D u_mask;
+//uniform sampler2D u_texture;
+
 
 
 ///////////////////////////////////////////////////////////
 //varying
 //varying vec2 v_texcoord;
+varying vec4 v_color;
 
 void main()
 {
-    // vec4 texture = texture2D(u_texture, v_texcoord);
-    // vec4 diffuseTexture = texture2D(u_diffuseTexture, v_texcoord);
-    // float alpha = texture2D(u_mask, v_texcoord).r;
-    gl_FragColor = vec4(1.0);
+    gl_FragColor = v_color;
 }

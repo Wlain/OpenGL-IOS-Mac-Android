@@ -9,6 +9,7 @@
 GLuint vbo;
 GLuint program;
 GLint positionLocation;
+GLint colorLocation;
 GLint modelMatrixLocation;
 GLint viewMatrixLocation;
 GLint projectionMatrixLocation;
@@ -17,9 +18,9 @@ glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 void Initialize() {
     float vertices[] = {
-            -0.2f, -0.2f, -2.0f, 1.0f,
-             0.2f, -0.2f, -2.0f, 1.0f,
-             0.0f,  0.2f, -2.0f, 1.0f
+            -0.2f, -0.2f, -2.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+             0.2f, -0.2f, -2.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+             0.0f,  0.2f, -2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
     };
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -36,6 +37,7 @@ void Initialize() {
     glDeleteShader(vertShader);
     glDeleteShader(fragShader);
     positionLocation = glGetAttribLocation(program, "a_position");
+    colorLocation = glGetAttribLocation(program, "a_color");
     modelMatrixLocation = glGetUniformLocation(program, "u_modelMatrix");
     viewMatrixLocation = glGetUniformLocation(program, "u_viewMatrix");
     projectionMatrixLocation = glGetUniformLocation(program, "u_projectionMatrix");
@@ -57,7 +59,9 @@ void Draw() {
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glEnableVertexAttribArray(positionLocation);
-    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)0);
+    glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)0);
+    glEnableVertexAttribArray(colorLocation);
+    glVertexAttribPointer(colorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *)(sizeof(float) * (0 + 4)));
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glUseProgram(0);
