@@ -12,30 +12,30 @@
 #include "Base.h"
 
 typedef struct _Vertex {
-    float position[4];
-    float texcoord[4];
-    float normal[4];
-    float color[4];
+    GLfloat position[4];
+    GLfloat texcoord[4];
+    GLfloat normal[4];
+    GLfloat color[4];
 } Vertex;
 
 class VertexBuffer {
 public:
     VertexBuffer();
     ~VertexBuffer();
-    int GetVertexCount() const;
-    void SetVertexCount(const int count);
+    GLint GetVertexCount() const;
+    void SetVertexCount(const GLint count);
     Vertex* GetVertexesPointer() const;
     void SetVertexes(const Vertex& vertexes);
-    void SetSize(int size);
-    void SetPosition(int index, float x, float y, float z, float w = 1.0f);
-    void SetColor(int index, float r, float g, float b, float a = 1.0f);
-    void SetTexCoord(int index, float x, float y);
-    void SetNormal(int index, float x, float y, float z);
+    void SetSize(GLint size);
+    void SetPosition(GLint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w = 1.0f);
+    void SetColor(GLint index, GLfloat r, GLfloat g, GLfloat b, GLfloat a = 1.0f);
+    void SetTexCoord(GLint index, GLfloat x, GLfloat y);
+    void SetNormal(GLint index, GLfloat x, GLfloat y, GLfloat z);
     void Bind();
     void Unbind();
 public:
     GLuint mVbo;
-    int mVertexCount;
+    GLint mVertexCount;
     Vertex *mVertexes;
 };
 

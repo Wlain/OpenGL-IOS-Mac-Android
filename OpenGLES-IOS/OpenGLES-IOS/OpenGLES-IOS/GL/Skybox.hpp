@@ -17,14 +17,14 @@ class Skybox {
 public:
     Skybox();
     ~Skybox();
-    void Initialize(const char *imageDir);
-    void InitFront(const char *image);
-    void InitBack(const char *image);
-    void InitLeft(const char *image);
-    void InitRight(const char *image);
-    void InitTop(const char *image);
-    void InitBottom(const char *image);
-    void Draw(float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
+    void Initialize(const GLchar *imageDir);
+    void InitFront(const GLchar *image);
+    void InitBack(const GLchar *image);
+    void InitLeft(const GLchar *image);
+    void InitRight(const GLchar *image);
+    void InitTop(const GLchar *image);
+    void InitBottom(const GLchar *image);
+    void Draw(GLfloat x, GLfloat y, GLfloat z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 private:
     VertexBuffer *mVertexBuffer;
     glm::mat4 mModelMatrix;

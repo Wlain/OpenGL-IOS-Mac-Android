@@ -26,7 +26,7 @@ GLubyte* LoadFileContent(const char *filePath, int &filesize) {
     return fileContent;
 }
 
-float GetFrameTime() {
+GLfloat GetFrameTime() {
     static double lastTime = 0;
     static double currentTime = 0;
     struct timeval t;

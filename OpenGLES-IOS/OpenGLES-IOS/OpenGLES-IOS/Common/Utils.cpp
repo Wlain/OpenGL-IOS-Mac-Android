@@ -9,40 +9,13 @@
 #include "Utils.hpp"
 #include "Base.h"
 
-
-
-GLuint CompileShader(GLenum shaderType, const char *shaderPath){
-    assert(shaderPath);
-    GLuint shader = glCreateShader(shaderType);
-    if (shader == 0){
-        printf("glCreateShader fail\n");
-        return 0;
-    }
-    int nFileSize = 0;
-    const GLchar* shaderCode = (GLchar*)LoadFileContent(shaderPath, nFileSize);
-    if (shaderCode == nullptr){
-        printf("load shader code from file :\n %s fail\n", shaderPath);
-        glDeleteShader(shader);
-        return 0;
-    }
-    glShaderSource(shader, 1, &shaderCode, nullptr);
-    glCompileShader(shader);
-    GLint compileResult = GL_TRUE;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
-    if (compileResult == GL_FALSE){
-        GLchar errorlog[1024] = { 0 };
-        GLsizei logLen = 0;
-        glGetShaderInfoLog(shader, 1024, &logLen, errorlog);
-        printf("Compile Shader fail error log : %s \nshader code :\n%s\n", errorlog, shaderCode);
-        glDeleteShader(shader);
-        shader = 0;
-    }
-    delete shaderCode;
-    return shader;
-}
-
 GLuint CreateProgram(GLuint vertShader, GLuint fragShader) {
-    GLuint program = glCreateProgram();
+    GLuint program = 0;
+    GLint linked = GL_FALSE;
+    program = glCreateProgram();
+    if (!program) {
+        goto exit;
+    }
     // 绑定
     glAttachShader(program, vertShader);
     glAttachShader(program, fragShader);
@@ -50,38 +23,49 @@ GLuint CreateProgram(GLuint vertShader, GLuint fragShader) {
     // 解绑定
     glDetachShader(program, vertShader);
     glDetachShader(program, fragShader);
-    GLint nResult;
-    glGetProgramiv(program, GL_LINK_STATUS, &nResult);
-    if (nResult == GL_FALSE){
-        GLchar errorlog[1024] = {0};
-        GLsizei logLen = 0;
-        glGetProgramInfoLog(program, 1024, &logLen, errorlog);
-        printf("create gpu program fail,link error : %s\n", errorlog);
+   
+    glGetProgramiv(program, GL_LINK_STATUS, &linked);
+    if (linked == GL_FALSE){
+        printf("could not link program\n");
+        GLint infoLogLen = 0;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLen);
+        if (infoLogLen) {
+            GLchar *infoLog = (GLchar *)malloc(infoLogLen);
+            if (infoLog) {
+                glGetProgramInfoLog(program, infoLogLen, nullptr, infoLog);
+                printf("could not link program\n%s\n", infoLog);
+                free(infoLog);
+            }
+        }
         glDeleteProgram(program);
         program = 0;
     }
+    return program;
+exit:
+    glDeleteShader(vertShader);
+    glDeleteShader(fragShader);
     return program;
 }
 
 
 GLuint CreateProceduretexture(GLsizei width, GLsizei height) {
     GLubyte *imageData = new GLubyte[width * height * 4];
-    float halfSize = (float)width / 2.0f;
-    float maxDistance = sqrtf(halfSize * halfSize + halfSize * halfSize);
-    float centerX = halfSize;
-    float centerY = halfSize;
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            int currentPixelOffset = (x + y * height) * 4;
+    GLfloat halfSize = (GLfloat)width / 2.0f;
+    GLfloat maxDistance = sqrtf(halfSize * halfSize + halfSize * halfSize);
+    GLfloat centerX = halfSize;
+    GLfloat centerY = halfSize;
+    for (GLint y = 0; y < height; ++y) {
+        for (GLint x = 0; x < width; ++x) {
+            GLint currentPixelOffset = (x + y * height) * 4;
             imageData[currentPixelOffset] = 255;
             imageData[currentPixelOffset + 1] = 255;
             imageData[currentPixelOffset + 2] = 255;
-            float deltaX = (float)x - centerX;
-            float deltaY = (float)y - centerY;
-            float distance = sqrtf(deltaX * deltaX + deltaY * deltaY);
-            float alpha = powf(1.0f - (distance / maxDistance), 10.0f);
+            GLfloat deltaX = (GLfloat)x - centerX;
+            GLfloat deltaY = (GLfloat)y - centerY;
+            GLfloat distance = sqrtf(deltaX * deltaX + deltaY * deltaY);
+            GLfloat alpha = powf(1.0f - (distance / maxDistance), 10.0f);
             alpha = alpha > 1.0f ? 1.0f : alpha;
-            imageData[currentPixelOffset + 3] = (unsigned char)(alpha * 255.0f);
+            imageData[currentPixelOffset + 3] = (GLubyte)(alpha * 255.0f);
         }
     }
     GLuint texture;
@@ -106,3 +90,15 @@ GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void
     glBindBuffer(bufferType, 0);
     return object;
 }
+
+
+bool CheckGlError(const GLchar* funcName) {
+    GLint err = glGetError();
+    if (err != GL_NO_ERROR) {
+        printf("GL error after %s(): 0x%08x in filename = %s, line = %i\n", funcName, err, __FILE__, __LINE__);
+        return true;
+    }
+    return false;
+}
+
+

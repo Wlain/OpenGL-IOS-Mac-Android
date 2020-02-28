@@ -8,9 +8,10 @@
 
 #ifndef Scene_hpp
 #define Scene_hpp
+#include "Base.h"
 
 void Initialize();
-void SetViewPort(float width, float height);
+void SetViewPort(GLfloat width, GLfloat height);
 void Draw();
 void Finalize();
 

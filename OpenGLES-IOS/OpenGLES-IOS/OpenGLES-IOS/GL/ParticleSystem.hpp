@@ -16,9 +16,9 @@ class ParticleSystem {
 public:
     ParticleSystem();
     ~ParticleSystem();
-    void Initialize(float x, float y, float z);
+    void Initialize(GLfloat x, GLfloat y, GLfloat z);
     void Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
-    void Update(float deltaTime);
+    void Update(GLfloat deltaTime);
 private:
     VertexBuffer *mVertexBuffer;
     Shader *mShader;

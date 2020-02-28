@@ -17,7 +17,7 @@ Skybox::~Skybox() {
     
 }
 
-void Skybox::Initialize(const char *imageDir) {
+void Skybox::Initialize(const GLchar *imageDir) {
     mShader = new Shader[6];
     mVertexBuffer = new VertexBuffer[6];
     const unsigned int fileDirSize = 256;
@@ -48,7 +48,7 @@ void Skybox::Initialize(const char *imageDir) {
     InitBottom(tmpDir);
 }
 
-void Skybox::InitFront(const char *image) {
+void Skybox::InitFront(const GLchar *image) {
     mVertexBuffer[0].SetSize(4);
     mShader[0].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
     mShader[0].SetTexture("u_texture", image);
@@ -62,7 +62,7 @@ void Skybox::InitFront(const char *image) {
     mVertexBuffer[0].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::InitBack(const char *image) {
+void Skybox::InitBack(const GLchar *image) {
     mVertexBuffer[1].SetSize(4);
     mShader[1].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
     mShader[1].SetTexture("u_texture", image);
@@ -76,7 +76,7 @@ void Skybox::InitBack(const char *image) {
     mVertexBuffer[1].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::InitLeft(const char *image) {
+void Skybox::InitLeft(const GLchar *image) {
     mVertexBuffer[2].SetSize(4);
     mShader[2].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
     mShader[2].SetTexture("u_texture", image);
@@ -90,7 +90,7 @@ void Skybox::InitLeft(const char *image) {
     mVertexBuffer[2].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::InitRight(const char *image) {
+void Skybox::InitRight(const GLchar *image) {
     mVertexBuffer[3].SetSize(4);
     mShader[3].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
     mShader[3].SetTexture("u_texture", image);
@@ -104,7 +104,7 @@ void Skybox::InitRight(const char *image) {
     mVertexBuffer[3].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::InitTop(const char *image) {
+void Skybox::InitTop(const GLchar *image) {
     mVertexBuffer[4].SetSize(4);
     mShader[4].SetTexture("u_texture", image);
     mShader[4].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
@@ -118,7 +118,7 @@ void Skybox::InitTop(const char *image) {
     mVertexBuffer[4].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::InitBottom(const char *image) {
+void Skybox::InitBottom(const GLchar *image) {
     mVertexBuffer[5].SetSize(4);
     mShader[5].Initialize("Resource/Shader/skybox.vert", "Resource/Shader/skybox.frag");
     mShader[5].SetTexture("u_texture", image);
@@ -132,7 +132,7 @@ void Skybox::InitBottom(const char *image) {
     mVertexBuffer[5].SetTexCoord(3, 1.0f, 1.0f);
 }
 
-void Skybox::Draw(float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+void Skybox::Draw(GLfloat x, GLfloat y, GLfloat z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glDisable(GL_DEPTH_TEST);
     for (int i = 0; i < 6; ++i) {
         mVertexBuffer[i].Bind();

@@ -14,12 +14,7 @@
 /// 加载文件内容
 /// @param filePath 文件路径
 /// @param filesize 文件size
-GLubyte* LoadFileContent(const char *filePath, int &filesize);
-
-/// 编译shader
-/// @param shaderType shader类型
-/// @param shaderPath shader路径
-GLuint CompileShader(GLenum shaderType, const char *shaderPath);
+GLubyte* LoadFileContent(const GLchar *filePath, GLint &filesize);
 
 /// 创建program
 /// @param vertShader 顶点着色器对象
@@ -27,12 +22,12 @@ GLuint CompileShader(GLenum shaderType, const char *shaderPath);
 GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
 
 /// 获取帧间隔
-float GetFrameTime();
+GLfloat GetFrameTime();
 
 /// 根据图片地址获取纹理id, 支持PNG,JPG
 /// @param path 图片文件路径
 /// @param flipVertical 是否翻转图片
-GLuint GetTextureFromFile(const char *path, bool flipVertical);
+GLuint GetTextureFromFile(const GLchar *path, bool flipVertical);
 
 /// 生成一张RGBA图片纹理
 /// @param width 纹理宽
@@ -46,5 +41,15 @@ GLuint CreateProceduretexture(GLsizei width, GLsizei height);
 /// @param usage usage
 GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void *data);
 
+
+/// 检查是否有glError
+/// @param funcName 接口名
+bool CheckGlError(const char* funcName);
+
+
+static void PrintGLString(const GLchar* name, GLenum s) {
+    const GLchar* v = (const GLchar*)glGetString(s);
+    printf("GL %s: %s\n", name, v);
+}
 
 #endif /* Utils_hpp */

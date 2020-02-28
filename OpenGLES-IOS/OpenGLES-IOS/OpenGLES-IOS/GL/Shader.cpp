@@ -31,28 +31,35 @@ GLuint Shader::GetProgram() const {
     return this->mProgram;
 }
 
-void Shader::SetProgram(GLuint program) {
-    this->mProgram = program;
-}
-
-GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
+GLuint Shader::CompileShader(GLenum shaderType, const GLchar *src) {
     GLuint shader = glCreateShader(shaderType);
-    glShaderSource(shader, 1, &shaderCode, nullptr);
+    if (!shader) {
+        CheckGlError("glCreateShader");
+        return 0;
+    }
+    glShaderSource(shader, 1, &src, nullptr);
+    GLint compiled = GL_TRUE;
     glCompileShader(shader);
-    GLint compileResult = GL_TRUE;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
-    if (compileResult == GL_FALSE) {
-        char errorlog[1024] = { 0 };
-        GLsizei logLen = 0;
-        glGetShaderInfoLog(shader, 1024, &logLen, errorlog);
-        printf("Compile Shader fail error log : %s \nshader code :\n%s\n", errorlog, shaderCode);
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+    if (compiled == GL_FALSE) {
+        GLsizei infoLogLen = 0;
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLen);
+        if (infoLogLen > 0) {
+            GLchar *infoLog = (GLchar *)malloc(infoLogLen);
+            if (infoLog) {
+                glGetShaderInfoLog(shader, infoLogLen, nullptr, infoLog);
+                printf("Cound not compile %s shader:\n%s\n",
+                        shaderType == GL_VERTEX_SHADER ? "vertex " : "fragment", infoLog);
+                free(infoLog);
+            }
+        }
         glDeleteShader(shader);
-        shader = 0;
+        return 0;
     }
     return shader;
 }
 
-void Shader::SetTexture(const char *name, GLuint texture) {
+void Shader::SetTexture(const GLchar *name, GLuint texture) {
     auto iter = mUniformTextures.find(name);
        if (iter == mUniformTextures.end()) {
            GLint location = glGetUniformLocation(mProgram, name);
@@ -68,12 +75,12 @@ void Shader::SetTexture(const char *name, GLuint texture) {
    }
 }
 
-void Shader::SetTexture(const char *name, const char *imagePath) {
+void Shader::SetTexture(const GLchar *name, const GLchar *imagePath) {
     GLuint texture = GetTextureFromFile(imagePath, true);
     this->SetTexture(name, texture);
 }
 
-void Shader::Setvector4(const char *name, float x, float y, float z, float w) {
+void Shader::Setvector4(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) {
     auto iter = mUniformVector4s.find(name);
     if (iter == mUniformVector4s.end()) {
         GLint location = glGetUniformLocation(mProgram, name);
@@ -94,15 +101,15 @@ void Shader::Setvector4(const char *name, float x, float y, float z, float w) {
     }
 }
 
-void Shader::Initialize(const char *vertShaderPath, const char *fragShaderPath) {
+void Shader::Initialize(const GLchar *vertShaderPath, const GLchar *fragShaderPath) {
     int fileSize = 0;
-    const char *vertShaderSource = (char *)LoadFileContent(vertShaderPath, fileSize);
+    const GLchar *vertShaderSource = (GLchar *)LoadFileContent(vertShaderPath, fileSize);
     GLuint vertShader = CompileShader(GL_VERTEX_SHADER, vertShaderSource);
     if (vertShader == 0) {
         SAFE_DELETE_ARRAY(vertShaderSource);
         return;
     }
-    const char *fragShaderSource = (char *)LoadFileContent(fragShaderPath, fileSize);
+    const GLchar *fragShaderSource = (GLchar *)LoadFileContent(fragShaderPath, fileSize);
     GLuint fragShader = CompileShader(GL_FRAGMENT_SHADER, fragShaderSource);
     if (fragShader == 0) {
         SAFE_DELETE_ARRAY(vertShaderSource);
@@ -143,10 +150,10 @@ void Shader::Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &proj
     glEnableVertexAttribArray(mPositionLocation);
     glVertexAttribPointer(mPositionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
     glEnableVertexAttribArray(mTexCoordLocation);
-    glVertexAttribPointer(mTexCoordLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 4 * sizeof(float)));
+    glVertexAttribPointer(mTexCoordLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 4 * sizeof(GLfloat)));
     glEnableVertexAttribArray(mNormalLocation);
-    glVertexAttribPointer(mNormalLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 8 * sizeof(float)));
+    glVertexAttribPointer(mNormalLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 8 * sizeof(GLfloat)));
     glEnableVertexAttribArray(mColorLocation);
-    glVertexAttribPointer(mColorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 12 * sizeof(float) ));
+    glVertexAttribPointer(mColorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 12 * sizeof(GLfloat) ));
 }
 

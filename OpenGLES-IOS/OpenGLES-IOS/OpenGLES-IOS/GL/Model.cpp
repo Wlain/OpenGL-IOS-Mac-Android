@@ -17,10 +17,10 @@ Model::~Model() {
     
 }
 
-void Model::Initialize(const char *modelPath) {
-    typedef struct _FloatData {
-        float v[3];
-    } FloatData;
+void Model::Initialize(const GLchar *modelPath) {
+    typedef struct _GLfloatData {
+        GLfloat v[3];
+    } GLfloatData;
     
     // 定义obj模型里面的一个点
     typedef struct _VertexDefine {
@@ -29,16 +29,16 @@ void Model::Initialize(const char *modelPath) {
         int normalIndex;
     } VertexDefine;
     int fileSize = 0;
-    unsigned char *fileContent = LoadFileContent(modelPath, fileSize);
+    GLubyte *fileContent = LoadFileContent(modelPath, fileSize);
     if (fileContent == nullptr) {
         std::cout << "Error to load modelPath:" << modelPath << std::endl;
         return;
     }
-    std::vector<FloatData> positions, texcoords, normals;
+    std::vector<GLfloatData> positions, texcoords, normals;
     std::vector<VertexDefine> vertexes;
-    std::stringstream ssFileContent((char *)fileContent);
+    std::stringstream ssFileContent((GLchar *)fileContent);
     std::string temp;
-    char oneLineData[256];
+    GLchar oneLineData[256];
     // 对obj 进行解码
     while (!ssFileContent.eof()) {
         memset(oneLineData, 0, 256);
@@ -51,29 +51,29 @@ void Model::Initialize(const char *modelPath) {
                     // vt 0.000000 0.000000
                     // 此时temp里面的内容是"vt"
                     ssOneLine >> temp;
-                    FloatData floatData;
-                    ssOneLine >> floatData.v[0];
-                    ssOneLine >> floatData.v[1];
-                    texcoords.push_back(floatData);
-                    printf("texcoord: %f, %f\n", floatData.v[0], floatData.v[1]);
+                    GLfloatData GLfloatData;
+                    ssOneLine >> GLfloatData.v[0];
+                    ssOneLine >> GLfloatData.v[1];
+                    texcoords.push_back(GLfloatData);
+                    printf("texcoord: %f, %f\n", GLfloatData.v[0], GLfloatData.v[1]);
                 } else if(oneLineData[1] == 'n') {
                     // vn 0.000000 0.000000 1.000000
                     ssOneLine >> temp;
-                    FloatData floatData;
-                    ssOneLine >> floatData.v[0];
-                    ssOneLine >> floatData.v[1];
-                    ssOneLine >> floatData.v[2];
-                    normals.push_back(floatData);
-                    printf("normal: %f, %f, %f\n", floatData.v[0], floatData.v[1], floatData.v[2]);
+                    GLfloatData GLfloatData;
+                    ssOneLine >> GLfloatData.v[0];
+                    ssOneLine >> GLfloatData.v[1];
+                    ssOneLine >> GLfloatData.v[2];
+                    normals.push_back(GLfloatData);
+                    printf("normal: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 } else {
                     // v 0.500000 0.500000 0.000000
                     ssOneLine >> temp;
-                    FloatData floatData;
-                    ssOneLine >> floatData.v[0];
-                    ssOneLine >> floatData.v[1];
-                    ssOneLine >> floatData.v[2];
-                    positions.push_back(floatData);
-                    printf("position: %f, %f, %f\n", floatData.v[0], floatData.v[1], floatData.v[2]);
+                    GLfloatData GLfloatData;
+                    ssOneLine >> GLfloatData.v[0];
+                    ssOneLine >> GLfloatData.v[1];
+                    ssOneLine >> GLfloatData.v[2];
+                    positions.push_back(GLfloatData);
+                    printf("position: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 }
             } else if (oneLineData[0] == 'f') {
                 // 位置索引/纹理坐标索引/法线索引
@@ -104,7 +104,7 @@ void Model::Initialize(const char *modelPath) {
     mVertexBuffer = new VertexBuffer();
     mVertexBuffer->SetSize(vertexCount);
     for (int i = 0; i < vertexCount; ++i) {
-        float *temp = nullptr;
+        GLfloat *temp = nullptr;
         if (positions.size() > 0) {
             temp = &positions[vertexes[i].postionIndex - 1].v[0];
             mVertexBuffer->SetPosition(i, temp[0], temp[1], temp[2]);
@@ -131,7 +131,7 @@ void Model::Initialize(const char *modelPath) {
 }
 
 
-void Model::Draw( float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+void Model::Draw( GLfloat x, GLfloat y, GLfloat z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     mShader->Setvector4("u_cameraPosition", x, y, z, 1.0);
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
@@ -142,24 +142,24 @@ void Model::Draw( float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &p
     mVertexBuffer->Unbind();
 }
 
-void Model::SetPosition(float x, float y, float z) {
+void Model::SetPosition(GLfloat x, GLfloat y, GLfloat z) {
     mModelMatrix = glm::translate(x, y, z);
 }
 
 
-void Model::SetAmbientMaterial(float r, float g, float b, float a) {
+void Model::SetAmbientMaterial(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
     mShader->Setvector4("u_ambientMaterial", r, g, b, a);
 }
 
-void Model::SetDiffuseMaterial(float r, float g, float b, float a) {
+void Model::SetDiffuseMaterial(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
      mShader->Setvector4("u_diffuseMaterial", r, g, b, a);
 }
 
-void Model::SetSpecularMaterial(float r, float g, float b, float a) {
+void Model::SetSpecularMaterial(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
     mShader->Setvector4("u_specularMaterial", r, g, b, a) ;
 }
 
-void Model::SetTexture(const char *imagePath) {
+void Model::SetTexture(const GLchar *imagePath) {
     mShader->SetTexture("u_texture", imagePath);
 }
 

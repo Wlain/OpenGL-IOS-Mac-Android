@@ -36,15 +36,6 @@
 #define SAFE_FREE(p) if(p != NULL) {free(p); p = NULL;}
 #endif
 
-// GL_CHECK
-#define GL_CHECK() \
-{ \
-GLenum glError = glGetError(); \
-if (glError != GL_NO_ERROR) {\
-printf("glGetError() = %i (0x%.8x) in filename = %s, line  = %i\n", glError, glError, __FILE__ , __LINE__); \
-} \
-}
-
 #define MATH_TOLERANCE              2e-37f
 #define MATH_FLOAT_SMALL            1.0e-37f
 #define MATH_PI                     3.14159265

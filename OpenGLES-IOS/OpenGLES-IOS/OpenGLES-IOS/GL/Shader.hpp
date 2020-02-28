@@ -22,7 +22,7 @@ struct UniformTexture {
 
 struct UniformVector4 {
     GLint mLocation;
-    float v[4];
+    GLfloat v[4];
     UniformVector4() {
         mLocation = -1;          // 纹理位置
         memset(v, 0, sizeof(v)); // 顶点数据
@@ -35,15 +35,13 @@ public:
     Shader();
     virtual ~Shader();
     GLuint GetProgram() const;
-    void SetProgram(GLuint program);
-    void SetProjectionMatrixLocation(GLint location);
-    void SetTexture(const char *name, GLuint texture);
-    void SetTexture(const char *name, const char *imagePath);
-    void Setvector4(const char *name, float x, float y, float z, float w);
-    void Initialize(const char *vertShaderPath, const char *fragShaderPath);
+    void SetTexture(const GLchar *name, GLuint texture);
+    void SetTexture(const GLchar *name, const GLchar *imagePath);
+    void Setvector4(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+    void Initialize(const GLchar *vertShaderPath, const GLchar *fragShaderPath);
     void Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 protected:
-    GLuint CompileShader(GLenum shaderType, const char*shaderCode);
+    GLuint CompileShader(GLenum shaderType, const GLchar* src);
 private:
     GLuint mProgram;
     // location 默认是-1
