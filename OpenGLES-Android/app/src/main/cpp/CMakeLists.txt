@@ -10,14 +10,27 @@ cmake_minimum_required(VERSION 3.10.2)
 # and CMake builds them for you. When you build your app, Gradle
 # automatically packages shared libraries with your APK.
 
-add_library( # Specifies the name of the library.
+# 跨平台源码库路径
+set(SOURCE_CODE_DIR ${PROJECT_SOURCE_DIR}/)
+
+# General source files 设置变量，表示所有的源文件
+file(
+        GLOB SOURCE_FILES
+        ${SOURCE_CODE_DIR}/*.cpp
+        ${SOURCE_CODE_DIR}/GL/*.cpp
+        ${SOURCE_CODE_DIR}/Common/*.cpp
+        ${SOURCE_CODE_DIR}/3rdparty/stb/*.cpp )
+
+
+# 生成的库文件
+add_library( # Specifies the name of the library.库名字
              opengl
 
              # Sets the library as a shared library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             Opengl.cpp GL/Scene.cpp Common/Utils.cpp 3rdparty/stb/stb_image.cpp)
+            ${SOURCE_FILES})
 
 # build application's shared lib
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
@@ -29,7 +42,8 @@ target_link_libraries( # Specifies the target library.
                         # other libs
                         log
                         EGL
-                        GLESv2)
+                        GLESv2
+                        GLESv3)
 
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
