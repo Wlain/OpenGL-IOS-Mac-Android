@@ -11,6 +11,8 @@
 		3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E40240266610071D9B9 /* Ground.cpp */; };
 		3D0B1E4524027F330071D9B9 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E4324027F330071D9B9 /* Shader.cpp */; };
 		3D0B1E482403F4FC0071D9B9 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1E462403F4FC0071D9B9 /* Model.cpp */; };
+		3D10C5272406C8010006A170 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D10C5252406C8010006A170 /* ParticleSystem.cpp */; };
+		3D5EFBB0240681EF0066F8F1 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EFBAE240681EF0066F8F1 /* Skybox.cpp */; };
 		3D6E94942401350A000222B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94932401350A000222B4 /* AppDelegate.m */; };
 		3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94962401350A000222B4 /* SceneDelegate.m */; };
 		3D6E949A2401350A000222B4 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94992401350A000222B4 /* ViewController.mm */; };
@@ -34,6 +36,10 @@
 		3D0B1E4424027F330071D9B9 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		3D0B1E462403F4FC0071D9B9 /* Model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		3D0B1E472403F4FC0071D9B9 /* Model.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Model.hpp; sourceTree = "<group>"; };
+		3D10C5252406C8010006A170 /* ParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cpp; sourceTree = "<group>"; };
+		3D10C5262406C8010006A170 /* ParticleSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem.hpp; sourceTree = "<group>"; };
+		3D5EFBAE240681EF0066F8F1 /* Skybox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
+		3D5EFBAF240681EF0066F8F1 /* Skybox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Skybox.hpp; sourceTree = "<group>"; };
 		3D6E948F2401350A000222B4 /* OpenGLES-IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGLES-IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6E94922401350A000222B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D6E94932401350A000222B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -130,8 +136,10 @@
 		3D6E94B524015687000222B4 /* GL */ = {
 			isa = PBXGroup;
 			children = (
-				3DF3664924016281001B2256 /* Scene.cpp */,
 				3DF3664A24016281001B2256 /* Scene.hpp */,
+				3DF3664924016281001B2256 /* Scene.cpp */,
+				3D10C5252406C8010006A170 /* ParticleSystem.cpp */,
+				3D10C5262406C8010006A170 /* ParticleSystem.hpp */,
 				3D0B1E3D240263780071D9B9 /* VertexBuffer.cpp */,
 				3D0B1E3E240263780071D9B9 /* VertexBuffer.hpp */,
 				3D0B1E40240266610071D9B9 /* Ground.cpp */,
@@ -140,6 +148,8 @@
 				3D0B1E4424027F330071D9B9 /* Shader.hpp */,
 				3D0B1E462403F4FC0071D9B9 /* Model.cpp */,
 				3D0B1E472403F4FC0071D9B9 /* Model.hpp */,
+				3D5EFBAE240681EF0066F8F1 /* Skybox.cpp */,
+				3D5EFBAF240681EF0066F8F1 /* Skybox.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -229,8 +239,10 @@
 				3D0B1E3F240263780071D9B9 /* VertexBuffer.cpp in Sources */,
 				3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */,
 				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
+				3D5EFBB0240681EF0066F8F1 /* Skybox.cpp in Sources */,
 				3D6E94942401350A000222B4 /* AppDelegate.m in Sources */,
 				3D6E94A52401350C000222B4 /* main.m in Sources */,
+				3D10C5272406C8010006A170 /* ParticleSystem.cpp in Sources */,
 				3D0B1E482403F4FC0071D9B9 /* Model.cpp in Sources */,
 				3D6E94B424015682000222B4 /* Utils.cpp in Sources */,
 				3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */,
@@ -377,6 +389,7 @@
 				DEVELOPMENT_TEAM = TNSMQM4897;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OpenGLES-IOS/3rdParty/Glm\"";
 				INFOPLIST_FILE = "OpenGLES-IOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,6 +397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.meitu.cwb.OpenGLES-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
 		};
@@ -395,6 +409,7 @@
 				DEVELOPMENT_TEAM = TNSMQM4897;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/OpenGLES-IOS/3rdParty/Glm\"";
 				INFOPLIST_FILE = "OpenGLES-IOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,6 +417,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.meitu.cwb.OpenGLES-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};

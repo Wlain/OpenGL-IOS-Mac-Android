@@ -46,11 +46,18 @@ void Ground::Initialize() {
         }
     }
     mShader->Initialize("Resource/Shader/ground.vert", "Resource/Shader/ground.frag");
+    mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_ambientMaterial", 0.1f, 0.1f, 0.1f, 1.0f);
+    mShader->Setvector4("u_diffuseMaterial", 0.6f, 0.6f, 0.6f, 1.0f);
+    
 }
-void Ground::Draw(glm::mat4 &viewProjectionMatrix) {
+void Ground::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    mShader->Bind(viewProjectionMatrix);
+    mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
     for (int i = 0; i < 400; ++i) {
         glDrawArrays(GL_TRIANGLE_STRIP, i * 4, 4);
     }

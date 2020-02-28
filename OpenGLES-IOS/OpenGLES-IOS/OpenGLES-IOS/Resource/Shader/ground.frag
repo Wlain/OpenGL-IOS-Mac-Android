@@ -11,14 +11,33 @@ precision mediump float;
 #endif
 ///////////////////////////////////////////////////////////
 // Uniforms
-//uniform sampler2D u_texture;
+uniform vec4 u_ambientColor;
+uniform vec4 u_diffuseColor;
+uniform vec4 u_ambientMaterial;
+uniform vec4 u_diffuseMaterial;
+uniform vec4 u_lightPosition;
 
 ///////////////////////////////////////////////////////////
 //varying
-varying vec2 v_texcoord;
 varying vec4 v_color;
+varying vec3 v_normal;
+varying vec3 v_worldPosition;
 
 void main()
 {
-    gl_FragColor = v_color;
+    vec4 color = vec4(1.0);
+    float distance = 0.0; // 接受光的点距离光源的距离
+    float constanceFactor = 1.0;
+    float linearFactor = 2.0;
+    float quadricFactor = 3.0;
+    vec4 ambientColor = u_ambientColor * u_ambientMaterial;
+    vec3 lightDirection = v_worldPosition - u_lightPosition.xyz;
+    distance = length(lightDirection);
+    float attenuation = 1.0 / (constanceFactor + linearFactor * distance + quadricFactor * quadricFactor * distance);
+    lightDirection = normalize(lightDirection);
+    vec3 normal = normalize(v_normal);
+    float diffuseIntensity = max(0.0, dot(lightDirection, normal));
+    vec4 diffuseColor = u_diffuseColor * u_diffuseMaterial * diffuseIntensity * attenuation * 4.0;
+    color = ambientColor + diffuseColor;
+    gl_FragColor = color * v_color;
 }

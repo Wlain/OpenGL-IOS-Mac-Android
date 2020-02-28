@@ -11,7 +11,7 @@
 
 #include "Base.h"
 
-typedef struct UniformTexture {
+struct UniformTexture {
     GLint mLocation;
     GLuint mTexture;
     UniformTexture() {
@@ -20,36 +20,42 @@ typedef struct UniformTexture {
     }
 };
 
+struct UniformVector4 {
+    GLint mLocation;
+    float v[4];
+    UniformVector4() {
+        mLocation = -1;          // 纹理位置
+        memset(v, 0, sizeof(v)); // 顶点数据
+    }
+};
+
+
 class Shader {
 public:
     Shader();
     virtual ~Shader();
     GLuint GetProgram() const;
     void SetProgram(GLuint program);
-    GLint GetPositionLocation() const;
-    void SetPositionLocation(GLint location);
-    GLint GetTexCoordLocation() const;
-    void SetTexCoordLocation(GLint location);
-    GLint GetColorLocation() const;
-    void SetColorLocation(GLint location);
-    GLint GetNormalLocation() const;
-    void SetNormalLocation(GLint location);
-    GLint GetWorldViewProjectionMatrixLocation() const;
-    void SetWorldViewProjectionMatrixLocation(GLint location);
+    void SetProjectionMatrixLocation(GLint location);
+    void SetTexture(const char *name, GLuint texture);
     void SetTexture(const char *name, const char *imagePath);
+    void Setvector4(const char *name, float x, float y, float z, float w);
     void Initialize(const char *vertShaderPath, const char *fragShaderPath);
-    void Bind(glm::mat4 &mvpMatrix);
+    void Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix);
 protected:
     GLuint CompileShader(GLenum shaderType, const char*shaderCode);
 private:
-    std::map<std::string, UniformTexture *> mUniformTexture;
     GLuint mProgram;
     // location 默认是-1
     GLint mPositionLocation;
     GLint mTexCoordLocation;
     GLint mColorLocation;
     GLint mNormalLocation;
-    GLint mWorldViewProjectionMatrixLocation;
+    GLint mModelMatrixLocation;
+    GLint mViewMatrixLocation;
+    GLint mProjectionMatrixLocation;
+    std::map<std::string, UniformTexture *> mUniformTextures;
+    std::map<std::string, UniformVector4 *> mUniformVector4s;
 };
 
 #endif /* Shader_hpp */

@@ -6,17 +6,20 @@ attribute vec4 a_color;
 attribute vec4 a_normal;
 ///////////////////////////////////////////////////////////
 //uniform
-uniform mat4 u_worldViewProjectionMatrix;
+uniform mat4 u_modelMatrix;
+uniform mat4 u_viewMatrix;
+uniform mat4 u_projectionMatrix;
 
 ///////////////////////////////////////////////////////////
 //varying
-varying vec2 v_texcoord;
 varying vec4 v_color;
+varying vec3 v_normal;
+varying vec3 v_worldPosition;
 
 void main(void) {
-    v_texcoord = a_texCoord.xy;
     v_color = a_color;
-    vec4 normal = a_normal;
-    gl_Position = u_worldViewProjectionMatrix * a_position;
+    v_normal = a_normal.xyz;
+    v_worldPosition = (u_modelMatrix * a_position).xyz;
+    gl_Position = u_projectionMatrix * u_viewMatrix * u_modelMatrix * a_position;
 }
 

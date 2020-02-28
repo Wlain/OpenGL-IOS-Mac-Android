@@ -120,18 +120,53 @@ void Model::Initialize(const char *modelPath) {
     }
     mShader = new Shader();
     mShader->Initialize("Resource/Shader/model.vert", "Resource/Shader/model.frag");
+    mShader->Setvector4("u_lightPosition", 0.0f, 1.0f, 1.0f, 0.0f);// 方向光
+    mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
+    mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_optionalParam", 30.0f, 0.0f, 0.0f, 0.0f);
+    SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
+    SetDiffuseMaterial(0.6f, 0.6f, 0.6f, 1.0f);
+    SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 
-void Model::Draw(glm::mat4 &viewProjectionMatrixLocation) {
-    glDisable(GL_DEPTH_TEST);
+void Model::Draw( float x, float y, float z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
+    mShader->Setvector4("u_cameraPosition", x, y, z, 1.0);
+    glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    glm::mat4 mvpMatrix = viewProjectionMatrixLocation * mModelMatrix;
-    mShader->Bind(mvpMatrix);
+    glm::mat4 inverseTransposeMatrix = glm::inverseTranspose(mModelMatrix);
+    mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
+    glUniformMatrix4fv(glGetUniformLocation(mShader->GetProgram(), "u_inverseTransposeMatrix"), 1, GL_FALSE, glm::value_ptr(inverseTransposeMatrix));
     glDrawArrays(GL_TRIANGLES, 0, mVertexBuffer->mVertexCount);
     mVertexBuffer->Unbind();
 }
 
 void Model::SetPosition(float x, float y, float z) {
     mModelMatrix = glm::translate(x, y, z);
+}
+
+
+void Model::SetAmbientMaterial(float r, float g, float b, float a) {
+    mShader->Setvector4("u_ambientMaterial", r, g, b, a);
+}
+
+void Model::SetDiffuseMaterial(float r, float g, float b, float a) {
+     mShader->Setvector4("u_diffuseMaterial", r, g, b, a);
+}
+
+void Model::SetSpecularMaterial(float r, float g, float b, float a) {
+    mShader->Setvector4("u_specularMaterial", r, g, b, a) ;
+}
+
+void Model::SetTexture(const char *imagePath) {
+    mShader->SetTexture("u_texture", imagePath);
+}
+
+void Model::SetModelMatrix(glm::mat4 &matrix) {
+    mModelMatrix = matrix;
+}
+
+const glm::mat4& Model::GetModelMatrix() const {
+    return this->mModelMatrix;
 }

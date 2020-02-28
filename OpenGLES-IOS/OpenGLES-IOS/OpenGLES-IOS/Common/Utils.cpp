@@ -72,7 +72,7 @@ GLuint CreateProceduretexture(GLsizei width, GLsizei height) {
     float centerY = halfSize;
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            int currentPixelOffset = (x + y * width) * 4;
+            int currentPixelOffset = (x + y * height) * 4;
             imageData[currentPixelOffset] = 255;
             imageData[currentPixelOffset + 1] = 255;
             imageData[currentPixelOffset + 2] = 255;
