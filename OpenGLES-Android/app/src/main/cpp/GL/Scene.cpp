@@ -20,6 +20,10 @@ glm::mat4 modelMatrix;
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
 void Initialize() {
+    printGlString("Version", GL_VERSION);
+    printGlString("Vendor", GL_VENDOR);
+    printGlString("Renderer", GL_RENDERER);
+    printGlString("Extensions", GL_EXTENSIONS);
     const float vertexes[] = {
             -1.0f, -1.0f, -5.0f, 1.0f, 0.0f, 0.0f,
              1.0f, -1.0f, -5.0f, 1.0f, 1.0f, 0.0f,

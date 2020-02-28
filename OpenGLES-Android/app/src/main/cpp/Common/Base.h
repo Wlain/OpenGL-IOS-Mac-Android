@@ -12,6 +12,7 @@
 #include <math.h>
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
+#include "gl3stub.h"
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <stdio.h>
@@ -47,6 +48,12 @@ if (glError != GL_NO_ERROR) {\
 LOGI("glGetError() = %i (0x%.8x) in filename = %s, line  = %i\n", glError, glError, __FILE__ , __LINE__); \
 } \
 }
+
+static void printGlString(const char* name, GLenum s) {
+    const char* v = (const char*)glGetString(s);
+    LOGI("GL %s: %s\n", name, v);
+}
+
 
 
 #define MATH_TOLERANCE              2e-37f

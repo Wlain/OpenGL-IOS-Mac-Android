@@ -13,7 +13,14 @@ cmake_minimum_required(VERSION 3.10.2)
 # 跨平台源码库路径
 set(SOURCE_CODE_DIR ${PROJECT_SOURCE_DIR}/)
 
-# General source files 设置变量，表示所有的源文件
+
+# 头文件目录
+include_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glm
+        ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/stb )
+
+# General source files 表示所有的源文件
 file(
         GLOB SOURCE_FILES
         ${SOURCE_CODE_DIR}/*.cpp
@@ -22,9 +29,12 @@ file(
         ${SOURCE_CODE_DIR}/3rdparty/stb/*.cpp )
 
 
+# 设置变量，表示库名字
+set(MY_LIBRARY_NAME opengl)
+
 # 生成的库文件
 add_library( # Specifies the name of the library.库名字
-             opengl
+             ${MY_LIBRARY_NAME}
 
              # Sets the library as a shared library.
              SHARED
@@ -33,7 +43,9 @@ add_library( # Specifies the name of the library.库名字
             ${SOURCE_FILES})
 
 # build application's shared lib
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fno-exceptions -Wall")
 
 target_link_libraries( # Specifies the target library.
                         opengl
@@ -41,11 +53,7 @@ target_link_libraries( # Specifies the target library.
                         android
                         # other libs
                         log
+                        jnigraphics
                         EGL
                         GLESv2
                         GLESv3)
-
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glm
-        ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/stb )

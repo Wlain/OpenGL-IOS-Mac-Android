@@ -1,11 +1,15 @@
 apply plugin: 'com.android.application'
 
+def platformVersion = 24      // openGLES 3.2 min api level
+// def platformVersion = 18    //openGLES 3 min api level
+// def platformVersion = 12    //openGLES 2 min api level
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.opengles_android"
-        minSdkVersion 15
+        minSdkVersion platformVersion
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

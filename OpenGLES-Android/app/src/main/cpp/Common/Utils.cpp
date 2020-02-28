@@ -8,7 +8,7 @@ GLuint  CompileShader(GLenum shaderType, const char *shaderSource) {
     GLuint shader = glCreateShader(shaderType);
     glShaderSource(shader, 1, &shaderSource, nullptr);
     glCompileShader(shader);
-    GLint compileResult = GL_TRUE;
+    GLint compileResult = GL_FALSE;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
     if (compileResult == GL_FALSE) {
         char errorLog[1024] = {0};
