@@ -9,13 +9,15 @@
 
 unsigned char* LoadFileContent(const char *filePath, int &fileSize);
 
-GLuint  CompileShader(GLenum shaderType, const char *shaderSource);
+GLuint CompileShader(GLenum shaderType, const char *shaderSource);
 
 GLuint CreateProgram(GLuint vertShader, GLuint fragShader);
 
 GLuint CreateTextureFromFile(const char *filePath, bool flipVertical);
 
 GLuint CreateProceduretexture(int size);
+
+GLuint CreateBufferObject(GLenum bufferType, GLsizei size, GLenum usage, void *data);
 
 float GetFrameTime();
 

@@ -20,7 +20,7 @@ unsigned char* LoadFileContent(const char *filePath, int &fileSize) {
     fileSize = AAsset_getLength(asset);
     fileContent = new unsigned char[fileSize];
     AAsset_read(asset, fileContent, fileSize);
-//    fileContent[fileSize] = '\0';
+    fileContent[fileSize] = '\0';
     AAsset_close(asset);
     return fileContent;
 }
@@ -57,6 +57,7 @@ GLuint CreateTextureFromFile(const char *filePath, bool flipVertical) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glBindTexture(GL_TEXTURE_2D, 0);
         stbi_image_free(data);
     } else {
         assert(false);

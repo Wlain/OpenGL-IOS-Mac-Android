@@ -74,3 +74,12 @@ GLuint CreateProceduretexture(int size) {
     delete[] imageData;
     return texture;
 }
+
+GLuint CreateBufferObject(GLenum bufferType, GLsizei size, GLenum usage, void *data) {
+    GLuint object;
+    glGenBuffers(1, &object);
+    glBindBuffer(bufferType, object);
+    glBufferData(bufferType, size, data, usage);
+    glBindBuffer(bufferType, 0);
+    return object;
+}

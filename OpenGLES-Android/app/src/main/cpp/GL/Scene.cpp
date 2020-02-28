@@ -29,14 +29,8 @@ void Initialize() {
     const unsigned short indexes[] = {
             0, 1, 2, 2, 1, 3
     };
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexes), vertexes, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertexes), GL_STATIC_DRAW, (void *)vertexes);
+    ebo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(indexes), GL_STATIC_DRAW, (void *)indexes);
     int filesize = 0;
     unsigned char *vertShaderSource = LoadFileContent("Resource/Shader/textured.vert", filesize);
     unsigned char *fragShaderSource = LoadFileContent("Resource/Shader/textured.frag", filesize);
