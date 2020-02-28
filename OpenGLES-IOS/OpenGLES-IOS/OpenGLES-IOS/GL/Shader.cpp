@@ -35,63 +35,6 @@ void Shader::SetProgram(GLuint program) {
     this->mProgram = program;
 }
 
-GLint Shader::GetPositionLocation() const {
-    return this->mPositionLocation;
-}
-
-void Shader::SetPositionLocation(GLint location) {
-    this->mPositionLocation = location;
-}
-
-GLint Shader::GetTexCoordLocation() const {
-    return this->mTexCoordLocation;
-}
-
-void Shader::SetTexCoordLocation(GLint location) {
-    this->mTexCoordLocation = location;
-}
-
-GLint Shader::GetColorLocation() const {
-    return this->mColorLocation;
-}
-
-void Shader::SetColorLocation(GLint location) {
-    this->mColorLocation = location;
-}
-
-GLint Shader::GetNormalLocation() const {
-    return this->mNormalLocation;
-}
-
-void Shader::SetNormalLocation(GLint location) {
-    this->mNormalLocation = location;
-}
-
-
-GLint Shader::GetModelMatrixLocation() const {
-    return this->mModelMatrixLocation;
-}
-
-void Shader::SetModelMatrixLocation(GLint location) {
-     this->mModelMatrixLocation = location;
-}
-
-GLint Shader::GetViewMatrixLocation() const {
-     return this->mViewMatrixLocation;
-}
-
-void Shader::SetViewMatrixLocation(GLint location) {
-    this->mViewMatrixLocation = location;
-}
-
-GLint Shader::GetProjectionMatrixLocation() const {
-     return this->mProjectionMatrixLocation;
-}
-
-void Shader::SetProjectionMatrixLocation(GLint location) {
-    this->mProjectionMatrixLocation = location;
-}
-
 GLuint Shader::CompileShader(GLenum shaderType, const char*shaderCode) {
     GLuint shader = glCreateShader(shaderType);
     glShaderSource(shader, 1, &shaderCode, nullptr);

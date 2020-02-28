@@ -36,19 +36,6 @@ public:
     virtual ~Shader();
     GLuint GetProgram() const;
     void SetProgram(GLuint program);
-    GLint GetPositionLocation() const;
-    void SetPositionLocation(GLint location);
-    GLint GetTexCoordLocation() const;
-    void SetTexCoordLocation(GLint location);
-    GLint GetColorLocation() const;
-    void SetColorLocation(GLint location);
-    GLint GetNormalLocation() const;
-    void SetNormalLocation(GLint location);
-    GLint GetModelMatrixLocation() const;
-    void SetModelMatrixLocation(GLint location);
-    GLint GetViewMatrixLocation() const;
-    void SetViewMatrixLocation(GLint location);
-    GLint GetProjectionMatrixLocation() const;
     void SetProjectionMatrixLocation(GLint location);
     void SetTexture(const char *name, GLuint texture);
     void SetTexture(const char *name, const char *imagePath);
@@ -58,8 +45,6 @@ public:
 protected:
     GLuint CompileShader(GLenum shaderType, const char*shaderCode);
 private:
-    std::map<std::string, UniformTexture *> mUniformTextures;
-    std::map<std::string, UniformVector4 *> mUniformVector4s;
     GLuint mProgram;
     // location 默认是-1
     GLint mPositionLocation;
@@ -69,6 +54,8 @@ private:
     GLint mModelMatrixLocation;
     GLint mViewMatrixLocation;
     GLint mProjectionMatrixLocation;
+    std::map<std::string, UniformTexture *> mUniformTextures;
+    std::map<std::string, UniformVector4 *> mUniformVector4s;
 };
 
 #endif /* Shader_hpp */
