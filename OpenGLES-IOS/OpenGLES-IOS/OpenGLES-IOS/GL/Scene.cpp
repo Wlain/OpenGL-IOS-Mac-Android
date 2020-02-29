@@ -49,6 +49,9 @@ void Initialize() {
 //    head.SetModelMatrix(headModelMatrix);
 //    skybox.Initialize("Resource/UI/Skybox2/");
 //    particle.Initialize(targetPosition.x, targetPosition.y, targetPosition.z);
+    GLint maxVertexAttribs;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
+    printf("GL_MAX_VERTEX_ATTRIBS:%d", maxVertexAttribs);
     triangle.Initialize();
 }
 
