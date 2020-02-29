@@ -38,8 +38,31 @@ void TrianglesES3::Initialize() {
     const char* vertPath = LoadFileContent("Resource/Shader/renderes3.vert", fileSize);
     const char* fragPath = LoadFileContent("Resource/Shader/renderes3.frag", fileSize);
     mProgram = CreateProgram(vertPath, fragPath);
+    GLfloat *vboMappedBuf;
     mVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertexes), GL_STATIC_DRAW, (void *)vertexes);
+    glBindBuffer(GL_ARRAY_BUFFER, mVbo);
+    vboMappedBuf = (GLfloat *)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(vertexes), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+    if (vboMappedBuf == nullptr) {
+       printf("Error mapping positionVertex buffer object.");
+    }
+    memcpy(vboMappedBuf, vertexes, sizeof(vertexes));
+    // Unmap the buffer
+    if (glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE ) {
+       printf("Error unmapping array buffer object.");
+    }
+    // Copy the data into the mapped buffer
+    GLfloat *colorVboMappedBuf;
     mColorVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(color), GL_STATIC_DRAW, (void *)color);
+    glBindBuffer(GL_ARRAY_BUFFER, mColorVbo);
+    colorVboMappedBuf = (GLfloat *)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(color), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+    if (colorVboMappedBuf == nullptr) {
+       printf("Error mapping colorVertex buffer object.");
+    }
+    memcpy(colorVboMappedBuf, color, sizeof(color));
+    // Unmap the buffer
+    if (glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE ) {
+       printf("Error unmapping array buffer object.");
+    }
     // Generate VAO Id
     glGenVertexArrays( 1, &mVao);
     // Bind the VAO and then setup the vertex
