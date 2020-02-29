@@ -12,13 +12,14 @@
 
 class RendererES3{
 public:
-    RendererES3(GLuint m, GLuint v);
+    RendererES3(GLuint program, GLuint vbo, GLuint vao);
     virtual ~RendererES3();
     virtual void Initialize() = 0;
     virtual void Draw() = 0;
 protected:
     GLuint mProgram;
     GLuint mVbo;
+    GLuint mVao;
 };
 
 #endif /* RendererES3_hpp */

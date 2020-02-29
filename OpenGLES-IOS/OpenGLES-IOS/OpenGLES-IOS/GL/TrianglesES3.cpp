@@ -13,7 +13,7 @@
 #define COLOR_ATTRIB 1
 
 TrianglesES3::TrianglesES3()
-:RendererES3(0, 0),
+:RendererES3(0, 0, 0),
 mColorVbo(0)
 {
     
@@ -40,16 +40,23 @@ void TrianglesES3::Initialize() {
     mProgram = CreateProgram(vertPath, fragPath);
     mVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertexes), GL_STATIC_DRAW, (void *)vertexes);
     mColorVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(color), GL_STATIC_DRAW, (void *)color);
-}
-
-void TrianglesES3::Draw()  {
-    glUseProgram (mProgram);
+    // Generate VAO Id
+    glGenVertexArrays( 1, &mVao);
+    // Bind the VAO and then setup the vertex
+    // attributes
+    glBindVertexArray(mVao);
     glBindBuffer(GL_ARRAY_BUFFER, mVbo);
     glVertexAttribPointer(POSITION_ATTRIB, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(0));
     glEnableVertexAttribArray(POSITION_ATTRIB);
     glBindBuffer(GL_ARRAY_BUFFER, mColorVbo);
     glVertexAttribPointer(COLOR_ATTRIB, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(0));
     glEnableVertexAttribArray(COLOR_ATTRIB);
+    glBindVertexArray(0);
+}
+
+void TrianglesES3::Draw()  {
+    glUseProgram (mProgram);
+    glBindVertexArray(mVao);
     glDrawArrays (GL_TRIANGLES, 0, 3);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
