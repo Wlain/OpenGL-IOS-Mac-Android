@@ -48,8 +48,8 @@ GLuint Shader::CompileShader(GLenum shaderType, const GLchar *src) {
             GLchar *infoLog = (GLchar *)malloc(infoLogLen);
             if (infoLog) {
                 glGetShaderInfoLog(shader, infoLogLen, nullptr, infoLog);
-                printf("Cound not compile %s shader:\n%s\n",
-                        shaderType == GL_VERTEX_SHADER ? "vertex " : "fragment", infoLog);
+                printf("Cound not compile %s shader:\n%s\nshader Code: \n%s\n",
+                        shaderType == GL_VERTEX_SHADER ? "vertex " : "fragment", infoLog, src);
                 free(infoLog);
             }
         }

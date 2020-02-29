@@ -14,7 +14,7 @@
 /// 加载文件内容
 /// @param filePath 文件路径
 /// @param filesize 文件size
-GLubyte* LoadFileContent(const GLchar *filePath, GLint &filesize);
+const GLchar* LoadFileContent(const GLchar *filePath, GLint &filesize);
 
 /// 创建program
 /// @param vertShader 顶点着色器对象
@@ -51,5 +51,11 @@ static void PrintGLString(const GLchar* name, GLenum s) {
     const GLchar* v = (const GLchar*)glGetString(s);
     printf("GL %s: %s\n", name, v);
 }
+
+
+// 用于外部加载shader
+GLuint CreateShader(GLenum shaderType, const char* src);
+
+GLuint CreateProgram(const char* vertSrc, const char* fragSrc);
 
 #endif /* Utils_hpp */

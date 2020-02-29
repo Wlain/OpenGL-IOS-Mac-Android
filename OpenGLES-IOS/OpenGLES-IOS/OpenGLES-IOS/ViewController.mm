@@ -10,15 +10,16 @@
 #import "Scene.hpp"
 #import "Base.h"
 
-GLubyte* LoadFileContent(const char *filePath, int &filesize) {
+
+const GLchar* LoadFileContent(const char *filePath, int &filesize) {
     assert(filePath);
-    unsigned char *fileContent = nullptr;
+    char *fileContent = nullptr;
     filesize = 0;
     NSString *filename = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filePath] ofType:nil];
     NSData *data = [NSData dataWithContentsOfFile:filename];
     unsigned long dataSize = [data length];
     if (dataSize > 0) {
-        fileContent = new GLubyte[dataSize + 1];
+        fileContent = new GLchar[dataSize + 1];
         memset(fileContent, 0, dataSize + 1);
         memcpy(fileContent, [data bytes], dataSize);
         fileContent[dataSize] = '\0';

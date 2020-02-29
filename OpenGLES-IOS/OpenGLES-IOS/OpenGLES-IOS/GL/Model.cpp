@@ -29,7 +29,7 @@ void Model::Initialize(const GLchar *modelPath) {
         int normalIndex;
     } VertexDefine;
     int fileSize = 0;
-    GLubyte *fileContent = LoadFileContent(modelPath, fileSize);
+    const GLchar *fileContent = LoadFileContent(modelPath, fileSize);
     if (fileContent == nullptr) {
         std::cout << "Error to load modelPath:" << modelPath << std::endl;
         return;
@@ -55,7 +55,7 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[0];
                     ssOneLine >> GLfloatData.v[1];
                     texcoords.push_back(GLfloatData);
-                    printf("texcoord: %f, %f\n", GLfloatData.v[0], GLfloatData.v[1]);
+//                    printf("texcoord: %f, %f\n", GLfloatData.v[0], GLfloatData.v[1]);
                 } else if(oneLineData[1] == 'n') {
                     // vn 0.000000 0.000000 1.000000
                     ssOneLine >> temp;
@@ -64,7 +64,7 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[1];
                     ssOneLine >> GLfloatData.v[2];
                     normals.push_back(GLfloatData);
-                    printf("normal: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
+//                    printf("normal: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 } else {
                     // v 0.500000 0.500000 0.000000
                     ssOneLine >> temp;
@@ -73,7 +73,7 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[1];
                     ssOneLine >> GLfloatData.v[2];
                     positions.push_back(GLfloatData);
-                    printf("position: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
+//                    printf("position: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 }
             } else if (oneLineData[0] == 'f') {
                 // 位置索引/纹理坐标索引/法线索引
@@ -95,7 +95,7 @@ void Model::Initialize(const GLchar *modelPath) {
                     vd.normalIndex = atoi(normalIndexStr.c_str());
                     vertexes.push_back(vd);
                 }
-                printf("draw command: %s", oneLineData);
+//                printf("draw command: %s", oneLineData);
             }
         }
     }

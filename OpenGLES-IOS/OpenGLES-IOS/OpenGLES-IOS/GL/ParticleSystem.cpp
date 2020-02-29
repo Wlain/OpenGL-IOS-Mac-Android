@@ -42,6 +42,7 @@ void ParticleSystem::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     mVertexBuffer->Bind();
     mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
     glDrawArrays(GL_POINTS, 0, mVertexBuffer->GetVertexCount());
+    mVertexBuffer->Unbind();
     glDisable(GL_BLEND);
 }
 
