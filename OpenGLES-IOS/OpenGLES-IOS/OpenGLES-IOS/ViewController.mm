@@ -74,6 +74,8 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     // 7.绑定纹理ID
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
+    // 设置解包对齐，默认值是4,这边改为1，就意味着数据被紧密打包
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     // 8.将内存的2D纹理数据载入GPU显存
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)width, (GLsizei)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     // 9.设置纹理属性
