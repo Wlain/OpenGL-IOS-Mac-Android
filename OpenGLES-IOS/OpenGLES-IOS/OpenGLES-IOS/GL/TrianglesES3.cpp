@@ -77,7 +77,7 @@ void TrianglesES3::Initialize() {
     glBindVertexArray(0);
 }
 
-void TrianglesES3::Draw()  {
+void TrianglesES3::Draw() {
     glUseProgram (mProgram);
     glBindVertexArray(mVao);
     glDrawArrays (GL_TRIANGLES, 0, 3);

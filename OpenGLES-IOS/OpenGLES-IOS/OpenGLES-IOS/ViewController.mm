@@ -10,7 +10,6 @@
 #import "Scene.hpp"
 #import "Base.h"
 
-
 const GLchar* LoadFileContent(const char *filePath, int &filesize) {
     assert(filePath);
     char *fileContent = nullptr;
@@ -109,9 +108,9 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     // 初始化深度缓冲区为24bit
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     [EAGLContext setCurrentContext:self.context];
-    Initialize();
     CGRect rect = [[UIScreen mainScreen] bounds];
-    SetViewPort(rect.size.width, rect.size.height);
+    Initialize();
+    SetViewPort(rect.size.width * 2, rect.size.height * 2);
 }
 
 - (void)dealloc

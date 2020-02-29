@@ -14,6 +14,7 @@
 		3D10C5272406C8010006A170 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D10C5252406C8010006A170 /* ParticleSystem.cpp */; };
 		3D4F240724095316003E98A8 /* RendererES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240524095316003E98A8 /* RendererES3.cpp */; };
 		3D4F240D240A140F003E98A8 /* TrianglesES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240B240A140F003E98A8 /* TrianglesES3.cpp */; };
+		3D4F2410240A804D003E98A8 /* MrtES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240E240A804D003E98A8 /* MrtES3.cpp */; };
 		3D5EFBB0240681EF0066F8F1 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EFBAE240681EF0066F8F1 /* Skybox.cpp */; };
 		3D6E94942401350A000222B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94932401350A000222B4 /* AppDelegate.m */; };
 		3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94962401350A000222B4 /* SceneDelegate.m */; };
@@ -44,6 +45,8 @@
 		3D4F240624095316003E98A8 /* RendererES3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RendererES3.hpp; sourceTree = "<group>"; };
 		3D4F240B240A140F003E98A8 /* TrianglesES3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TrianglesES3.cpp; sourceTree = "<group>"; };
 		3D4F240C240A140F003E98A8 /* TrianglesES3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TrianglesES3.hpp; sourceTree = "<group>"; };
+		3D4F240E240A804D003E98A8 /* MrtES3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MrtES3.cpp; sourceTree = "<group>"; };
+		3D4F240F240A804D003E98A8 /* MrtES3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MrtES3.hpp; sourceTree = "<group>"; };
 		3D5EFBAE240681EF0066F8F1 /* Skybox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Skybox.cpp; sourceTree = "<group>"; };
 		3D5EFBAF240681EF0066F8F1 /* Skybox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Skybox.hpp; sourceTree = "<group>"; };
 		3D6E948F2401350A000222B4 /* OpenGLES-IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenGLES-IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +163,8 @@
 				3D5EFBAF240681EF0066F8F1 /* Skybox.hpp */,
 				3D4F240B240A140F003E98A8 /* TrianglesES3.cpp */,
 				3D4F240C240A140F003E98A8 /* TrianglesES3.hpp */,
+				3D4F240E240A804D003E98A8 /* MrtES3.cpp */,
+				3D4F240F240A804D003E98A8 /* MrtES3.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				3D4F240D240A140F003E98A8 /* TrianglesES3.cpp in Sources */,
 				3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */,
 				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
+				3D4F2410240A804D003E98A8 /* MrtES3.cpp in Sources */,
 				3D5EFBB0240681EF0066F8F1 /* Skybox.cpp in Sources */,
 				3D4F240724095316003E98A8 /* RendererES3.cpp in Sources */,
 				3D6E94942401350A000222B4 /* AppDelegate.m in Sources */,

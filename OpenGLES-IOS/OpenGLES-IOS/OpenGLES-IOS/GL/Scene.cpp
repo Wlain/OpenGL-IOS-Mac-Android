@@ -15,6 +15,7 @@
 #include "Skybox.hpp"
 #include "ParticleSystem.hpp"
 #include "TrianglesES3.hpp"
+#include "MrtES3.hpp"
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
@@ -28,12 +29,16 @@ Model head;
 Skybox skybox;
 ParticleSystem particle;
 TrianglesES3 triangle;
+MrtES3 mrt;
 
 void Initialize() {
     PrintGLString("Version", GL_VERSION);
     PrintGLString("Vendor", GL_VENDOR);
     PrintGLString("Renderer", GL_RENDERER);
     PrintGLString("Extensions", GL_EXTENSIONS);
+    GLint maxVertexAttribs;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
+    printf("GL_MAX_VERTEX_ATTRIBS:%d", maxVertexAttribs);
 //    ground.Initialize();
 //    viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
 //    model.Initialize("Resource/UI/Model/Sphere.obj");
@@ -49,20 +54,19 @@ void Initialize() {
 //    head.SetModelMatrix(headModelMatrix);
 //    skybox.Initialize("Resource/UI/Skybox2/");
 //    particle.Initialize(targetPosition.x, targetPosition.y, targetPosition.z);
-    GLint maxVertexAttribs;
-    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxVertexAttribs);
-    printf("GL_MAX_VERTEX_ATTRIBS:%d", maxVertexAttribs);
-    triangle.Initialize();
+//    triangle.Initialize();
+    mrt.Initialize();
 }
 
 void SetViewPort(GLfloat width, GLfloat height) {
     glViewport(0, 0, width, height);
     projectionMatrix = glm::perspective(45.0f, width / height, 0.1f, 1500.0f);
+    mrt.Resize(width, height);
 }
 
 void Draw() {
     GLfloat frameTime = GetFrameTime();
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //    skybox.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 //    ground.Draw(viewMatrix, projectionMatrix);
@@ -71,7 +75,8 @@ void Draw() {
 //    head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 //    particle.Update(frameTime);
 //    particle.Draw(viewMatrix, projectionMatrix);
-    triangle.Draw();
+//    triangle.Draw();
+    mrt.Draw();
 }
 
 void Finalize() {

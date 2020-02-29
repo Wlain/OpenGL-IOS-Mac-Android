@@ -11,7 +11,6 @@
 #include "RendererES3.hpp"
 
 class TrianglesES3 : public RendererES3 {
-    
 public:
     TrianglesES3();
     virtual ~TrianglesES3();

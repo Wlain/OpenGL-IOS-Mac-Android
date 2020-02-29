@@ -10,7 +10,7 @@
 #define RendererES3_hpp
 #include "Base.h"
 
-class RendererES3{
+class RendererES3 {
 public:
     RendererES3(GLuint program, GLuint vbo, GLuint vao);
     virtual ~RendererES3();
