@@ -5,6 +5,9 @@
 //  Created by william on 2020/2/29.
 //  Copyright © 2020 william. All rights reserved.
 //
+/*
+ 多重渲染目标（MRT），允许应用程序一次渲染到多格颜色缓冲区；
+ */
 
 #ifndef MrtES3_hpp
 #define MrtES3_hpp
