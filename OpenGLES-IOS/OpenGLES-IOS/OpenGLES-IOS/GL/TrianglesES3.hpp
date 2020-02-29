@@ -17,6 +17,8 @@ public:
     virtual ~TrianglesES3();
     virtual void Initialize() override;
     virtual void Draw() override;
+private:
+    GLuint mColorVbo;
 };
 
 #endif /* TrianglesES3_hpp */

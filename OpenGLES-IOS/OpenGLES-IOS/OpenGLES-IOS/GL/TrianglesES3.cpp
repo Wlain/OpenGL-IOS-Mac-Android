@@ -9,11 +9,12 @@
 #include "TrianglesES3.hpp"
 #include "Utils.hpp"
 
-#define POSITION_ATTRIB 1
-#define COLOR_ATTRIB 0
+#define POSITION_ATTRIB 0
+#define COLOR_ATTRIB 1
 
 TrianglesES3::TrianglesES3()
-:RendererES3(0, 0)
+:RendererES3(0, 0),
+mColorVbo(0)
 {
     
 }
@@ -28,23 +29,27 @@ void TrianglesES3::Initialize() {
        -0.5f, -0.5f, 0.0f, 1.0f,
         0.5f, -0.5f, 0.0f, 1.0f,
     };
+    GLfloat color[] = {
+        1.0f, 0.0f, 0.0f, 1.0f,
+        0.0f, 1.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f, 1.0f,
+    };
     int fileSize = 0;
     const char* vertPath = LoadFileContent("Resource/Shader/renderes3.vert", fileSize);
     const char* fragPath = LoadFileContent("Resource/Shader/renderes3.frag", fileSize);
     mProgram = CreateProgram(vertPath, fragPath);
     mVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertexes), GL_STATIC_DRAW, (void *)vertexes);
+    mColorVbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(color), GL_STATIC_DRAW, (void *)color);
 }
 
 void TrianglesES3::Draw()  {
     glUseProgram (mProgram);
-    // Load the vertex data
-    GLfloat color[] = {
-        1.0f, 0.0f, 0.0f, 1.0f,
-    };
-    glVertexAttrib4fv(COLOR_ATTRIB, color);
     glBindBuffer(GL_ARRAY_BUFFER, mVbo);
     glVertexAttribPointer(POSITION_ATTRIB, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(0));
     glEnableVertexAttribArray(POSITION_ATTRIB);
+    glBindBuffer(GL_ARRAY_BUFFER, mColorVbo);
+    glVertexAttribPointer(COLOR_ATTRIB, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(0));
+    glEnableVertexAttribArray(COLOR_ATTRIB);
     glDrawArrays (GL_TRIANGLES, 0, 3);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
