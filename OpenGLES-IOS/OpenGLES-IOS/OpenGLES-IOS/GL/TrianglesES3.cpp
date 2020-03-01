@@ -103,5 +103,10 @@ void TrianglesES3::Resize(ESContext *esContext,int width, int height) {
 }
 
 void TrianglesES3::Finalize(ESContext *esContext) {
-     SAFE_FREE(esContext->userData);
+    UserData *userData = (UserData *)esContext->userData;
+    glDeleteBuffers(1, &userData->posVbo);
+    glDeleteBuffers(1, &userData->colorVbo);
+    glDeleteVertexArrays(1, &userData->vao);
+    glDeleteProgram(userData->programObject);
+    SAFE_FREE(esContext->userData);
 }

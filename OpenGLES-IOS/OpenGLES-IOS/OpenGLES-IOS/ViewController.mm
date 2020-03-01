@@ -115,7 +115,6 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     _lastWidth = 0;
     _lastHeight = 0;
     [self setupGL];
-    [self update];
 }
 
 -(void)setupGL {
@@ -153,8 +152,8 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     [self update];
     _lastWidth = view.drawableWidth;
     _lastHeight = view.drawableHeight;
-    _esContext.width = view.drawableWidth;
-    _esContext.height = view.drawableHeight;
+    _esContext.width = (GLuint)view.drawableWidth;
+    _esContext.height = (GLuint)view.drawableHeight;
     Draw(&_esContext);
 }
 

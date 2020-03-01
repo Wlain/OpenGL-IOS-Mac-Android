@@ -34,7 +34,6 @@ GLuint Shader::GetProgram() const {
 GLuint Shader::CompileShader(GLenum shaderType, const GLchar *src) {
     GLuint shader = glCreateShader(shaderType);
     if (!shader) {
-        CheckGlError("glCreateShader");
         return 0;
     }
     glShaderSource(shader, 1, &src, nullptr);

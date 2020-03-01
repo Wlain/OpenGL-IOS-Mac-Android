@@ -41,17 +41,10 @@ GLuint CreateProceduretexture(GLsizei width, GLsizei height);
 /// @param usage usage
 GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void *data);
 
-
-/// 检查是否有glError
-/// @param funcName 接口名
-bool CheckGlError(const char* funcName);
-
-
 static void PrintGLString(const GLchar* name, GLenum s) {
     const GLchar* v = (const GLchar*)glGetString(s);
     printf("GL %s: %s\n", name, v);
 }
-
 
 // 用于外部加载shader
 GLuint CreateShader(GLenum shaderType, const char* src);

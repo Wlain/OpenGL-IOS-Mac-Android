@@ -17,7 +17,7 @@ typedef struct {
     GLuint vbo;
     
     // Handle to a element buffer object
-    GLint ebo;
+    GLuint ebo;
 
     // Handle to a framebuffer object
     GLuint fbo;
@@ -174,9 +174,15 @@ void MrtES3::Draw(ESContext *esContext) {
     // SECOND: copy the four output buffers into four window quadrants
     // with framebuffer blits
     BlitTextures(esContext);
-    CheckGlError("BlitTextures");
+    GLERROR_CHECK();
 }
 
 void MrtES3::Finalize(ESContext *esContext) {
+    UserData *userData = (UserData *)esContext->userData;
+    glDeleteBuffers(1, &userData->vbo);
+    glDeleteBuffers(1, &userData->ebo);
+    glDeleteTextures(4, userData->colorTexId);
+    glDeleteFramebuffers(1, &userData->fbo);
+    glDeleteProgram(userData->programObject);
     SAFE_FREE(esContext->userData);
 }

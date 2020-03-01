@@ -94,20 +94,9 @@ GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void
 }
 
 
-bool CheckGlError(const GLchar* funcName) {
-    GLint err = glGetError();
-    if (err != GL_NO_ERROR) {
-        printf("GL error after %s(): 0x%08x in filename = %s, line = %i\n", funcName, err, __FILE__, __LINE__);
-        return true;
-    }
-    return false;
-}
-
-
 GLuint CreateShader(GLenum shaderType, const char* src) {
     GLuint shader = glCreateShader(shaderType);
     if (!shader) {
-        CheckGlError("glCreateShader");
         return 0;
     }
     glShaderSource(shader, 1, &src, NULL);
@@ -151,7 +140,6 @@ GLuint CreateProgram(const char* vertSrc, const char* fragSrc) {
 
     program = glCreateProgram();
     if (!program) {
-        CheckGlError("glCreateProgram");
         goto exit;
     }
     glAttachShader(program, vertShader);
