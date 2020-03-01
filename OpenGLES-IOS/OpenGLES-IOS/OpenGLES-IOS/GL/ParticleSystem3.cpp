@@ -89,18 +89,11 @@ void ParticleSystem3::Initialize(ESContext *esContext) {
     if (userData->textureID <= 0) {
         esLogMessage("create textureID error");
     }
-    GLfloat *vboMappedBuf;
     userData->vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(userData->particleData), GL_STATIC_DRAW, nullptr);
+    
     glBindBuffer(GL_ARRAY_BUFFER, userData->vbo);
-    vboMappedBuf = (GLfloat *)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(userData->particleData), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-    if (vboMappedBuf == nullptr) {
-       printf("Error mapping vboMappedBuf buffer object.");
-    }
-    memcpy(vboMappedBuf, userData->particleData, sizeof(userData->particleData));
-    // Unmap the buffer
-    if(glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE) {
-       printf("Error unmapping array buffer object.");
-    }
+    glBufferData(GL_ARRAY_BUFFER, sizeof(userData->particleData), userData->particleData, GL_STATIC_DRAW);
+    
     glGenVertexArrays(1, &userData->vao);
     glBindVertexArray(userData->vao);
     glBindBuffer(1, userData->vbo);
