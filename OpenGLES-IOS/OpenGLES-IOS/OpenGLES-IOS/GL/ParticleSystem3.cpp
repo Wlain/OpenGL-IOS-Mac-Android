@@ -32,6 +32,12 @@ typedef struct {
     // Particle vertex Date
     float particleData[NUM_PARTICLES * PARTICLE_SIZE];
     
+    // vbo
+    GLuint vbo;
+    
+    // vao
+    GLuint vao;
+    
     // Current time
     GLfloat time;
 } UserData;
@@ -83,6 +89,29 @@ void ParticleSystem3::Initialize(ESContext *esContext) {
     if (userData->textureID <= 0) {
         esLogMessage("create textureID error");
     }
+    GLfloat *vboMappedBuf;
+    userData->vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(userData->particleData), GL_STATIC_DRAW, nullptr);
+    glBindBuffer(GL_ARRAY_BUFFER, userData->vbo);
+    vboMappedBuf = (GLfloat *)glMapBufferRange(GL_ARRAY_BUFFER, 0, sizeof(userData->particleData), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+    if (vboMappedBuf == nullptr) {
+       printf("Error mapping vboMappedBuf buffer object.");
+    }
+    memcpy(vboMappedBuf, userData->particleData, sizeof(userData->particleData));
+    // Unmap the buffer
+    if(glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE) {
+       printf("Error unmapping array buffer object.");
+    }
+    glGenVertexArrays(1, &userData->vao);
+    glBindVertexArray(userData->vao);
+    glBindBuffer(1, userData->vbo);
+    glVertexAttribPointer(ATTRIBUTE_LIFETIME_LOCATION, 1, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void *)(0 * sizeof(GLfloat)));
+    glVertexAttribPointer(ATTRIBUTE_ENDPOSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat),  (void *)(1 * sizeof(GLfloat)));
+    glVertexAttribPointer(ATTRIBUTE_STARTPOSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat),  (void *)(4 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(ATTRIBUTE_LIFETIME_LOCATION);
+    glEnableVertexAttribArray(ATTRIBUTE_ENDPOSITION_LOCATION);
+    glEnableVertexAttribArray(ATTRIBUTE_STARTPOSITION_LOCATION);
+    glBindBuffer(1, 0);
+    glBindVertexArray(0);
 }
 
 void ParticleSystem3::Resize(ESContext *esContext, GLint width, GLint height) {
@@ -120,19 +149,8 @@ void ParticleSystem3::Draw(ESContest *esContext) {
     UserData *userData = (UserData *)esContext->userData;
     glClear(GL_COLOR_BUFFER_BIT);
     glUseProgram(userData->programObject);
-    glVertexAttribPointer(ATTRIBUTE_LIFETIME_LOCATION, 1, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), userData->particleData);
-    glVertexAttribPointer(ATTRIBUTE_ENDPOSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), userData->particleData + 1);
-    glVertexAttribPointer(ATTRIBUTE_STARTPOSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), userData->particleData + 4);
-//    此处等价于
-//    glVertexAttribPointer(ATTRIBUTE_STARTPOSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), &userData->particleData[4]);
-//    因为指针加1，实际上地址的偏移4个字节
-    
 
-    
-    glEnableVertexAttribArray(ATTRIBUTE_LIFETIME_LOCATION);
-    glEnableVertexAttribArray(ATTRIBUTE_ENDPOSITION_LOCATION);
-    glEnableVertexAttribArray(ATTRIBUTE_STARTPOSITION_LOCATION);
-    
+    glBindVertexArray(userData->vao);
     // Blend particles
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -144,10 +162,13 @@ void ParticleSystem3::Draw(ESContest *esContext) {
     // Set the sample texture unid to 0
     glUniform1i(userData->samplerLocation, 0);
     glDrawArrays(GL_POINTS, 0, NUM_PARTICLES);
+    glBindVertexArray(0);
 }
 
 void ParticleSystem3::Finalize(ESContext *esContext) {
     UserData *userData = (UserData *)esContext->userData;
+    glDeleteVertexArrays(1, &userData->vao);
+    glDeleteBuffers(1, &userData->vbo);
     glDeleteTextures(1, &userData->textureID);
     glDeleteProgram(userData->programObject);
     SAFE_FREE(esContext->userData);

@@ -83,6 +83,7 @@ void TrianglesES3::Initialize(ESContext *esContext) {
     glBindBuffer(GL_ARRAY_BUFFER, userData->colorVbo);
     glVertexAttribPointer(COLOR_ATTRIB, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(0));
     glEnableVertexAttribArray(COLOR_ATTRIB);
+    glBindBuffer(1, 0);
     glBindVertexArray(0);
 }
 
