@@ -25,26 +25,22 @@ MrtES3::~MrtES3() {
 
 void MrtES3::DrawGeometry()
 {
-   GLfloat vVertices[] = { -1.0f,  1.0f, 0.0f,
-                           -1.0f, -1.0f, 0.0f,
-                            1.0f, -1.0f, 0.0f,
-                            1.0f,  1.0f, 0.0f,
-                         };
-   GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-
-   // Clear the color buffer
-   glClear ( GL_COLOR_BUFFER_BIT );
+   const GLfloat vertices[] = {
+       0.0f,  0.5f, 0.0f, 1.0f,
+      -0.5f, -0.5f, 0.0f, 1.0f,
+       0.5f, -0.5f, 0.0f, 1.0f,
+   };
+   GLushort indices[] = {0, 1, 2};
 
    // Use the program object
    glUseProgram(mProgram);
 
    // Load the vertex position
-   glVertexAttribPointer ( 0, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), vVertices );
-   glEnableVertexAttribArray ( 0 );
-
+   glVertexAttribPointer (0, 4, GL_FLOAT,
+                           GL_FALSE, 4 * sizeof(GLfloat), vertices);
+   glEnableVertexAttribArray (0);
    // Draw a quad
-   glDrawElements ( GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+   glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, indices);
 }
 
 GLboolean MrtES3::InitFbo() {
@@ -62,11 +58,14 @@ GLboolean MrtES3::InitFbo() {
     glBindFramebuffer(GL_FRAMEBUFFER, mFbo);
     
     // setup four output buffers and attach to fbo
-    mTextureHeight = mTextureWidth = 200;
+    mTextureHeight = 1334;
+    mTextureWidth = 1334;
     glGenTextures(4, &mColorTexId[0]);
     for (int i = 0; i < 4; ++i) {
         glBindTexture(GL_TEXTURE_2D, mColorTexId[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mTextureWidth, mTextureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+                     mTextureWidth, mTextureHeight,
+                     0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         // set the filtering mode
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -86,27 +85,26 @@ GLboolean MrtES3::InitFbo() {
 void MrtES3::BlitTextures() {
     // set the fbo for reading
     glBindFramebuffer(GL_READ_FRAMEBUFFER, mFbo);
-    
     // copy the output red buffer to lower left quadrant
     glReadBuffer(GL_COLOR_ATTACHMENT0);
-    glBlitFramebuffer(0, 0, mTextureWidth, mTextureHeight,
+    glBlitFramebuffer(0, 0, mWidth, mHeight,
                       0, 0, mWidth/2, mHeight/2,
                       GL_COLOR_BUFFER_BIT, GL_LINEAR);
     // Copy the output green buffer to lower right quadrant
     glReadBuffer(GL_COLOR_ATTACHMENT1 );
-    glBlitFramebuffer( 0, 0, mTextureWidth, mTextureHeight,
+    glBlitFramebuffer( 0, 0, mWidth, mHeight,
                        mWidth/2, 0, mWidth, mHeight/2,
                        GL_COLOR_BUFFER_BIT, GL_LINEAR);
-    
+
     // Copy the output blue buffer to upper left quadrant
     glReadBuffer(GL_COLOR_ATTACHMENT2 );
-    glBlitFramebuffer( 0, 0, mTextureWidth, mTextureHeight,
+    glBlitFramebuffer( 0, 0, mWidth, mHeight,
                        0, mHeight/2, mWidth/2, mHeight,
                        GL_COLOR_BUFFER_BIT, GL_LINEAR);
-    
-    // CCopy the output blue buffer to upper left quadrant
+
+    // Copy the output gray buffer to upper right quadrant
     glReadBuffer(GL_COLOR_ATTACHMENT3 );
-    glBlitFramebuffer( 0, 0, mTextureWidth, mTextureHeight,
+    glBlitFramebuffer( 0, 0, mWidth, mHeight,
                        mWidth/2, mHeight/2, mWidth, mHeight,
                        GL_COLOR_BUFFER_BIT, GL_LINEAR);
 }
@@ -135,6 +133,7 @@ void MrtES3::Draw() {
     };
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFramebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, mFbo);
+    glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glDrawBuffers(4, attachments);
     DrawGeometry();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, defaultFramebuffer);
