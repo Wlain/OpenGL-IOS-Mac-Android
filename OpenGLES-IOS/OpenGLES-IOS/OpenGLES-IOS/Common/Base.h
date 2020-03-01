@@ -17,6 +17,7 @@
 #include <OpenGLES/ES3/gl.h>
 #include <OpenGLES/ES3/glext.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <math.h>
 #include <string.h>
 #include <string>

@@ -8,10 +8,7 @@
 
 #include "RendererES3.hpp"
 
-RendererES3::RendererES3(GLuint program, GLuint vbo, GLuint vao)
-:mProgram(program),
-mVbo(vbo),
-mVao(vao){
+RendererES3::RendererES3() {
     
 }
 

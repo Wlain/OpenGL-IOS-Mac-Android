@@ -89,6 +89,11 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
 }
 
 @interface ViewController ()
+{
+    ESContext _esContext;
+    long _lastWidth;
+    long _lastHeight;
+}
 @property(nonatomic, strong) EAGLContext *context;
 @end
 
@@ -107,24 +112,50 @@ GLuint GetTextureFromFile(const char *path, bool flipVertical) {
     view.context = self.context;
     // 初始化深度缓冲区为24bit
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    [EAGLContext setCurrentContext:self.context];
-    CGRect rect = [[UIScreen mainScreen] bounds];
-    Initialize();
-    SetViewPort(rect.size.width * 2, rect.size.height * 2);
+    _lastWidth = 0;
+    _lastHeight = 0;
+    [self setupGL];
+    [self update];
 }
+
+-(void)setupGL {
+    [EAGLContext setCurrentContext:self.context];
+    memset( &_esContext, 0, sizeof( _esContext ) );
+    Initialize(&_esContext);
+}
+
+-(void)resize:(int) width height:(int) height {
+    Resize(&_esContext, width, height);
+}
+
 
 - (void)dealloc
 {
-    Finalize();
+    Finalize(&_esContext);
     if ([EAGLContext currentContext] == self.context)
     {
         [EAGLContext setCurrentContext:nil];
     }
 }
 
-- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    Draw();
+- (void)update
+{
+    if (_esContext.updateFunc)
+    {
+        _esContext.updateFunc(&_esContext, self.timeSinceLastUpdate);
+    }
 }
 
+- (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+    if (_lastWidth!= view.drawableWidth || _lastHeight != view.drawableHeight) {
+        [self resize:(int)view.drawableWidth height:(int)view.drawableHeight];
+    }
+    [self update];
+    _lastWidth = view.drawableWidth;
+    _lastHeight = view.drawableHeight;
+    _esContext.width = view.drawableWidth;
+    _esContext.height = view.drawableHeight;
+    Draw(&_esContext);
+}
 
 @end

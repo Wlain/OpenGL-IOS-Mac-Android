@@ -31,7 +31,46 @@ ParticleSystem particle;
 TrianglesES3 triangle;
 MrtES3 mrt;
 
-void Initialize() {
+GLboolean ESSCENE_API esCreateWindow(ESContext *esContext, const char *title, GLint width, GLuint height) {
+    esContext->width = width;
+    esContext->height = height;
+    return GL_FALSE;
+}
+
+void ESSCENE_API esResigerInitFunc(ESContext *esContext, void(ESCALLBACK *initFunc)(ESContext *)) {
+    esContext->initFunc = initFunc;
+}
+
+void ESSCENE_API esResigerResizeFunc(ESContext *esContext, void(ESCALLBACK *resizeFunc)(ESContext *)) {
+    esContext->resizeFunc = resizeFunc;
+}
+
+void ESSCENE_API esResigerDrawFunc(ESContext *esContext, void(ESCALLBACK *drawFunc)(ESContext *)) {
+    esContext->drawFunc = drawFunc;;
+}
+
+void ESSCENE_API esResigerUpdateFunc(ESContext *esContext, void(ESCALLBACK *updateFunc)(ESContext *, float deltaTime)) {
+    esContext->updateFunc = updateFunc;
+}
+
+void ESSCENE_API esResigerKeyFunc(ESContext *esContext, void(ESCALLBACK *keyFunc)(ESContext *,unsigned char, int, int)) {
+    esContext->keyFunc = keyFunc;
+}
+
+void ESSCENE_API esRegisterShutdownFunc( ESContext *esContext, void(ESCALLBACK *finalizeFunc)(ESContext *)) {
+    esContext->finalizeFunc = Finalize;
+}
+
+void ESSCENE_API esLogMessage(const char *formatStr, ...) {
+    va_list params;
+    char buf[1024];
+    va_start(params, formatStr);
+    vsprintf(buf, formatStr, params);
+    printf("%s", buf);
+    va_end(params);
+}
+
+void Initialize(ESContext *esContext) {
     PrintGLString("Version", GL_VERSION);
     PrintGLString("Vendor", GL_VENDOR);
     PrintGLString("Renderer", GL_RENDERER);
@@ -54,17 +93,17 @@ void Initialize() {
 //    head.SetModelMatrix(headModelMatrix);
 //    skybox.Initialize("Resource/UI/Skybox2/");
 //    particle.Initialize(targetPosition.x, targetPosition.y, targetPosition.z);
-//    triangle.Initialize();
-    mrt.Initialize();
+//    triangle.Initialize(esContext);
+    mrt.Initialize(esContext);
 }
 
-void SetViewPort(GLfloat width, GLfloat height) {
+void Resize(ESContext *esContext, GLint width, GLint height) {
     glViewport(0, 0, width, height);
-    projectionMatrix = glm::perspective(45.0f, width / height, 0.1f, 1500.0f);
-    mrt.Resize(width, height);
+    projectionMatrix = glm::perspective(45.0f, (GLfloat)width / height, 0.1f, 1500.0f);
+    mrt.Resize(esContext, width, height);
 }
 
-void Draw() {
+void Draw(ESContext *esContext) {
     GLfloat frameTime = GetFrameTime();
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -75,10 +114,21 @@ void Draw() {
 //    head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 //    particle.Update(frameTime);
 //    particle.Draw(viewMatrix, projectionMatrix);
-//    triangle.Draw();
-    mrt.Draw();
+//    triangle.Draw(esContext);
+    mrt.Draw(esContext);
 }
 
-void Finalize() {
+void Key(ESContext *esContext) {
     
 }
+
+void Update(ESContext *esContext, float deltaTime) {
+    
+}
+
+void Finalize(ESContext *esContext) {
+//    triangle.Finalize(esContext);
+    mrt.Finalize(esContext);
+}
+
+

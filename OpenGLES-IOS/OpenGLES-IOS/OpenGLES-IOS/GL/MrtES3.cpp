@@ -8,14 +8,22 @@
 
 #include "MrtES3.hpp"
 #include "Utils.hpp"
+typedef struct {
+    // Handle to a program object
+    GLuint programObject;
 
-MrtES3::MrtES3()
-:RendererES3(0, 0, 0),
-mFbo(0),
-mWidth(0),
-mHeight(0),
-mTextureWidth(0),
-mTextureHeight(0){
+    // Handle to a framebuffer object
+    GLuint fbo;
+
+    // Texture handle
+    GLuint colorTexId[4];
+
+    // Texture size
+    GLsizei textureWidth;
+    GLsizei textureHeight;
+} UserData;
+
+MrtES3::MrtES3() {
 
 }
 
@@ -23,27 +31,27 @@ MrtES3::~MrtES3() {
     
 }
 
-void MrtES3::DrawGeometry()
-{
-   const GLfloat vertices[] = {
-       0.0f,  0.5f, 0.0f, 1.0f,
-      -0.5f, -0.5f, 0.0f, 1.0f,
-       0.5f, -0.5f, 0.0f, 1.0f,
-   };
-   GLushort indices[] = {0, 1, 2};
-
-   // Use the program object
-   glUseProgram(mProgram);
-
-   // Load the vertex position
-   glVertexAttribPointer (0, 4, GL_FLOAT,
+void MrtES3::DrawGeometry(ESContext *esContext) {
+    UserData *userData = (UserData *)esContext->userData;
+    const GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.0f, 1.0f,
+    };
+    GLushort indices[] = {0, 1, 2};
+    // Use the program object
+    glUseProgram(userData->programObject);
+    
+    // Load the vertex position
+    glVertexAttribPointer (0, 4, GL_FLOAT,
                            GL_FALSE, 4 * sizeof(GLfloat), vertices);
-   glEnableVertexAttribArray (0);
-   // Draw a quad
-   glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, indices);
+    glEnableVertexAttribArray (0);
+    // Draw a quad
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, indices);
 }
 
-GLboolean MrtES3::InitFbo() {
+GLboolean MrtES3::InitFbo(ESContext *esContext) {
+    UserData *userData = (UserData *)esContext->userData;
     GLint defaultFramebuffer = 0;
     const GLenum attachments[4] = {
         GL_COLOR_ATTACHMENT0,
@@ -54,23 +62,22 @@ GLboolean MrtES3::InitFbo() {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFramebuffer);
     
     // setup fbo
-    glGenFramebuffers(1, &mFbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, mFbo);
+    glGenFramebuffers(1, &userData->fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, userData->fbo);
     
     // setup four output buffers and attach to fbo
-    mTextureHeight = 1334;
-    mTextureWidth = 1334;
-    glGenTextures(4, &mColorTexId[0]);
+    userData->textureWidth = userData->textureHeight = 1334;
+    glGenTextures(4, &userData->colorTexId[0]);
     for (int i = 0; i < 4; ++i) {
-        glBindTexture(GL_TEXTURE_2D, mColorTexId[i]);
+        glBindTexture(GL_TEXTURE_2D, userData->colorTexId[i]);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                     mTextureWidth, mTextureHeight,
+                     userData->textureWidth, userData->textureHeight,
                      0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         // set the filtering mode
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        
-        glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, attachments[i], GL_TEXTURE_2D, mColorTexId[i], 0);
+
+        glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, attachments[i], GL_TEXTURE_2D, userData->colorTexId[i], 0);
     }
     glDrawBuffers(4, attachments);
     
@@ -82,60 +89,74 @@ GLboolean MrtES3::InitFbo() {
     return GL_TRUE;
 }
 
-void MrtES3::BlitTextures() {
+void MrtES3::BlitTextures(ESContext *esContext) {
+    UserData *userData = (UserData *)esContext->userData;
     // set the fbo for reading
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, mFbo);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, userData->fbo);
     // copy the output red buffer to lower left quadrant
     glReadBuffer(GL_COLOR_ATTACHMENT0);
-    glBlitFramebuffer(0, 0, mWidth, mHeight,
-                      0, 0, mWidth/2, mHeight/2,
+    glBlitFramebuffer(0, 0, esContext->width, esContext->height,
+                      0, 0, esContext->width/2, esContext->height/2,
                       GL_COLOR_BUFFER_BIT, GL_LINEAR);
     // Copy the output green buffer to lower right quadrant
-    glReadBuffer(GL_COLOR_ATTACHMENT1 );
-    glBlitFramebuffer( 0, 0, mWidth, mHeight,
-                       mWidth/2, 0, mWidth, mHeight/2,
-                       GL_COLOR_BUFFER_BIT, GL_LINEAR);
+    glReadBuffer(GL_COLOR_ATTACHMENT1);
+    glBlitFramebuffer(0, 0, esContext->width, esContext->height,
+                      esContext->width/2, 0, esContext->width, esContext->height/2,
+                      GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
     // Copy the output blue buffer to upper left quadrant
-    glReadBuffer(GL_COLOR_ATTACHMENT2 );
-    glBlitFramebuffer( 0, 0, mWidth, mHeight,
-                       0, mHeight/2, mWidth/2, mHeight,
-                       GL_COLOR_BUFFER_BIT, GL_LINEAR);
+    glReadBuffer(GL_COLOR_ATTACHMENT2);
+    glBlitFramebuffer(0, 0, esContext->width, esContext->height,
+                      0, esContext->height/2, esContext->width/2, esContext->height,
+                      GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
     // Copy the output gray buffer to upper right quadrant
-    glReadBuffer(GL_COLOR_ATTACHMENT3 );
-    glBlitFramebuffer( 0, 0, mWidth, mHeight,
-                       mWidth/2, mHeight/2, mWidth, mHeight,
-                       GL_COLOR_BUFFER_BIT, GL_LINEAR);
+    glReadBuffer(GL_COLOR_ATTACHMENT3);
+    glBlitFramebuffer(0, 0, esContext->width, esContext->height,
+                      esContext->width/2, esContext->height/2, esContext->width, esContext->height,
+                      GL_COLOR_BUFFER_BIT, GL_LINEAR);
 }
 
-void MrtES3::Initialize() {
+void MrtES3::Initialize(ESContext *esContext) {
+    esContext->userData = malloc(sizeof(UserData));
+    UserData *userData = (UserData *)esContext->userData;
     int fileSize;
     const char* vertPath = LoadFileContent("Resource/Shader/mrt3.vert", fileSize);
     const char* fragPath = LoadFileContent("Resource/Shader/mrt3.frag", fileSize);
-    mProgram = CreateProgram(vertPath, fragPath);
-    InitFbo();
+    userData->programObject = CreateProgram(vertPath, fragPath);
+    InitFbo(esContext);
 }
 
-void MrtES3::Resize(int width, int height) {
-    mWidth = width;
-    mHeight = height;
+void MrtES3::Resize(ESContext *esContext, int width, int height) {
+    
 }
 
-void MrtES3::Draw() {
+void MrtES3::Update(ESContext *esContext, float deltaTime) {
+    
+}
+
+void MrtES3::Draw(ESContext *esContext) {
+    UserData *userDate = (UserData *)esContext->userData;
     GLint defaultFramebuffer = 0;
-    const GLenum attachments[4] =
-    {
+    const GLenum attachments[4] = {
        GL_COLOR_ATTACHMENT0,
        GL_COLOR_ATTACHMENT1,
        GL_COLOR_ATTACHMENT2,
        GL_COLOR_ATTACHMENT3
     };
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFramebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, mFbo);
+    // FIRST: use MRTs to output four colors to four buffers
+    glBindFramebuffer(GL_FRAMEBUFFER, userDate->fbo);
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glDrawBuffers(4, attachments);
-    DrawGeometry();
+    DrawGeometry(esContext);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, defaultFramebuffer);
-    BlitTextures();
+    // SECOND: copy the four output buffers into four window quadrants
+    // with framebuffer blits
+    BlitTextures(esContext);
+    CheckGlError("BlitTextures");
+}
+
+void MrtES3::Finalize(ESContext *esContext) {
+    SAFE_FREE(esContext->userData);
 }
