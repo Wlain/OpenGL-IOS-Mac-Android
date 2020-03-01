@@ -56,7 +56,7 @@ void TrianglesES3::Initialize(ESContext *esContext) {
     }
     memcpy(vboMappedBuf, vertexes, sizeof(vertexes));
     // Unmap the buffer
-    if (glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE ) {
+    if(glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE) {
        printf("Error unmapping array buffer object.");
     }
     // Copy the data into the mapped buffer
@@ -69,11 +69,11 @@ void TrianglesES3::Initialize(ESContext *esContext) {
     }
     memcpy(colorVboMappedBuf, color, sizeof(color));
     // Unmap the buffer
-    if (glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE ) {
+    if(glUnmapBuffer(GL_ARRAY_BUFFER) == GL_FALSE) {
        printf("Error unmapping array buffer object.");
     }
     // Generate VAO Id
-    glGenVertexArrays( 1, &userData->vao);
+    glGenVertexArrays(1, &userData->vao);
     // Bind the VAO and then setup the vertex
     // attributes
     glBindVertexArray(userData->vao);
@@ -88,9 +88,9 @@ void TrianglesES3::Initialize(ESContext *esContext) {
 
 void TrianglesES3::Draw(ESContext *esContext) {
     UserData *userData = (UserData *)esContext->userData;
-    glUseProgram (userData->programObject);
+    glUseProgram(userData->programObject);
     glBindVertexArray(userData->vao);
-    glDrawArrays (GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
 }
 

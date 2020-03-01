@@ -8,9 +8,16 @@
 
 #include "MrtES3.hpp"
 #include "Utils.hpp"
+#define POSITION_ATTRIB 0
 typedef struct {
     // Handle to a program object
     GLuint programObject;
+    
+    // Handle to a vertex buffer object
+    GLuint vbo;
+    
+    // Handle to a element buffer object
+    GLint ebo;
 
     // Handle to a framebuffer object
     GLuint fbo;
@@ -33,21 +40,19 @@ MrtES3::~MrtES3() {
 
 void MrtES3::DrawGeometry(ESContext *esContext) {
     UserData *userData = (UserData *)esContext->userData;
-    const GLfloat vertices[] = {
-        0.0f,  0.5f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.0f, 1.0f,
-    };
-    GLushort indices[] = {0, 1, 2};
     // Use the program object
     glUseProgram(userData->programObject);
     
     // Load the vertex position
-    glVertexAttribPointer (0, 4, GL_FLOAT,
-                           GL_FALSE, 4 * sizeof(GLfloat), vertices);
-    glEnableVertexAttribArray (0);
+    glBindBuffer(GL_ARRAY_BUFFER, userData->vbo);
+    glVertexAttribPointer (POSITION_ATTRIB, 4, GL_FLOAT,
+                           GL_FALSE, 4 * sizeof(GLfloat), (void *)(0 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(POSITION_ATTRIB);
     // Draw a quad
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, indices);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, userData->ebo);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, (void *)(0 * sizeof(GLfloat)));
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 GLboolean MrtES3::InitFbo(ESContext *esContext) {
@@ -121,10 +126,25 @@ void MrtES3::Initialize(ESContext *esContext) {
     esContext->userData = malloc(sizeof(UserData));
     UserData *userData = (UserData *)esContext->userData;
     int fileSize;
+    const GLfloat vertices[] = {
+        0.0f,  0.5f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.0f, 1.0f,
+    };
+    GLushort indices[] = {0, 1, 2};
     const char* vertPath = LoadFileContent("Resource/Shader/mrt3.vert", fileSize);
     const char* fragPath = LoadFileContent("Resource/Shader/mrt3.frag", fileSize);
     userData->programObject = CreateProgram(vertPath, fragPath);
     InitFbo(esContext);
+    userData->vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(vertices), GL_STATIC_DRAW, nullptr);
+    glBindBuffer(GL_ARRAY_BUFFER, userData->vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(POSITION_ATTRIB);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    userData->ebo = CreateBufferObject(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), GL_STATIC_DRAW, nullptr);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, userData->ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void MrtES3::Resize(ESContext *esContext, int width, int height) {
