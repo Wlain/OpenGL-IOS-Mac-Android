@@ -17,6 +17,7 @@
 #include "TrianglesES3.hpp"
 #include "MrtES3.hpp"
 #include "ParticleSystem3.hpp"
+#include "ParticleEmitter.hpp"
 
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
@@ -32,6 +33,7 @@ ParticleSystem particle;
 TrianglesES3 triangle;
 MrtES3 mrt;
 ParticleSystem3 particle3;
+ParticleEmitter particleEmitter3;
 
 GLboolean ESSCENE_API esCreateWindow(ESContext *esContext, const char *title, GLint width, GLuint height) {
     esContext->width = width;
@@ -99,14 +101,16 @@ void Initialize(ESContext *esContext) {
 //    particle.Initialize(targetPosition.x, targetPosition.y, targetPosition.z);
 //    triangle.Initialize(esContext);
 //    mrt.Initialize(esContext);
-    particle3.Initialize(esContext);
+//    particle3.Initialize(esContext);
+    particleEmitter3.Initialize(esContext);
 }
 
 void Resize(ESContext *esContext, GLint width, GLint height) {
     glViewport(0, 0, width, height);
     projectionMatrix = glm::perspective(45.0f, (GLfloat)width / height, 0.1f, 1500.0f);
 //    mrt.Resize(esContext, width, height);
-    particle3.Resize(esContext, width, height);
+//    particle3.Resize(esContext, width, height);
+    particleEmitter3.Resize(esContext, width, height);
 }
 
 void Draw(ESContext *esContext) {
@@ -122,7 +126,8 @@ void Draw(ESContext *esContext) {
 //    particle.Draw(viewMatrix, projectionMatrix);
 //    triangle.Draw(esContext);
 //    mrt.Draw(esContext);
-    particle3.Draw(esContext);
+//    particle3.Draw(esContext);
+    particleEmitter3.Draw(esContext);
 }
 
 void Key(ESContext *esContext) {
@@ -130,13 +135,15 @@ void Key(ESContext *esContext) {
 }
 
 void Update(ESContext *esContext, float deltaTime) {
-    particle3.Update(esContext, deltaTime);
+//    particle3.Update(esContext, deltaTime);
+    particleEmitter3.Update(esContext, deltaTime);
 }
 
 void Finalize(ESContext *esContext) {
 //    triangle.Finalize(esContext);
 //    mrt.Finalize(esContext);
-    particle3.Finalize(esContext);
+//    particle3.Finalize(esContext);
+    particleEmitter3.Finalize(esContext);
 }
 
 

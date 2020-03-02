@@ -57,6 +57,8 @@ void ParticleSystem3::Initialize(ESContext *esContext) {
     const char* vertPath = LoadFileContent("Resource/Shader/ParticleSystem3.vert", fileSize);
     const char* fragPath = LoadFileContent("Resource/Shader/ParticleSystem3.frag", fileSize);
     userData->programObject = CreateProgram(vertPath, fragPath);
+    SAFE_DELETE_ARRAY(vertPath);
+    SAFE_DELETE_ARRAY(fragPath);
     userData->timeLocation = glGetUniformLocation(userData->programObject, "u_time");
     userData->centerPositionLocation = glGetUniformLocation(userData->programObject, "u_centerPosition");
     userData->colorLocation = glGetUniformLocation(userData->programObject, "u_color");
