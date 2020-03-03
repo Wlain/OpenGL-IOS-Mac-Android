@@ -20,7 +20,7 @@ layout(location = ATTRIBUTE_LIFETIME) in float a_lifetime;
 // u_time：发射时间
 uniform float u_time;
 uniform float u_emissionRate; // 粒子发射率
-//uniform mediump sampler3D s_noiseTexture;
+uniform mediump sampler3D s_noiseTexture;
 
 ///////////////////////////////////////////////////////////
 // Varying
@@ -33,17 +33,24 @@ out vec4 v_randomColor;
 
 float random(float n) {
     // fract(x), 返回x的小数部分数据
-    return fract(sin(n) * 43758.5453123) * 4.0;
+    return fract(sin(n) * 43758.5453123) * 0.5;
+}
+
+float randomValue(inout float seed) {
+   float vertexId = float( gl_VertexID ) / float( NUM_PARTICLES );
+   vec3 texCoord = vec3(u_time, vertexId, seed);
+   seed += 0.1;
+   return texture(s_noiseTexture, texCoord).r;
 }
 
 void main() {
     float seed = u_time;
     float lifetime = a_currenttime - u_time;
-    if(lifetime <= 0.0 && random(seed) < u_emissionRate) {
+    if(lifetime <= 0.0 && randomValue(seed) < u_emissionRate) {
         v_position = vec2(0.0, 0.0);
-        v_velocity = vec2(random(seed) * 2.0 - 1.0,
-                          random(seed) * 1.4 + 1.0);
-        v_size = random(seed) * 20.0 + 60.0;
+        v_velocity = vec2(randomValue(seed) * 2.0 - 1.0,
+                          randomValue(seed) * 1.4 + 1.0);
+        v_size = randomValue(seed) * 20.0 + 60.0;
         v_currenttime = u_time;
         v_lifetime = 4.0;
     } else {

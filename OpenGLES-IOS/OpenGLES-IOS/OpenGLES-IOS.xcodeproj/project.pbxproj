@@ -27,6 +27,7 @@
 		3D6E94A52401350C000222B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94A42401350C000222B4 /* main.m */; };
 		3D6E94AF24013758000222B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D6E94AE24013758000222B4 /* GLKit.framework */; };
 		3D6E94B424015682000222B4 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E94B224015682000222B4 /* Utils.cpp */; };
+		3D804AC5240DF97D005C159F /* Noise3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D804AC3240DF97D005C159F /* Noise3D.cpp */; };
 		3DF3664824015EF2001B2256 /* Glm in Resources */ = {isa = PBXBuildFile; fileRef = 3DF3664724015EF2001B2256 /* Glm */; };
 		3DF3664B24016281001B2256 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF3664924016281001B2256 /* Scene.cpp */; };
 		3DF366562401701C001B2256 /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = 3DF366552401701C001B2256 /* Resource */; };
@@ -72,6 +73,8 @@
 		3D6E94B124015674000222B4 /* Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base.h; sourceTree = "<group>"; };
 		3D6E94B224015682000222B4 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		3D6E94B324015682000222B4 /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		3D804AC3240DF97D005C159F /* Noise3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Noise3D.cpp; sourceTree = "<group>"; };
+		3D804AC4240DF97D005C159F /* Noise3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Noise3D.hpp; sourceTree = "<group>"; };
 		3DF3664724015EF2001B2256 /* Glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Glm; sourceTree = "<group>"; };
 		3DF3664924016281001B2256 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		3DF3664A24016281001B2256 /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		3D6E94B524015687000222B4 /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				3D804AC3240DF97D005C159F /* Noise3D.cpp */,
+				3D804AC4240DF97D005C159F /* Noise3D.hpp */,
 				3DF3664A24016281001B2256 /* Scene.hpp */,
 				3DF3664924016281001B2256 /* Scene.cpp */,
 				3D0C5D97240C150300D9BE2E /* ParticleEmitter.cpp */,
@@ -266,6 +271,7 @@
 				3D4F240D240A140F003E98A8 /* TrianglesES3.cpp in Sources */,
 				3D0B1E42240266610071D9B9 /* Ground.cpp in Sources */,
 				3D6E949A2401350A000222B4 /* ViewController.mm in Sources */,
+				3D804AC5240DF97D005C159F /* Noise3D.cpp in Sources */,
 				3D4F2410240A804D003E98A8 /* MrtES3.cpp in Sources */,
 				3D5EFBB0240681EF0066F8F1 /* Skybox.cpp in Sources */,
 				3D4F240724095316003E98A8 /* RendererES3.cpp in Sources */,

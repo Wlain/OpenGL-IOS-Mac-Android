@@ -8,10 +8,11 @@
 #include "ParticleEmitter.hpp"
 #include "Base.h"
 #include "Utils.hpp"
+#include "Noise3D.hpp"
 #include <stddef.h>
 
-#define NUM_PARTICLES   1
-#define EMISSION_RATE   0.1f
+#define NUM_PARTICLES   200
+#define EMISSION_RATE   0.3f
 #define ACCELERATION   -1.0f
 
 #define ATTRIBUTE_POSITION      0
@@ -47,7 +48,7 @@ typedef struct {
     
     // Texture handles
     GLuint textureId;
-//    GLuint noiseTextureId;
+    GLuint noiseTextureId;
     
     // Particle vertex data
     Particle particleData[NUM_PARTICLES];
@@ -121,9 +122,9 @@ void ParticleEmitter::EmitParticles(ESContext *esContext, float deltaTime) {
     glUniform1f(userData->emitEmissionRateLocation, EMISSION_RATE);
     
     // bind texture
-//    glActiveTexture(GL_TEXTURE0);
-//    glBindTexture(GL_TEXTURE_3D, userData->noiseTextureId);
-//    glUniform1i(userData->emitNoiseSamplerLocation, 0);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_3D, userData->noiseTextureId);
+    glUniform1i(userData->emitNoiseSamplerLocation, 0);
     
     // Emit particles using transform feedback
     glBeginTransformFeedback(GL_POINTS);
@@ -196,11 +197,11 @@ void ParticleEmitter::Initialize(ESContext *esContext) {
         userData->time = 0.0f;
         userData->curSrcIndex = 0;
         
-//        userData->noiseTextureId = Create3DNoiseTexture(128, 50.0);
-//        if (userData->noiseTextureId <= 0) {
-//            esLogMessage("create noiseTextureId failed");
-//            goto exit;
-//        }
+        userData->noiseTextureId = Create3DNoiseTexture(128, 50.0);
+        if (userData->noiseTextureId <= 0) {
+            esLogMessage("create noiseTextureId failed");
+            goto exit;
+        }
         userData->textureId = GetTextureFromFile("Resource/UI/ball.png", true);
         if (userData->textureId <= 0) {
             esLogMessage("create textureId failed");
@@ -256,7 +257,7 @@ void ParticleEmitter::Draw(ESContext *esContext) {
     
     // set uniforms
     glUniform1f(userData->drawTimeLocation, userData->time);
-    glUniform4f(userData->drawColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);
+    glUniform4f(userData->drawColorLocation, (float)(rand() % 10000) / 5000.0f - 1.0f, (float)(rand() % 10000) / 5000.0f - 1.0f, (float)(rand() % 10000) / 5000.0f - 1.0f, 1.0f );
     glUniform2f(userData->drawAccelerationLocation, 0.0f, ACCELERATION);
     
     // blend uniform
@@ -275,6 +276,7 @@ void ParticleEmitter::Draw(ESContext *esContext) {
 void ParticleEmitter::Finalize(ESContext *esContext) {
     Userdata *userData = (Userdata *)esContext->userData;
     glDeleteTextures(1, &userData->textureId);
+    glDeleteTextures(1, &userData->noiseTextureId);
     glDeleteProgram(userData->drawProgramObject);
     glDeleteProgram(userData->emitProgramObject);
     glDeleteBuffers(2, &userData->particleVBOs[0]);
