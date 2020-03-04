@@ -17,10 +17,7 @@ varying vec2 v_texCoord;
 
 
 void main(void) {
-	vec4 position = u_projectionMatrix * u_viewMatrix * u_modelMatrix * a_position;
-
-	v_texCoord = u_flipScale * (a_position.xy / 2.0 * u_rotation) + 0.5;
-	
-    gl_Position = position;
+	v_texCoord = a_texCoord;
+    gl_Position = u_projectionMatrix * u_viewMatrix * u_modelMatrix * a_position;
 }
 
