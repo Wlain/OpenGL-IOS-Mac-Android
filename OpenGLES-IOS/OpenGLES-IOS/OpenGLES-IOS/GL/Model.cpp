@@ -21,7 +21,6 @@ void Model::Initialize(const GLchar *modelPath) {
     typedef struct _GLfloatData {
         GLfloat v[3];
     } GLfloatData;
-    
     // 定义obj模型里面的一个点
     typedef struct _VertexDefine {
         int postionIndex;
@@ -55,7 +54,6 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[0];
                     ssOneLine >> GLfloatData.v[1];
                     texcoords.push_back(GLfloatData);
-//                    printf("texcoord: %f, %f\n", GLfloatData.v[0], GLfloatData.v[1]);
                 } else if(oneLineData[1] == 'n') {
                     // vn 0.000000 0.000000 1.000000
                     ssOneLine >> temp;
@@ -64,7 +62,6 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[1];
                     ssOneLine >> GLfloatData.v[2];
                     normals.push_back(GLfloatData);
-//                    printf("normal: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 } else {
                     // v 0.500000 0.500000 0.000000
                     ssOneLine >> temp;
@@ -73,7 +70,6 @@ void Model::Initialize(const GLchar *modelPath) {
                     ssOneLine >> GLfloatData.v[1];
                     ssOneLine >> GLfloatData.v[2];
                     positions.push_back(GLfloatData);
-//                    printf("position: %f, %f, %f\n", GLfloatData.v[0], GLfloatData.v[1], GLfloatData.v[2]);
                 }
             } else if (oneLineData[0] == 'f') {
                 // 位置索引/纹理坐标索引/法线索引
@@ -95,7 +91,6 @@ void Model::Initialize(const GLchar *modelPath) {
                     vd.normalIndex = atoi(normalIndexStr.c_str());
                     vertexes.push_back(vd);
                 }
-//                printf("draw command: %s", oneLineData);
             }
         }
     }
@@ -119,15 +114,9 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/model.vert", "Resource/Shader/model.frag");
-    mShader->Setvector4("u_lightPosition", 0.0f, 1.0f, 1.0f, 0.0f);// 方向光
+    mShader->Initialize("Resource/Shader/illumination/diffuseTexture_vs.vert", "Resource/Shader/illumination/diffuseTexture_vs.frag");
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_diffuseColor", 0.0f, 0.6f, 1.0f, 1.0f);
-    mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_optionalParam", 30.0f, 0.0f, 0.0f, 0.0f);
-    SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
-    SetDiffuseMaterial(0.6f, 0.6f, 0.6f, 1.0f);
-    SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
+    SetAmbientMaterial(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 
