@@ -14,6 +14,7 @@
 		3D0C5D95240BBC8F00D9BE2E /* ParticleSystem3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C5D93240BBC8F00D9BE2E /* ParticleSystem3.cpp */; };
 		3D0C5D99240C150300D9BE2E /* ParticleEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C5D97240C150300D9BE2E /* ParticleEmitter.cpp */; };
 		3D10C5272406C8010006A170 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D10C5252406C8010006A170 /* ParticleSystem.cpp */; };
+		3D4DD6A524173ADB0026A76C /* FullScreenQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DD6A324173ADB0026A76C /* FullScreenQuad.cpp */; };
 		3D4F240724095316003E98A8 /* RendererES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240524095316003E98A8 /* RendererES3.cpp */; };
 		3D4F240D240A140F003E98A8 /* TrianglesES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240B240A140F003E98A8 /* TrianglesES3.cpp */; };
 		3D4F2410240A804D003E98A8 /* MrtES3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F240E240A804D003E98A8 /* MrtES3.cpp */; };
@@ -48,6 +49,8 @@
 		3D0C5D98240C150300D9BE2E /* ParticleEmitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleEmitter.hpp; sourceTree = "<group>"; };
 		3D10C5252406C8010006A170 /* ParticleSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cpp; sourceTree = "<group>"; };
 		3D10C5262406C8010006A170 /* ParticleSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem.hpp; sourceTree = "<group>"; };
+		3D4DD6A324173ADB0026A76C /* FullScreenQuad.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FullScreenQuad.cpp; sourceTree = "<group>"; };
+		3D4DD6A424173ADB0026A76C /* FullScreenQuad.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FullScreenQuad.hpp; sourceTree = "<group>"; };
 		3D4F240524095316003E98A8 /* RendererES3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RendererES3.cpp; sourceTree = "<group>"; };
 		3D4F240624095316003E98A8 /* RendererES3.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RendererES3.hpp; sourceTree = "<group>"; };
 		3D4F240B240A140F003E98A8 /* TrianglesES3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TrianglesES3.cpp; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				3D4F240F240A804D003E98A8 /* MrtES3.hpp */,
 				3D0C5D93240BBC8F00D9BE2E /* ParticleSystem3.cpp */,
 				3D0C5D94240BBC8F00D9BE2E /* ParticleSystem3.hpp */,
+				3D4DD6A324173ADB0026A76C /* FullScreenQuad.cpp */,
+				3D4DD6A424173ADB0026A76C /* FullScreenQuad.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				3D0B1E482403F4FC0071D9B9 /* Model.cpp in Sources */,
 				3D6E94B424015682000222B4 /* Utils.cpp in Sources */,
 				3D0C5D99240C150300D9BE2E /* ParticleEmitter.cpp in Sources */,
+				3D4DD6A524173ADB0026A76C /* FullScreenQuad.cpp in Sources */,
 				3D6E94972401350A000222B4 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
