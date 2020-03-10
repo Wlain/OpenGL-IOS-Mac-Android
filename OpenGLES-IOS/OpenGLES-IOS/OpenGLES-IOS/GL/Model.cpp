@@ -114,7 +114,7 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/diffuseTexture_vs.vert", "Resource/Shader/illumination/diffuseTexture_vs.frag");
+    mShader->Initialize("Resource/Shader/illumination/diffuseTexture_fs.vert", "Resource/Shader/illumination/diffuseTexture_fs.frag");
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
     SetAmbientMaterial(0.2f, 0.2f, 0.2f, 1.0f);
 }
