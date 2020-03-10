@@ -114,7 +114,7 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/phong.vert", "Resource/Shader/illumination/phong.frag");
+    mShader->Initialize("Resource/Shader/illumination/gouraud.vert", "Resource/Shader/illumination/gouraud.frag");
     mShader->Setvector4("u_ambientColor", 1.0f, 0.0f, 0.0f, 1.0f);
     mShader->Setvector4("u_diffuseColor", 0.0f, 1.0f, 0.0f, 1.0f);
     mShader->Setvector4("u_specularColor", 0.0f, 0.0f, 1.0f, 1.0f);
