@@ -114,7 +114,7 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/carton_fs.vert", "Resource/Shader/illumination/carton_fs.frag");
+    mShader->Initialize("Resource/Shader/illumination/gouraud_point.vert", "Resource/Shader/illumination/gouraud_point.frag");
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
