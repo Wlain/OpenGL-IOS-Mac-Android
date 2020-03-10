@@ -114,10 +114,10 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/diffuseTexture_fs.vert", "Resource/Shader/illumination/diffuseTexture_fs.frag");
-    mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Initialize("Resource/Shader/illumination/specularTexture_vs.vert", "Resource/Shader/illumination/specularTexture_vs.frag");
+    mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 0.0f, 0.0f);
-    SetDiffuseMaterial( 0.8f, 0.8f, 0.8f, 1.0f);
+    SetSpecularMaterial( 1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 
@@ -126,10 +126,9 @@ void Model::Draw( GLfloat x, GLfloat y, GLfloat z, glm::mat4 &viewMatrix, glm::m
     mNormalMatrix = glm::inverseTranspose(mModelMatrix);
     glEnable(GL_DEPTH_TEST);
     mVertexBuffer->Bind();
-    glm::mat4 inverseTransposeMatrix = glm::inverseTranspose(mModelMatrix);
     mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
-    glUniformMatrix4fv(glGetUniformLocation(mShader->GetProgram(), "u_inverseTransposeMatrix"), 1, GL_FALSE, glm::value_ptr(inverseTransposeMatrix));
     glUniformMatrix4fv(glGetUniformLocation(mShader->GetProgram(), "u_normalMatrix"), 1, GL_FALSE, glm::value_ptr(mNormalMatrix));
+    glUniform1f(glGetUniformLocation(mShader->GetProgram(), "u_shininess"), 32.0f);
     glDrawArrays(GL_TRIANGLES, 0, mVertexBuffer->mVertexCount);
     mVertexBuffer->Unbind();
 }
