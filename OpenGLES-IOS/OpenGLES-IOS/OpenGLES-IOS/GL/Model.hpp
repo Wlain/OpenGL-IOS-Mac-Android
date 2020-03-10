@@ -32,6 +32,7 @@ private:
     VertexBuffer *mVertexBuffer;
     Shader *mShader;
     glm::mat4 mModelMatrix;
+    glm::mat4 mNormalMatrix;
 };
 
 #endif /* Model_hpp */

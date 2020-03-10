@@ -29,7 +29,6 @@ glm::vec3 targetPosition(0.0f, 0.0f, 0.0f);
 glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
 Model head;
 FullScreenQuad fullScreenQuad;
-float translateZ = -723.145386f;
 
 GLboolean ESSCENE_API esCreateWindow(ESContext *esContext, const char *title, GLint width, GLuint height) {
     esContext->width = width;
@@ -82,15 +81,15 @@ void Initialize(ESContext *esContext) {
     esResigerUpdateFunc(esContext, Update );
     fullScreenQuad.Initialize();
     viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
-    head.Initialize("Resource/UI/Model/strawberry.obj");
-    head.SetTexture("Resource/UI/strawberry.png");
-    glm::mat4 headModelMatrix = glm::translate(-1.24548364f, 93.713181f, -723.145386f) * glm::scale(1.0f, -1.0f, -1.0f/0.6f);
-    head.SetModelMatrix(headModelMatrix);
+    head.Initialize("Resource/UI/Model/Sphere.obj");
+    head.SetTexture("Resource/UI/earth.png");
+    glm::mat4 modelMatrix = glm::translate(0.0f, 0.0f, -5.0f);
+    head.SetModelMatrix(modelMatrix);
 }
 
 void Resize(ESContext *esContext, GLint width, GLint height) {
     glViewport(0, 0, width, height);
-    projectionMatrix = glm::perspective(53.1301f, (GLfloat)width / height, 1.0f, abs(translateZ) + 1500.0f);
+    projectionMatrix = glm::perspective(45.0f, (GLfloat)width / height, 1.0f, 1000.0f);
     quadOrthoMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 1000.0f);
 }
 

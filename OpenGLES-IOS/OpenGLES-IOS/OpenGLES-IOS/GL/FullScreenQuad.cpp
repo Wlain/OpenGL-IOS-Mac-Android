@@ -30,7 +30,7 @@ void FullScreenQuad::Initialize() {
     mVertexBuffer->SetPosition(3, 1.0f, 1.0f, -1000.0f);
     mVertexBuffer->SetTexCoord(3, 1.0f, 1.0f);
     mShader->Initialize("Resource/Shader/textured.vert", "Resource/Shader/textured.frag");
-    mShader->SetTexture("u_texture", "Resource/UI/test.png");
+    mShader->SetTexture("u_texture", "Resource/UI/Skybox2/bottom.jpg");
     mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
