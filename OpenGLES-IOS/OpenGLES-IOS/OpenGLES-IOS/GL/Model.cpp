@@ -114,10 +114,10 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/blinn-phong.vert", "Resource/Shader/illumination/blinn-phong.frag");
-    mShader->Setvector4("u_ambientColor", 1.0f, 0.0f, 0.0f, 1.0f);
-    mShader->Setvector4("u_diffuseColor", 0.0f, 1.0f, 0.0f, 1.0f);
-    mShader->Setvector4("u_specularColor", 0.0f, 0.0f, 1.0f, 1.0f);
+    mShader->Initialize("Resource/Shader/illumination/carton_vs.vert", "Resource/Shader/illumination/carton_vs.frag");
+    mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 0.0f, 0.0f);
     SetSpecularMaterial( 1.0f, 1.0f, 1.0f, 1.0f);
     SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
