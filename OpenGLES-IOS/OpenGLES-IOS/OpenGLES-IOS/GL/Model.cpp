@@ -114,7 +114,7 @@ void Model::Initialize(const GLchar *modelPath) {
         }
     }
     mShader = new Shader();
-    mShader->Initialize("Resource/Shader/illumination/specularTexture_vs.vert", "Resource/Shader/illumination/specularTexture_vs.frag");
+    mShader->Initialize("Resource/Shader/illumination/specularTexture_fs.vert", "Resource/Shader/illumination/specularTexture_fs.frag");
     mShader->Setvector4("u_specularColor", 1.0f, 1.0f, 1.0f, 1.0f);
     mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 0.0f, 0.0f);
     SetSpecularMaterial( 1.0f, 1.0f, 1.0f, 1.0f);
