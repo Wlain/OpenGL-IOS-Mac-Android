@@ -133,7 +133,10 @@ void Model::Initialize(const GLchar *modelPath) {
 
 void Model::Draw( GLfloat x, GLfloat y, GLfloat z, glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     mShader->Setvector4("u_cameraPosition", x, y, z, 1.0);
+    mShader->Setvector4("u_alpha", mAlpha.x, mAlpha.y, mAlpha.z, mAlpha.w);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     mVertexBuffer->Bind();
     glm::mat4 inverseTransposeMatrix = glm::inverseTranspose(mModelMatrix);
     mShader->Bind(mModelMatrix, viewMatrix, projectionMatrix);
@@ -169,4 +172,12 @@ void Model::SetModelMatrix(glm::mat4 &matrix) {
 
 const glm::mat4& Model::GetModelMatrix() const {
     return this->mModelMatrix;
+}
+
+void Model::SetAlpha(glm::vec4 &alpha) {
+    mAlpha = alpha;
+}
+
+const glm::vec4& Model::GetAlpha() const {
+    return this->mAlpha;
 }

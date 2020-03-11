@@ -23,6 +23,7 @@ uniform vec4 u_lightPosition;
 uniform vec4 u_cameraPosition;
 // 可选的参数
 uniform vec4 u_optionalParam;
+uniform vec4 u_alpha;
 
 ///////////////////////////////////////////////////////////
 //varying
@@ -30,6 +31,7 @@ varying vec2 v_texcoord;
 varying vec4 v_color;
 varying vec4 v_normal;
 varying vec4 v_worldPosition;
+
 
 // 获取点光源
 vec4 GetPointLight()
@@ -51,7 +53,8 @@ vec4 GetPointLight()
 
 void main()
 {
-    vec4 texture = texture2D(u_texture, v_texcoord);
+    vec2 texCoord = u_alpha.r < 1.0 ? gl_FragCoord.xy/vec2(750.0, 1344.0) : v_texcoord;
+    vec4 texture = texture2D(u_texture, texCoord);
     vec4 color = vec4(0.0);
     // 环境光
     vec4 ambientColor = u_ambientColor * u_ambientMaterial;

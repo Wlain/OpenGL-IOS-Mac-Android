@@ -27,11 +27,14 @@ public:
     void SetTexture(const GLchar *imagePath);
     void SetModelMatrix(glm::mat4 &matrix);
     const glm::mat4& GetModelMatrix() const;
+    void SetAlpha(glm::vec4 &alpha);
+    const glm::vec4& GetAlpha() const;
     
 private:
     VertexBuffer *mVertexBuffer;
     Shader *mShader;
     glm::mat4 mModelMatrix;
+    glm::vec4 mAlpha;
 };
 
 #endif /* Model_hpp */

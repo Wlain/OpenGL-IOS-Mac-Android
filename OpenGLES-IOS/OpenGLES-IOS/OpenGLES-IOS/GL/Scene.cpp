@@ -28,6 +28,7 @@ glm::vec3 eyePosition(0.0f, 0.0f, 1.0f);
 glm::vec3 targetPosition(0.0f, 0.0f, 0.0f);
 glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
 Model head;
+Model strawberry;
 FullScreenQuad fullScreenQuad;
 float translateZ = -723.145386f;
 
@@ -82,10 +83,27 @@ void Initialize(ESContext *esContext) {
     esResigerUpdateFunc(esContext, Update );
     fullScreenQuad.Initialize();
     viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
-    head.Initialize("Resource/UI/Model/strawberry.obj");
-    head.SetTexture("Resource/UI/strawberry.png");
-    glm::mat4 headModelMatrix = glm::translate(-1.24548364f, 93.713181f, -723.145386f) * glm::scale(1.0f, -1.0f, -1.0f/0.6f);
-    head.SetModelMatrix(headModelMatrix);
+    head.Initialize("Resource/UI/Model/head.obj");
+    head.SetTexture("Resource/UI/test.png");
+    strawberry.Initialize("Resource/UI/Model/strawberry.obj");
+    strawberry.SetTexture("Resource/UI/strawberry.png");
+    GLint width = 750;
+    GLint height = 1334;
+    GLfloat facePosX = 184.762573f;
+    GLfloat facePosY = 385.965118f;
+    GLfloat faceWidth = 382.812714f;
+    GLfloat faceHeight = 400.8205567f;
+    glm::vec2 midFace(facePosX + faceWidth / 2, facePosY + faceHeight / 2);
+    glm::mat4 matrix;
+    matrix = matrix * glm::translate(0.47f * width - midFace.x, 0.63f * height - midFace.y, 1.0f) *
+    glm::translate(midFace.x, midFace.y, 1.0f) * glm::scale(0.35f, 0.35f, 1.0f) *
+    glm::translate(-midFace.x, -midFace.y, 1.0f);
+    glm::mat4 headModelMatrix = glm::translate(11.841172f, -29.00336f, -503.501892f) * glm::scale(1.0f, -1.0f, -1.0f);
+    glm::mat4 headModelMatrix2 = glm::translate(50.841172f, -100.00336f, -503.501892f) * glm::scale(1.0f, -1.0f, -1.0f);
+    head.SetModelMatrix(headModelMatrix2);
+    strawberry.SetModelMatrix(headModelMatrix);
+    glm::vec4 alpha(1.0f, 0.0f, 0.0f, 0.0f);
+    strawberry.SetAlpha(alpha);
 }
 
 void Resize(ESContext *esContext, GLint width, GLint height) {
@@ -99,6 +117,7 @@ void Draw(ESContext *esContext) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     fullScreenQuad.Draw(quadViewMatrix, quadOrthoMatrix);
     head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    strawberry.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
 }
 
 void Key(ESContext *esContext) {

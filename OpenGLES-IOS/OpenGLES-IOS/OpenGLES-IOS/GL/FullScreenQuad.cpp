@@ -30,13 +30,7 @@ void FullScreenQuad::Initialize() {
     mVertexBuffer->SetPosition(3, 1.0f, 1.0f, -1000.0f);
     mVertexBuffer->SetTexCoord(3, 1.0f, 1.0f);
     mShader->Initialize("Resource/Shader/textured.vert", "Resource/Shader/textured.frag");
-    mShader->SetTexture("u_texture", "Resource/UI/test.png");
-    mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_lightPosition", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_ambientColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_diffuseColor", 1.0f, 1.0f, 1.0f, 1.0f);
-    mShader->Setvector4("u_ambientMaterial", 0.1f, 0.1f, 0.1f, 1.0f);
-    mShader->Setvector4("u_diffuseMaterial", 0.6f, 0.6f, 0.6f, 1.0f);
+    mShader->SetTexture("u_texture", "Resource/UI/background.png");
 }
 void FullScreenQuad::Draw(glm::mat4 &viewMatrix, glm::mat4 &projectionMatrix) {
     glEnable(GL_DEPTH_TEST);
