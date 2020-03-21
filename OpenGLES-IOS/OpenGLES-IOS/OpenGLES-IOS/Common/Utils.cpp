@@ -96,7 +96,7 @@ GLuint CreateBufferObject(GLenum bufferType, GLsizeiptr size, GLenum usage, void
 
 GLuint CreateShader(GLenum shaderType, const char* src) {
     GLuint shader = glCreateShader(shaderType);
-    if (!shader) {
+    if (shader) {
         return 0;
     }
     glShaderSource(shader, 1, &src, NULL);
