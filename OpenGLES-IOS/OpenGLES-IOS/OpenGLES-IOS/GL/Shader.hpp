@@ -49,6 +49,8 @@ private:
     GLint mTexCoordLocation;
     GLint mColorLocation;
     GLint mNormalLocation;
+    GLint mTangentLocation;
+    GLint mBitangentLocation;
     GLint mModelMatrixLocation;
     GLint mViewMatrixLocation;
     GLint mProjectionMatrixLocation;

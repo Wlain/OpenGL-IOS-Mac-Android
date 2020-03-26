@@ -16,6 +16,8 @@ mColorLocation(-1),
 mNormalLocation(-1),
 mTexCoordLocation(-1),
 mPositionLocation(-1),
+mTangentLocation(-1),
+mBitangentLocation(-1),
 mModelMatrixLocation(-1),
 mViewMatrixLocation(-1),
 mProjectionMatrixLocation(-1){
@@ -126,6 +128,8 @@ void Shader::Initialize(const GLchar *vertShaderPath, const GLchar *fragShaderPa
         mTexCoordLocation = glGetAttribLocation(mProgram, "a_texCoord");
         mNormalLocation = glGetAttribLocation(mProgram, "a_normal");
         mColorLocation = glGetAttribLocation(mProgram, "a_color");
+        mTangentLocation = glGetAttribLocation(mProgram, "a_tangent");
+        mBitangentLocation = glGetAttribLocation(mProgram, "a_bitangent");
         mModelMatrixLocation = glGetUniformLocation(mProgram, "u_modelMatrix");
         mViewMatrixLocation = glGetUniformLocation(mProgram, "u_viewMatrix");
         mProjectionMatrixLocation = glGetUniformLocation(mProgram, "u_projectionMatrix");
@@ -153,6 +157,10 @@ void Shader::Bind(glm::mat4 &modelMatrix, glm::mat4 &viewMatrix, glm::mat4 &proj
     glEnableVertexAttribArray(mNormalLocation);
     glVertexAttribPointer(mNormalLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 8 * sizeof(GLfloat)));
     glEnableVertexAttribArray(mColorLocation);
-    glVertexAttribPointer(mColorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 12 * sizeof(GLfloat) ));
+    glVertexAttribPointer(mColorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 12 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(mTangentLocation);
+    glVertexAttribPointer(mTangentLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 16 * sizeof(GLfloat)));
+     glEnableVertexAttribArray(mBitangentLocation);
+    glVertexAttribPointer(mBitangentLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(0 + 20 * sizeof(GLfloat)));
 }
 

@@ -16,6 +16,8 @@ typedef struct _Vertex {
     GLfloat texcoord[4];
     GLfloat normal[4];
     GLfloat color[4];
+    GLfloat tangent[4];
+    GLfloat bitTangent[4];
 } Vertex;
 
 class VertexBuffer {
@@ -31,6 +33,8 @@ public:
     void SetColor(GLint index, GLfloat r, GLfloat g, GLfloat b, GLfloat a = 1.0f);
     void SetTexCoord(GLint index, GLfloat x, GLfloat y);
     void SetNormal(GLint index, GLfloat x, GLfloat y, GLfloat z);
+    void SetTangent(GLint index, GLfloat x, GLfloat y, GLfloat z);
+    void SetBitTangent(GLint index, GLfloat x, GLfloat y, GLfloat z);
     void Bind();
     void Unbind();
 public:

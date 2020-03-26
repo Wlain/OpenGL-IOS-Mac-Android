@@ -67,6 +67,18 @@ void VertexBuffer::SetColor(GLint index, GLfloat r, GLfloat g, GLfloat b, GLfloa
     mVertexes[index].color[3] = a;
 }
 
+void VertexBuffer::SetTangent(GLint index, GLfloat x, GLfloat y, GLfloat z) {
+    mVertexes[index].tangent[0] = x;
+    mVertexes[index].tangent[1] = y;
+    mVertexes[index].tangent[2] = z;
+}
+
+void VertexBuffer::SetBitTangent(GLint index, GLfloat x, GLfloat y, GLfloat z) {
+    mVertexes[index].bitTangent[0] = x;
+    mVertexes[index].bitTangent[1] = y;
+    mVertexes[index].bitTangent[2] = z;
+}
+
 void VertexBuffer::Bind() {
     glBindBuffer(GL_ARRAY_BUFFER, mVbo);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * mVertexCount, mVertexes);

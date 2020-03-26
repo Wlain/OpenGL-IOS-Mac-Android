@@ -81,10 +81,7 @@ void Initialize(ESContext *esContext) {
     esResigerUpdateFunc(esContext, Update );
     fullScreenQuad.Initialize();
     viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
-    head.Initialize("Resource/UI/Model/Sphere.obj");
-    head.SetTexture("Resource/UI/earth.png");
     glm::mat4 modelMatrix = glm::translate(0.0f, 0.0f, -5.0f);
-    head.SetModelMatrix(modelMatrix);
 }
 
 void Resize(ESContext *esContext, GLint width, GLint height) {
@@ -96,8 +93,7 @@ void Resize(ESContext *esContext, GLint width, GLint height) {
 void Draw(ESContext *esContext) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    fullScreenQuad.Draw(quadViewMatrix, quadOrthoMatrix);
-    head.Draw(eyePosition.x, eyePosition.y, eyePosition.z, viewMatrix, projectionMatrix);
+    fullScreenQuad.Draw(quadViewMatrix, projectionMatrix);
 }
 
 void Key(ESContext *esContext) {
